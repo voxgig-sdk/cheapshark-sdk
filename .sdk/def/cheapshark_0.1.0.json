@@ -1,0 +1,618 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CheapShark API",
+    "description": "CheapShark is a price comparison website for digital PC Games, tracking prices across multiple stores including Steam, GreenManGaming, and Fanatical. The API provides developers with access to CheapShark pricing data to integrate into their own applications or websites.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "CheapShark API Documentation",
+      "url": "https://apidocs.cheapshark.com/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.cheapshark.com/api/1.0",
+      "description": "CheapShark API Server"
+    }
+  ],
+  "paths": {
+    "/deals": {
+      "get": {
+        "summary": "Get list of deals",
+        "description": "Retrieve a list of game deals based on various filters",
+        "operationId": "getDeals",
+        "parameters": [
+          {
+            "name": "storeID",
+            "in": "query",
+            "description": "Filter deals by store ID",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Page number for pagination (default: 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of deals per page (default: 60, max: 60)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 60,
+              "maximum": 60
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Sort deals by criteria",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Deal Rating",
+                "Title",
+                "Savings",
+                "Price",
+                "Metacritic",
+                "Reviews",
+                "Release",
+                "Store",
+                "recent"
+              ]
+            }
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "description": "Sort in descending order (0 = ascending, 1 = descending)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ],
+              "default": 0
+            }
+          },
+          {
+            "name": "lowerPrice",
+            "in": "query",
+            "description": "Minimum price for deals",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "upperPrice",
+            "in": "query",
+            "description": "Maximum price for deals",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "metacritic",
+            "in": "query",
+            "description": "Minimum Metacritic score",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "steamRating",
+            "in": "query",
+            "description": "Minimum Steam rating (0-100)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "steamAppID",
+            "in": "query",
+            "description": "Filter by Steam App ID",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Search for deals by game title",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exact",
+            "in": "query",
+            "description": "Exact match for title search (0 = fuzzy, 1 = exact)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ],
+              "default": 0
+            }
+          },
+          {
+            "name": "AAA",
+            "in": "query",
+            "description": "Filter for AAA titles (0 = all, 1 = AAA only)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          },
+          {
+            "name": "steamworks",
+            "in": "query",
+            "description": "Filter for Steamworks games (0 = all, 1 = Steamworks only)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          },
+          {
+            "name": "onSale",
+            "in": "query",
+            "description": "Filter for games on sale (0 = all, 1 = on sale only)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          },
+          {
+            "name": "output",
+            "in": "query",
+            "description": "Output format (default: json)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "rss"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of deals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Deal"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        }
+      }
+    },
+    "/games": {
+      "get": {
+        "summary": "Search for games",
+        "description": "Search for games by title or Steam App ID",
+        "operationId": "searchGames",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Game title to search for",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "steamAppID",
+            "in": "query",
+            "description": "Steam App ID to search for",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results (default: 60)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 60
+            }
+          },
+          {
+            "name": "exact",
+            "in": "query",
+            "description": "Exact match for title search (0 = fuzzy, 1 = exact)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ],
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of games",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Game"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        }
+      }
+    },
+    "/stores": {
+      "get": {
+        "summary": "Get list of stores",
+        "description": "Retrieve a list of all stores tracked by CheapShark",
+        "operationId": "getStores",
+        "responses": {
+          "200": {
+            "description": "Successful response with list of stores",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Store"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alerts": {
+      "get": {
+        "summary": "Get price alerts",
+        "description": "Retrieve price alerts for a registered email address",
+        "operationId": "getAlerts",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Email address to retrieve alerts for",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of alerts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Alert"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid email"
+          }
+        }
+      },
+      "post": {
+        "summary": "Set price alert",
+        "description": "Set a price alert for a specific game",
+        "operationId": "setAlert",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "gameID",
+                  "price"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address for the alert"
+                  },
+                  "gameID": {
+                    "type": "string",
+                    "description": "Game ID to set alert for"
+                  },
+                  "price": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Target price for the alert"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Alert successfully set"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete price alert",
+        "description": "Delete a specific price alert",
+        "operationId": "deleteAlert",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Email address associated with the alert",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "email"
+            }
+          },
+          {
+            "name": "gameID",
+            "in": "query",
+            "description": "Game ID of the alert to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Alert successfully deleted"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Deal": {
+        "type": "object",
+        "properties": {
+          "internalName": {
+            "type": "string",
+            "description": "Internal name of the game"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the game"
+          },
+          "metacriticLink": {
+            "type": "string",
+            "description": "Link to Metacritic page"
+          },
+          "dealID": {
+            "type": "string",
+            "description": "Unique identifier for the deal"
+          },
+          "storeID": {
+            "type": "string",
+            "description": "Store identifier"
+          },
+          "gameID": {
+            "type": "string",
+            "description": "Game identifier"
+          },
+          "salePrice": {
+            "type": "string",
+            "description": "Current sale price"
+          },
+          "normalPrice": {
+            "type": "string",
+            "description": "Regular price"
+          },
+          "isOnSale": {
+            "type": "string",
+            "description": "Whether the game is on sale (0 or 1)"
+          },
+          "savings": {
+            "type": "string",
+            "description": "Percentage savings"
+          },
+          "metacriticScore": {
+            "type": "string",
+            "description": "Metacritic score"
+          },
+          "steamRatingText": {
+            "type": "string",
+            "description": "Steam rating description"
+          },
+          "steamRatingPercent": {
+            "type": "string",
+            "description": "Steam rating percentage"
+          },
+          "steamRatingCount": {
+            "type": "string",
+            "description": "Number of Steam ratings"
+          },
+          "steamAppID": {
+            "type": "string",
+            "description": "Steam App ID"
+          },
+          "releaseDate": {
+            "type": "integer",
+            "description": "Unix timestamp of release date"
+          },
+          "lastChange": {
+            "type": "integer",
+            "description": "Unix timestamp of last price change"
+          },
+          "dealRating": {
+            "type": "string",
+            "description": "Rating of the deal"
+          },
+          "thumb": {
+            "type": "string",
+            "description": "Thumbnail image URL"
+          }
+        }
+      },
+      "Game": {
+        "type": "object",
+        "properties": {
+          "gameID": {
+            "type": "string",
+            "description": "Unique game identifier"
+          },
+          "steamAppID": {
+            "type": "string",
+            "description": "Steam App ID"
+          },
+          "cheapest": {
+            "type": "string",
+            "description": "Lowest price found"
+          },
+          "cheapestDealID": {
+            "type": "string",
+            "description": "Deal ID for the cheapest price"
+          },
+          "external": {
+            "type": "string",
+            "description": "External game title"
+          },
+          "internalName": {
+            "type": "string",
+            "description": "Internal game name"
+          },
+          "thumb": {
+            "type": "string",
+            "description": "Thumbnail image URL"
+          }
+        }
+      },
+      "Store": {
+        "type": "object",
+        "properties": {
+          "storeID": {
+            "type": "string",
+            "description": "Unique store identifier"
+          },
+          "storeName": {
+            "type": "string",
+            "description": "Name of the store"
+          },
+          "isActive": {
+            "type": "integer",
+            "description": "Whether the store is active (0 or 1)"
+          },
+          "images": {
+            "type": "object",
+            "properties": {
+              "banner": {
+                "type": "string",
+                "description": "Banner image URL"
+              },
+              "logo": {
+                "type": "string",
+                "description": "Logo image URL"
+              },
+              "icon": {
+                "type": "string",
+                "description": "Icon image URL"
+              }
+            }
+          }
+        }
+      },
+      "Alert": {
+        "type": "object",
+        "properties": {
+          "gameID": {
+            "type": "string",
+            "description": "Game identifier"
+          },
+          "gameTitle": {
+            "type": "string",
+            "description": "Title of the game"
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "description": "Target price for the alert"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address for the alert"
+          }
+        }
+      }
+    }
+  }
+}

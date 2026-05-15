@@ -1,0 +1,22 @@
+# BasicDealFlow
+
+main: kit: flow: BasicDealFlow:
+{
+  entity: "deal",
+  kind: "basic",
+  name: "BasicDealFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "deal_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicDealFlow"
+}

@@ -1,0 +1,24 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        name: "CheapShark API Documentation"
+        url: "https://apidocs.cheapshark.com/"
+      }
+      description: "CheapShark is a price comparison website for digital PC Games, tracking prices across multiple stores including Steam, GreenManGaming, and Fanatical. The API provides developers with access to CheapShark pricing data to integrate into their own applications or websites."
+      servers: [
+        {
+          description: "CheapShark API Server"
+          url: "https://www.cheapshark.com/api/1.0"
+        }
+      ]
+      title: "CheapShark API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

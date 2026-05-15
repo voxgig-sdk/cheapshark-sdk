@@ -1,0 +1,267 @@
+# Entity: deal
+
+main: kit: entity: deal: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "deal_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "deal_rating"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "game_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "internal_name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "is_on_sale"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "last_change"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "metacritic_link"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "metacritic_score"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "normal_price"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "release_date"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "sale_price"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "saving"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "steam_app_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "steam_rating_count"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "steam_rating_percent"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "steam_rating_text"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "store_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "thumb"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "deal"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "aaa"
+                orig: "aaa"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 0
+                kind: "query"
+                name: "desc"
+                orig: "desc"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 0
+                kind: "query"
+                name: "exact"
+                orig: "exact"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "lower_price"
+                orig: "lower_price"
+                reqd: false
+                type: "`$NUMBER`"
+              }
+              {
+                kind: "query"
+                name: "metacritic"
+                orig: "metacritic"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "on_sale"
+                orig: "on_sale"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "output"
+                orig: "output"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 0
+                kind: "query"
+                name: "page_number"
+                orig: "page_number"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 60
+                kind: "query"
+                name: "page_size"
+                orig: "page_size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "sort_by"
+                orig: "sort_by"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "steam_app_id"
+                orig: "steam_app_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "steam_rating"
+                orig: "steam_rating"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "steamwork"
+                orig: "steamwork"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "store_id"
+                orig: "store_id"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "title"
+                orig: "title"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "upper_price"
+                orig: "upper_price"
+                reqd: false
+                type: "`$NUMBER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/deals"
+          parts: [
+            "deals"
+          ]
+          select: {
+            exist: [
+              "aaa"
+              "desc"
+              "exact"
+              "lower_price"
+              "metacritic"
+              "on_sale"
+              "output"
+              "page_number"
+              "page_size"
+              "sort_by"
+              "steam_app_id"
+              "steam_rating"
+              "steamwork"
+              "store_id"
+              "title"
+              "upper_price"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

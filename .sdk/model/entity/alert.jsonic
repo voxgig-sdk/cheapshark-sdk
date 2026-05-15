@@ -1,0 +1,124 @@
+# Entity: alert
+
+main: kit: entity: alert: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "email"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "game_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "game_title"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "price"
+      req: false
+      type: "`$NUMBER`"
+    }
+  ]
+
+  name: "alert"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/alerts"
+          parts: [
+            "alerts"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "email"
+                orig: "email"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/alerts"
+          parts: [
+            "alerts"
+          ]
+          select: {
+            exist: [
+              "email"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "email"
+                orig: "email"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "game_id"
+                orig: "game_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/alerts"
+          parts: [
+            "alerts"
+          ]
+          select: {
+            exist: [
+              "email"
+              "game_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

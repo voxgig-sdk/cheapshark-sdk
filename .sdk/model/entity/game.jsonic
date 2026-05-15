@@ -1,0 +1,109 @@
+# Entity: game
+
+main: kit: entity: game: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "cheapest"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "cheapest_deal_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "external"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "game_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "internal_name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "steam_app_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "thumb"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "game"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: 0
+                kind: "query"
+                name: "exact"
+                orig: "exact"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 60
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "steam_app_id"
+                orig: "steam_app_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "title"
+                orig: "title"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/games"
+          parts: [
+            "games"
+          ]
+          select: {
+            exist: [
+              "exact"
+              "limit"
+              "steam_app_id"
+              "title"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

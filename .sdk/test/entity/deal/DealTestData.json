@@ -1,0 +1,94 @@
+{
+  "existing": {
+    "deal": {
+      "DEAL00": {
+        "deal_id": "DEAL01",
+        "deal_rating": "sbf",
+        "game_id": "GAME01",
+        "internal_name": "sc1",
+        "is_on_sale": true,
+        "last_change": "sc3",
+        "metacritic_link": "sc4",
+        "metacritic_score": "sc5",
+        "normal_price": "sc6",
+        "release_date": "sc7",
+        "sale_price": "sc8",
+        "saving": "sc9",
+        "steam_app_id": "STEAM_APP01",
+        "steam_rating_count": "scb",
+        "steam_rating_percent": "scc",
+        "steam_rating_text": "scd",
+        "store_id": "STORE01",
+        "thumb": "scf",
+        "title": "sd0"
+      },
+      "DEAL01": {
+        "deal_id": "DEAL01",
+        "deal_rating": "s17d",
+        "game_id": "GAME01",
+        "internal_name": "s17f",
+        "is_on_sale": true,
+        "last_change": "s181",
+        "metacritic_link": "s182",
+        "metacritic_score": "s183",
+        "normal_price": "s184",
+        "release_date": "s185",
+        "sale_price": "s186",
+        "saving": "s187",
+        "steam_app_id": "STEAM_APP01",
+        "steam_rating_count": "s189",
+        "steam_rating_percent": "s18a",
+        "steam_rating_text": "s18b",
+        "store_id": "STORE01",
+        "thumb": "s18d",
+        "title": "s18e"
+      },
+      "DEAL02": {
+        "deal_id": "DEAL01",
+        "deal_rating": "s23b",
+        "game_id": "GAME01",
+        "internal_name": "s23d",
+        "is_on_sale": true,
+        "last_change": "s23f",
+        "metacritic_link": "s240",
+        "metacritic_score": "s241",
+        "normal_price": "s242",
+        "release_date": "s243",
+        "sale_price": "s244",
+        "saving": "s245",
+        "steam_app_id": "STEAM_APP01",
+        "steam_rating_count": "s247",
+        "steam_rating_percent": "s248",
+        "steam_rating_text": "s249",
+        "store_id": "STORE01",
+        "thumb": "s24b",
+        "title": "s24c"
+      }
+    }
+  },
+  "new": {
+    "deal": {
+      "deal_ref01": {
+        "deal_id": "DEAL01",
+        "deal_rating": "s2f9",
+        "game_id": "GAME01",
+        "internal_name": "s2fb",
+        "is_on_sale": true,
+        "last_change": "s2fd",
+        "metacritic_link": "s2fe",
+        "metacritic_score": "s2ff",
+        "normal_price": "s300",
+        "release_date": "s301",
+        "sale_price": "s302",
+        "saving": "s303",
+        "steam_app_id": "STEAM_APP01",
+        "steam_rating_count": "s305",
+        "steam_rating_percent": "s306",
+        "steam_rating_text": "s307",
+        "store_id": "STORE01",
+        "thumb": "s309",
+        "title": "s30a"
+      }
+    }
+  }
+}

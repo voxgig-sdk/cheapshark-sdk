@@ -1,0 +1,34 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 4
+  metrics: count: path: 4
+  metrics: count: method: 6
+
+  entity: alert: {
+    path: "/alerts": {
+      op: create: method: *POST
+      op: list: method: *GET
+      op: remove: method: *DELETE
+    }
+  }
+
+  entity: deal: {
+    path: "/deals": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: game: {
+    path: "/games": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: store: {
+    path: "/stores": {
+      op: list: method: *GET
+    }
+  }
+
+}

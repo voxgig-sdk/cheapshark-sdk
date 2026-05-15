@@ -1,0 +1,34 @@
+{
+  "existing": {
+    "store": {
+      "STORE00": {
+        "image": {},
+        "is_active": "s29",
+        "store_id": "STORE01",
+        "store_name": "s2b"
+      },
+      "STORE01": {
+        "image": {},
+        "is_active": "s51",
+        "store_id": "STORE01",
+        "store_name": "s53"
+      },
+      "STORE02": {
+        "image": {},
+        "is_active": "s79",
+        "store_id": "STORE01",
+        "store_name": "s7b"
+      }
+    }
+  },
+  "new": {
+    "store": {
+      "store_ref01": {
+        "image": {},
+        "is_active": "sa1",
+        "store_id": "STORE01",
+        "store_name": "sa3"
+      }
+    }
+  }
+}

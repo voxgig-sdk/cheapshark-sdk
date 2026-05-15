@@ -1,0 +1,22 @@
+# BasicStoreFlow
+
+main: kit: flow: BasicStoreFlow:
+{
+  entity: "store",
+  kind: "basic",
+  name: "BasicStoreFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "store_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicStoreFlow"
+}

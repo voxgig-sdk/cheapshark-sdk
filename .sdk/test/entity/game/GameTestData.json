@@ -1,0 +1,46 @@
+{
+  "existing": {
+    "game": {
+      "GAME00": {
+        "cheapest": "s46",
+        "cheapest_deal_id": "CHEAPEST_DEAL01",
+        "external": "s48",
+        "game_id": "GAME01",
+        "internal_name": "s4a",
+        "steam_app_id": "STEAM_APP01",
+        "thumb": "s4c"
+      },
+      "GAME01": {
+        "cheapest": "s8c",
+        "cheapest_deal_id": "CHEAPEST_DEAL01",
+        "external": "s8e",
+        "game_id": "GAME01",
+        "internal_name": "s90",
+        "steam_app_id": "STEAM_APP01",
+        "thumb": "s92"
+      },
+      "GAME02": {
+        "cheapest": "sd2",
+        "cheapest_deal_id": "CHEAPEST_DEAL01",
+        "external": "sd4",
+        "game_id": "GAME01",
+        "internal_name": "sd6",
+        "steam_app_id": "STEAM_APP01",
+        "thumb": "sd8"
+      }
+    }
+  },
+  "new": {
+    "game": {
+      "game_ref01": {
+        "cheapest": "s118",
+        "cheapest_deal_id": "CHEAPEST_DEAL01",
+        "external": "s11a",
+        "game_id": "GAME01",
+        "internal_name": "s11c",
+        "steam_app_id": "STEAM_APP01",
+        "thumb": "s11e"
+      }
+    }
+  }
+}
