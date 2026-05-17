@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/cheapshark-sdk"
-	"github.com/voxgig-sdk/cheapshark-sdk/core"
+	sdk "github.com/voxgig-sdk/cheapshark-sdk/go"
+	"github.com/voxgig-sdk/cheapshark-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/cheapshark-sdk/go/utility/struct"
 )
 
 func TestDealEntity(t *testing.T) {

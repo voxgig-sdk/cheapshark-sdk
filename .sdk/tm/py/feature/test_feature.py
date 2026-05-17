@@ -1,13 +1,13 @@
-# ProjectName SDK test feature
+# Cheapshark SDK test feature
 
 from __future__ import annotations
 import random
 
 from utility.voxgig_struct import voxgig_struct as vs
-from feature.base_feature import ProjectNameBaseFeature
+from feature.base_feature import CheapsharkBaseFeature
 
 
-class ProjectNameTestFeature(ProjectNameBaseFeature):
+class CheapsharkTestFeature(CheapsharkBaseFeature):
     def __init__(self):
         super().__init__()
         self.version = "0.0.1"

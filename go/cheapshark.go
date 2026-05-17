@@ -1,10 +1,10 @@
 package voxgigcheapsharksdk
 
 import (
-	"github.com/voxgig-sdk/cheapshark-sdk/core"
-	"github.com/voxgig-sdk/cheapshark-sdk/entity"
-	"github.com/voxgig-sdk/cheapshark-sdk/feature"
-	_ "github.com/voxgig-sdk/cheapshark-sdk/utility"
+	"github.com/voxgig-sdk/cheapshark-sdk/go/core"
+	"github.com/voxgig-sdk/cheapshark-sdk/go/entity"
+	"github.com/voxgig-sdk/cheapshark-sdk/go/feature"
+	_ "github.com/voxgig-sdk/cheapshark-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

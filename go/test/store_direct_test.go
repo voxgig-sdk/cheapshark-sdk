@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/cheapshark-sdk"
-	"github.com/voxgig-sdk/cheapshark-sdk/core"
+	sdk "github.com/voxgig-sdk/cheapshark-sdk/go"
+	"github.com/voxgig-sdk/cheapshark-sdk/go/core"
 )
 
 func TestStoreDirect(t *testing.T) {

@@ -1,9 +1,9 @@
-# ProjectName SDK test feature
+# Cheapshark SDK test feature
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative 'base_feature'
 
-class ProjectNameTestFeature < ProjectNameBaseFeature
+class CheapsharkTestFeature < CheapsharkBaseFeature
   def initialize
     super
     @version = "0.0.1"

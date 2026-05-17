@@ -11,7 +11,7 @@ import (
 
 type TestFeature struct {
 	BaseFeature
-	client  *core.ProjectNameSDK
+	client  *core.CheapsharkSDK
 	options map[string]any
 }
 
