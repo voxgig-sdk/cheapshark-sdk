@@ -93,14 +93,12 @@ func alertDirectSetup(mockres any) *alertDirectSetupResult {
 	env := envOverride(map[string]any{
 		"CHEAPSHARK_TEST_ALERT_ENTID": map[string]any{},
 		"CHEAPSHARK_TEST_LIVE":    "FALSE",
-		"CHEAPSHARK_APIKEY":       "NONE",
 	})
 
 	live := env["CHEAPSHARK_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["CHEAPSHARK_APIKEY"],
 		}
 		client := sdk.NewCheapsharkSDK(mergedOpts)
 

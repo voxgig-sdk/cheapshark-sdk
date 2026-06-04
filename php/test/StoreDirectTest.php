@@ -68,14 +68,12 @@ function store_direct_setup($mockres)
     $env = Runner::env_override([
         "CHEAPSHARK_TEST_STORE_ENTID" => [],
         "CHEAPSHARK_TEST_LIVE" => "FALSE",
-        "CHEAPSHARK_APIKEY" => "NONE",
     ]);
 
     $live = $env["CHEAPSHARK_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["CHEAPSHARK_APIKEY"],
         ];
         $client = new CheapsharkSDK($merged_opts);
         return [

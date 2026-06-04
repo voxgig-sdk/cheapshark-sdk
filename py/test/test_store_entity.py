@@ -92,7 +92,6 @@ def _store_basic_setup(extra):
         "CHEAPSHARK_TEST_STORE_ENTID": idmap,
         "CHEAPSHARK_TEST_LIVE": "FALSE",
         "CHEAPSHARK_TEST_EXPLAIN": "FALSE",
-        "CHEAPSHARK_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +102,6 @@ def _store_basic_setup(extra):
     if env.get("CHEAPSHARK_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("CHEAPSHARK_APIKEY"),
             },
             extra or {},
         ])

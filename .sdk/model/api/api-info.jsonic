@@ -17,8 +17,25 @@ main: {
       ]
       title: "CheapShark API"
       version: "1.0.0"
+      tagline: "Compare digital PC game prices across Steam, GreenManGaming, Fanatical and other major stores"
+      homepage: "https://www.cheapshark.com/"
+      docs_url: "https://apidocs.cheapshark.com/"
+      about_md: `[CheapShark](https://www.cheapshark.com/) is a price comparison site for digital PC games. The public API exposes the same catalogue of deals, games and stores that powers the website, so you can build trackers, browser extensions, bots and dashboards on top of it.
+
+What you get from the API:
+- Current and historical deals across multiple digital storefronts (Steam, GreenManGaming, Fanatical and others)
+- Game metadata with cross-store price information
+- The list of stores CheapShark tracks, including store IDs used elsewhere in the API
+- Price-drop alert subscriptions tied to an email address
+
+Operational notes: the API is served from \`https://www.cheapshark.com/api/1.0\` and has CORS enabled, so it can be called directly from browser apps. No API key or authentication is documented.`
+      entity_desc: {
+        alert: "Email-based price alert subscriptions that notify a user when a tracked game drops to a target price."
+        deal: "An individual store listing for a game at a specific price, including sale price, retail price, savings and the store it comes from."
+        game: "A PC game record with title, cover art and the set of deals currently available for it across tracked stores."
+        store: "A digital storefront tracked by CheapShark (e.g. Steam, GreenManGaming, Fanatical), with the store ID used to reference it in deal and game responses."
+      }
+      auth: false
     }
   }
-}
-
 }

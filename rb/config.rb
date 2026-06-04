@@ -15,9 +15,6 @@ module CheapsharkConfig
       },
       "options" => {
         "base" => "https://www.cheapshark.com/api/1.0",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },

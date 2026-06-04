@@ -17,9 +17,7 @@ loading a specific record.
 ```ts
 import { CheapsharkSDK } from 'cheapshark'
 
-const client = new CheapsharkSDK({
-  apikey: process.env.CHEAPSHARK_APIKEY,
-})
+const client = new CheapsharkSDK({})
 ```
 
 ### 2. List alerts
@@ -98,7 +96,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new CheapsharkSDK({ apikey: '...' })
+const client = new CheapsharkSDK()
 const testClient = client.tester()
 ```
 
@@ -134,7 +132,6 @@ const logger = {
 }
 
 const client = new CheapsharkSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -145,7 +142,6 @@ Create a `.env.local` file at the project root:
 
 ```
 CHEAPSHARK_TEST_LIVE=TRUE
-CHEAPSHARK_APIKEY=<your-key>
 ```
 
 Then run:
@@ -163,7 +159,6 @@ cd ts && npm test
 
 ```ts
 new CheapsharkSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -174,7 +169,6 @@ new CheapsharkSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

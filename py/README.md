@@ -23,12 +23,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from cheapshark_sdk import CheapsharkSDK
 
-client = CheapsharkSDK({
-    "apikey": os.environ.get("CHEAPSHARK_APIKEY"),
-})
+client = CheapsharkSDK({})
 ```
 
 ### 2. List alerts
@@ -131,7 +128,6 @@ Create a `.env.local` file at the project root:
 
 ```
 CHEAPSHARK_TEST_LIVE=TRUE
-CHEAPSHARK_APIKEY=<your-key>
 ```
 
 Then run:
@@ -155,7 +151,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

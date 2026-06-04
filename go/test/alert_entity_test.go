@@ -153,7 +153,6 @@ func alertBasicSetup(extra map[string]any) *entityTestSetup {
 		"CHEAPSHARK_TEST_ALERT_ENTID": idmap,
 		"CHEAPSHARK_TEST_LIVE":      "FALSE",
 		"CHEAPSHARK_TEST_EXPLAIN":   "FALSE",
-		"CHEAPSHARK_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["CHEAPSHARK_TEST_ALERT_ENTID"])
@@ -164,7 +163,6 @@ func alertBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["CHEAPSHARK_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["CHEAPSHARK_APIKEY"],
 			},
 			extra,
 		})
