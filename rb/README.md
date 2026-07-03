@@ -10,13 +10,13 @@ The Ruby SDK for the Cheapshark API — an entity-oriented client using idiomati
 
 ## Install
 ```bash
-gem install cheapshark-sdk
+gem install voxgig-sdk-cheapshark
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "cheapshark-sdk"
+gem "voxgig-sdk-cheapshark"
 ```
 
 Then run:

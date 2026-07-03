@@ -10,7 +10,7 @@ The Lua SDK for the Cheapshark API — an entity-oriented client using Lua conve
 
 ## Install
 ```bash
-luarocks install cheapshark-sdk
+luarocks install voxgig-sdk-cheapshark
 ```
 
 If the module is not yet published, add the source directory to

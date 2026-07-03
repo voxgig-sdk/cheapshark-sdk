@@ -10,7 +10,7 @@ The PHP SDK for the Cheapshark API — an entity-oriented client using PHP conve
 
 ## Install
 ```bash
-composer require voxgig/cheapshark-sdk
+composer require voxgig-sdk/cheapshark
 ```
 
 

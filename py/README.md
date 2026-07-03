@@ -10,7 +10,7 @@ The Python SDK for the Cheapshark API — an entity-oriented client following Py
 
 ## Install
 ```bash
-pip install cheapshark-sdk
+pip install voxgig-sdk-cheapshark
 ```
 
 Or install from source:

@@ -10,7 +10,7 @@ The TypeScript SDK for the Cheapshark API — a type-safe, entity-oriented clien
 
 ## Install
 ```bash
-npm install cheapshark
+npm install @voxgig-sdk/cheapshark
 ```
 ## Tutorial: your first API call
 
