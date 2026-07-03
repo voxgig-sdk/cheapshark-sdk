@@ -117,6 +117,7 @@ function alert_basic_setup(extra)
     ["CHEAPSHARK_TEST_ALERT_ENTID"] = idmap,
     ["CHEAPSHARK_TEST_LIVE"] = "FALSE",
     ["CHEAPSHARK_TEST_EXPLAIN"] = "FALSE",
+    ["CHEAPSHARK_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -128,6 +129,7 @@ function alert_basic_setup(extra)
   if env["CHEAPSHARK_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["CHEAPSHARK_APIKEY"],
       },
       extra or {},
     })

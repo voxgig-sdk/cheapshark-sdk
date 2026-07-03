@@ -1,6 +1,11 @@
 # Cheapshark Python SDK
 
-The Python SDK for the Cheapshark API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the Cheapshark API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from cheapshark_sdk import CheapsharkSDK
 
-client = CheapsharkSDK({})
+client = CheapsharkSDK({
+    "apikey": os.environ.get("CHEAPSHARK_APIKEY"),
+})
 ```
 
 ### 2. List alerts
 
 ```python
-result, err = client.Alert(None).list(None, None)
+result, err = client.Alert().list()
 if err:
     raise Exception(err)
 
@@ -45,10 +53,10 @@ if isinstance(result, list):
 
 ```python
 # Create
-created, _ = client.Alert(None).create({"name": "Example"}, None)
+created, _ = client.Alert().create({"name": "Example"})
 
 # Remove
-client.Alert(None).remove({"id": created["id"]}, None)
+client.Alert().remove({"id": created["id"]})
 ```
 
 
@@ -93,11 +101,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = CheapsharkSDK.test(None, None)
+client = CheapsharkSDK.test()
 
-result, err = client.Cheapshark(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.Cheapshark().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -128,6 +134,7 @@ Create a `.env.local` file at the project root:
 
 ```
 CHEAPSHARK_TEST_LIVE=TRUE
+CHEAPSHARK_APIKEY=<your-key>
 ```
 
 Then run:
@@ -151,6 +158,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

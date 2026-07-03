@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -115,8 +115,8 @@ local alert = client:Alert(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Alert(nil):create({
-}, nil)
+local result, err = client:Alert():create({
+})
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
@@ -124,7 +124,7 @@ local result, err = client:Alert(nil):create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Alert(nil):list(nil, nil)
+local results, err = client:Alert():list()
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -132,7 +132,7 @@ local results, err = client:Alert(nil):list(nil, nil)
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Alert(nil):remove({ id = "alert_id" }, nil)
+local result, err = client:Alert():remove({ id = "alert_id" })
 ```
 
 ### Common Methods
@@ -202,7 +202,7 @@ local deal = client:Deal(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Deal(nil):list(nil, nil)
+local results, err = client:Deal():list()
 ```
 
 ### Common Methods
@@ -260,7 +260,7 @@ local game = client:Game(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Game(nil):list(nil, nil)
+local results, err = client:Game():list()
 ```
 
 ### Common Methods
@@ -315,7 +315,7 @@ local store = client:Store(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Store(nil):list(nil, nil)
+local results, err = client:Store():list()
 ```
 
 ### Common Methods

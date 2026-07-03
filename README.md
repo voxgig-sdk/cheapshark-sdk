@@ -1,20 +1,8 @@
 # Cheapshark SDK
 
-Compare digital PC game prices across Steam, GreenManGaming, Fanatical and other major stores
+CheapShark API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About CheapShark API
-
-[CheapShark](https://www.cheapshark.com/) is a price comparison site for digital PC games. The public API exposes the same catalogue of deals, games and stores that powers the website, so you can build trackers, browser extensions, bots and dashboards on top of it.
-
-What you get from the API:
-- Current and historical deals across multiple digital storefronts (Steam, GreenManGaming, Fanatical and others)
-- Game metadata with cross-store price information
-- The list of stores CheapShark tracks, including store IDs used elsewhere in the API
-- Price-drop alert subscriptions tied to an email address
-
-Operational notes: the API is served from `https://www.cheapshark.com/api/1.0` and has CORS enabled, so it can be called directly from browser apps. No API key or authentication is documented.
 
 ## Try it
 
@@ -48,29 +36,31 @@ gem install cheapshark-sdk
 luarocks install cheapshark-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { CheapsharkSDK } from 'cheapshark'
 
-const client = new CheapsharkSDK({})
+const client = new CheapsharkSDK({
+  apikey: process.env.CHEAPSHARK_APIKEY,
+})
 
 // List all alerts
 const alerts = await client.Alert().list()
+console.log(alerts.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,10 +90,10 @@ The API exposes 4 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Alert** | Email-based price alert subscriptions that notify a user when a tracked game drops to a target price. | `/alerts` |
-| **Deal** | An individual store listing for a game at a specific price, including sale price, retail price, savings and the store it comes from. | `/deals` |
-| **Game** | A PC game record with title, cover art and the set of deals currently available for it across tracked stores. | `/games` |
-| **Store** | A digital storefront tracked by CheapShark (e.g. Steam, GreenManGaming, Fanatical), with the store ID used to reference it in deal and game responses. | `/stores` |
+| **Alert** |  | `/alerts` |
+| **Deal** |  | `/deals` |
+| **Game** |  | `/games` |
+| **Store** |  | `/stores` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -113,12 +103,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from cheapshark_sdk import CheapsharkSDK
 
-client = CheapsharkSDK({})
+client = CheapsharkSDK({
+    "apikey": os.environ.get("CHEAPSHARK_APIKEY"),
+})
 
 # List all alerts
-alerts, err = client.Alert(None).list(None, None)
+alerts, err = client.Alert().list()
+print(alerts)
 ```
 
 ### PHP
@@ -127,10 +121,13 @@ alerts, err = client.Alert(None).list(None, None)
 <?php
 require_once 'cheapshark_sdk.php';
 
-$client = new CheapsharkSDK([]);
+$client = new CheapsharkSDK([
+    "apikey" => getenv("CHEAPSHARK_APIKEY"),
+]);
 
 // List all alerts
-[$alerts, $err] = $client->Alert(null)->list(null, null);
+[$alerts, $err] = $client->Alert()->list();
+print_r($alerts);
 ```
 
 ### Golang
@@ -138,10 +135,13 @@ $client = new CheapsharkSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/cheapshark-sdk/go"
 
-client := sdk.NewCheapsharkSDK(map[string]any{})
+client := sdk.NewCheapsharkSDK(map[string]any{
+    "apikey": os.Getenv("CHEAPSHARK_APIKEY"),
+})
 
 // List all alerts
 alerts, err := client.Alert(nil).List(nil, nil)
+fmt.Println(alerts)
 ```
 
 ### Ruby
@@ -149,10 +149,13 @@ alerts, err := client.Alert(nil).List(nil, nil)
 ```ruby
 require_relative "Cheapshark_sdk"
 
-client = CheapsharkSDK.new({})
+client = CheapsharkSDK.new({
+  "apikey" => ENV["CHEAPSHARK_APIKEY"],
+})
 
 # List all alerts
-alerts, err = client.Alert(nil).list(nil, nil)
+alerts, err = client.Alert().list
+puts alerts
 ```
 
 ### Lua
@@ -160,10 +163,13 @@ alerts, err = client.Alert(nil).list(nil, nil)
 ```lua
 local sdk = require("cheapshark_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("CHEAPSHARK_APIKEY"),
+})
 
 -- List all alerts
-local alerts, err = client:Alert(nil):list(nil, nil)
+local alerts, err = client:Alert():list()
+print(alerts)
 ```
 
 ## Unit testing in offline mode
@@ -182,25 +188,21 @@ const result = await client.Alert().load({ id: 'test01' })
 ### Python
 
 ```python
-client = CheapsharkSDK.test(None, None)
-result, err = client.Alert(None).load(
-    {"id": "test01"}, None
-)
+client = CheapsharkSDK.test()
+result, err = client.Alert().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = CheapsharkSDK::test(null, null);
-[$result, $err] = $client->Alert(null)->load(
-    ["id" => "test01"], null
-);
+$client = CheapsharkSDK::test();
+[$result, $err] = $client->Alert()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Alert(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -209,19 +211,15 @@ result, err := client.Alert(nil).Load(
 ### Ruby
 
 ```ruby
-client = CheapsharkSDK.test(nil, nil)
-result, err = client.Alert(nil).load(
-  { "id" => "test01" }, nil
-)
+client = CheapsharkSDK.test
+result, err = client.Alert().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Alert(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Alert():load({ id = "test01" })
 ```
 
 ## How it works
@@ -325,11 +323,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the CheapShark API
-
-- Upstream: [https://www.cheapshark.com/](https://www.cheapshark.com/)
-- API docs: [https://apidocs.cheapshark.com/](https://apidocs.cheapshark.com/)
 
 ---
 

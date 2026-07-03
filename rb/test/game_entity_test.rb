@@ -83,6 +83,7 @@ def game_basic_setup(extra)
     "CHEAPSHARK_TEST_GAME_ENTID" => idmap,
     "CHEAPSHARK_TEST_LIVE" => "FALSE",
     "CHEAPSHARK_TEST_EXPLAIN" => "FALSE",
+    "CHEAPSHARK_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,6 +95,7 @@ def game_basic_setup(extra)
   if env["CHEAPSHARK_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
+        "apikey" => env["CHEAPSHARK_APIKEY"],
       },
       extra || {},
     ])

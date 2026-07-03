@@ -61,12 +61,14 @@ def _store_direct_setup(mockres):
     env = runner.env_override({
         "CHEAPSHARK_TEST_STORE_ENTID": {},
         "CHEAPSHARK_TEST_LIVE": "FALSE",
+        "CHEAPSHARK_APIKEY": "NONE",
     })
 
     live = env.get("CHEAPSHARK_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
+            "apikey": env.get("CHEAPSHARK_APIKEY"),
         }
         client = CheapsharkSDK(merged_opts)
         return {

@@ -62,12 +62,14 @@ def alert_direct_setup(mockres)
   env = Runner.env_override({
     "CHEAPSHARK_TEST_ALERT_ENTID" => {},
     "CHEAPSHARK_TEST_LIVE" => "FALSE",
+    "CHEAPSHARK_APIKEY" => "NONE",
   })
 
   live = env["CHEAPSHARK_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["CHEAPSHARK_APIKEY"],
     }
     client = CheapsharkSDK.new(merged_opts)
     return {

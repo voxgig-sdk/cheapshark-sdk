@@ -79,12 +79,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'CHEAPSHARK_TEST_DEAL_ENTID': {},
     'CHEAPSHARK_TEST_LIVE': 'FALSE',
+    'CHEAPSHARK_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.CHEAPSHARK_TEST_LIVE
 
   if (live) {
     const client = new CheapsharkSDK({
+      apikey: env.CHEAPSHARK_APIKEY,
     })
 
     let idmap: any = env['CHEAPSHARK_TEST_DEAL_ENTID']
