@@ -43,16 +43,14 @@ class AlertEntityTest extends TestCase
         $alert_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.alert"), "alert_ref01"));
 
-        [$alert_ref01_data_result, $err] = $alert_ref01_ent->create($alert_ref01_data, null);
-        $this->assertNull($err);
+        $alert_ref01_data_result = $alert_ref01_ent->create($alert_ref01_data, null);
         $alert_ref01_data = Helpers::to_map($alert_ref01_data_result);
         $this->assertNotNull($alert_ref01_data);
 
         // LIST
         $alert_ref01_match = [];
 
-        [$alert_ref01_list_result, $err] = $alert_ref01_ent->list($alert_ref01_match, null);
-        $this->assertNull($err);
+        $alert_ref01_list_result = $alert_ref01_ent->list($alert_ref01_match, null);
         $this->assertIsArray($alert_ref01_list_result);
 
         $found_item = sdk_select(
@@ -64,14 +62,12 @@ class AlertEntityTest extends TestCase
         $alert_ref01_match_rm0 = [
             "id" => $alert_ref01_data["id"],
         ];
-        [$_, $err] = $alert_ref01_ent->remove($alert_ref01_match_rm0, null);
-        $this->assertNull($err);
+        $alert_ref01_ent->remove($alert_ref01_match_rm0, null);
 
         // LIST
         $alert_ref01_match_rt0 = [];
 
-        [$alert_ref01_list_rt0_result, $err] = $alert_ref01_ent->list($alert_ref01_match_rt0, null);
-        $this->assertNull($err);
+        $alert_ref01_list_rt0_result = $alert_ref01_ent->list($alert_ref01_match_rt0, null);
         $this->assertIsArray($alert_ref01_list_rt0_result);
 
         $not_found_item = sdk_select(
@@ -111,7 +107,6 @@ function alert_basic_setup($extra)
         "CHEAPSHARK_TEST_ALERT_ENTID" => $idmap,
         "CHEAPSHARK_TEST_LIVE" => "FALSE",
         "CHEAPSHARK_TEST_EXPLAIN" => "FALSE",
-        "CHEAPSHARK_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -123,7 +118,6 @@ function alert_basic_setup($extra)
     if ($env["CHEAPSHARK_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["CHEAPSHARK_APIKEY"],
             ],
             $extra ?? [],
         ]);

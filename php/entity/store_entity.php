@@ -55,6 +55,9 @@ class StoreEntity
         return new StoreEntity($this->_client, $opts);
     }
 
+    /**
+     * @param Store|array $args Store data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class StoreEntity
         }
     }
 
+    /**
+     * @return Store|array The current Store data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Store fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class StoreEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Store fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -86,7 +98,16 @@ class StoreEntity
     
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List Store items matching the given filter.
+     *
+     * @param StoreListMatch|array|null $reqmatch Match filter (any subset
+     *   of Store fields) as an assoc-array; StoreListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Store[]|array A list of Store items as assoc-arrays at
+     *   the SDK boundary; throws CheapsharkError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -114,7 +135,7 @@ class StoreEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

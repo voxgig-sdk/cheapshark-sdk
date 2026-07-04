@@ -9,9 +9,12 @@ The TypeScript SDK for the Cheapshark API — a type-safe, entity-oriented clien
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/cheapshark
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/cheapshark-sdk/releases](https://github.com/voxgig-sdk/cheapshark-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { CheapsharkSDK } from 'cheapshark'
+import { CheapsharkSDK } from '@voxgig-sdk/cheapshark'
 
-const client = new CheapsharkSDK({
-  apikey: process.env.CHEAPSHARK_APIKEY,
-})
+const client = new CheapsharkSDK()
 ```
 
 ### 2. List alerts
 
 ```ts
-const result = await client.Alert().list()
+const result = await client.alert.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -43,12 +44,12 @@ if (result.ok) {
 
 ```ts
 // Create
-const created = await client.Alert().create({
+const created = await client.alert.create({
   name: 'Example',
 })
 
 // Remove
-const removed = await client.Alert().remove({
+const removed = await client.alert.remove({
   id: created.data.id,
 })
 ```
@@ -95,7 +96,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = CheapsharkSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.alert.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -103,7 +104,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new CheapsharkSDK({ apikey: '...' })
+const client = new CheapsharkSDK()
 const testClient = client.tester()
 ```
 
@@ -112,7 +113,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.alert
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -139,7 +140,6 @@ const logger = {
 }
 
 const client = new CheapsharkSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -150,7 +150,6 @@ Create a `.env.local` file at the project root:
 
 ```
 CHEAPSHARK_TEST_LIVE=TRUE
-CHEAPSHARK_APIKEY=<your-key>
 ```
 
 Then run:
@@ -168,7 +167,6 @@ cd ts && npm test
 
 ```ts
 new CheapsharkSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -179,7 +177,6 @@ new CheapsharkSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -345,7 +342,7 @@ API path: `/stores`
 
 ### Alert
 
-Create an instance: `const alert = client.Alert()`
+Create an instance: `const alert = client.alert`
 
 #### Operations
 
@@ -367,20 +364,20 @@ Create an instance: `const alert = client.Alert()`
 #### Example: List
 
 ```ts
-const alerts = await client.Alert().list()
+const alerts = await client.alert.list()
 ```
 
 #### Example: Create
 
 ```ts
-const alert = await client.Alert().create({
+const alert = await client.alert.create({
 })
 ```
 
 
 ### Deal
 
-Create an instance: `const deal = client.Deal()`
+Create an instance: `const deal = client.deal`
 
 #### Operations
 
@@ -415,13 +412,13 @@ Create an instance: `const deal = client.Deal()`
 #### Example: List
 
 ```ts
-const deals = await client.Deal().list()
+const deals = await client.deal.list()
 ```
 
 
 ### Game
 
-Create an instance: `const game = client.Game()`
+Create an instance: `const game = client.game`
 
 #### Operations
 
@@ -444,13 +441,13 @@ Create an instance: `const game = client.Game()`
 #### Example: List
 
 ```ts
-const games = await client.Game().list()
+const games = await client.game.list()
 ```
 
 
 ### Store
 
-Create an instance: `const store = client.Store()`
+Create an instance: `const store = client.store`
 
 #### Operations
 
@@ -470,7 +467,7 @@ Create an instance: `const store = client.Store()`
 #### Example: List
 
 ```ts
-const stores = await client.Store().list()
+const stores = await client.store.list()
 ```
 
 
@@ -531,7 +528,7 @@ cheapshark/
 Import the SDK from the package root:
 
 ```ts
-import { CheapsharkSDK } from 'cheapshark'
+import { CheapsharkSDK } from '@voxgig-sdk/cheapshark'
 ```
 
 ### Entity state
@@ -541,11 +538,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const alert = client.alert
+await alert.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// alert.data() now returns the loaded alert data
+// alert.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

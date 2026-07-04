@@ -45,6 +45,7 @@ class AlertEntity
     end
   end
 
+  # @return [Alert, Hash] the current Alert data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class AlertEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Alert fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class AlertEntity
   
 
   
+  # List Alert items matching the given filter.
+  #
+  # @param reqmatch [AlertListMatch, Hash, nil] match filter (any subset of Alert fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Alert>, Array] the matching Alert items; raises CheapsharkError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -85,6 +92,11 @@ class AlertEntity
 
 
   
+  # Create a new Alert.
+  #
+  # @param reqdata [AlertCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Alert, Hash] the created Alert; raises CheapsharkError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -109,6 +121,11 @@ class AlertEntity
   
 
   
+  # Remove an Alert matching the given criteria.
+  #
+  # @param reqmatch [AlertRemoveMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Alert, Hash] the removed Alert; raises CheapsharkError on failure
   def remove(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -1,7 +1,15 @@
 # Cheapshark SDK Alert entity
 
+from __future__ import annotations
+
 from utility.voxgig_struct import voxgig_struct as vs
 from core import helpers
+from cheapshark_types import (
+    Alert,
+    AlertListMatch,
+    AlertCreateData,
+    AlertRemoveMatch,
+)
 
 
 class AlertEntity:
@@ -44,7 +52,7 @@ class AlertEntity:
             self._data = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetData")
 
-    def data_get(self):
+    def data_get(self) -> Alert:
         self._utility.feature_hook(self._entctx, "GetData")
         return vs.clone(self._data)
 
@@ -53,14 +61,14 @@ class AlertEntity:
             self._match = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetMatch")
 
-    def match_get(self):
+    def match_get(self) -> Alert:
         self._utility.feature_hook(self._entctx, "GetMatch")
         return vs.clone(self._match)
 
     
 
     
-    def list(self, reqmatch, ctrl=None):
+    def list(self, reqmatch: AlertListMatch, ctrl=None) -> list[Alert]:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "list",
@@ -80,7 +88,7 @@ class AlertEntity:
 
 
     
-    def create(self, reqdata, ctrl=None):
+    def create(self, reqdata: AlertCreateData, ctrl=None) -> Alert:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "create",
@@ -102,7 +110,7 @@ class AlertEntity:
     
 
     
-    def remove(self, reqmatch, ctrl=None):
+    def remove(self, reqmatch: AlertRemoveMatch, ctrl=None) -> Alert:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "remove",

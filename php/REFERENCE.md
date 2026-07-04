@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `$options` | `array` | SDK configuration options. |
-| `$options["apikey"]` | `string` | API key for authentication. |
 | `$options["base"]` | `string` | Base URL for API requests. |
 | `$options["prefix"]` | `string` | URL prefix appended after base. |
 | `$options["suffix"]` | `string` | URL suffix appended after path. |
@@ -68,7 +67,10 @@ Return a copy of the SDK utility object.
 
 #### `direct(array $fetchargs = []): array`
 
-Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+Make a direct HTTP request to any API endpoint. This is the raw-HTTP escape
+hatch: it does **not** throw. It returns a result array
+`["ok" => bool, "status" => int, "headers" => array, "data" => mixed]`, or
+`["ok" => false, "err" => \Exception]` on failure. Branch on `$result["ok"]`.
 
 **Parameters:**
 
@@ -82,11 +84,12 @@ Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
 | `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
 | `$fetchargs["ctrl"]` | `array` | Control options. |
 
-**Returns:** `array [$result, $err]`
+**Returns:** `array` — the result dict (see above); never throws.
 
-#### `prepare(array $fetchargs = []): array`
+#### `prepare(array $fetchargs = []): mixed`
 
-Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+Prepare a fetch definition without sending the request. Returns the
+`$fetchdef` array. Throws on error.
 
 
 ---
@@ -94,7 +97,7 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 ## AlertEntity
 
 ```php
-$alert = $client->Alert();
+$alert = $client->alert();
 ```
 
 ### Fields
@@ -108,29 +111,29 @@ $alert = $client->Alert();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Alert()->create([
+$result = $client->alert()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Alert()->list([]);
+$results = $client->alert()->list([]);
 ```
 
-#### `remove(array $reqmatch, ?array $ctrl = null): array`
+#### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Alert()->remove(["id" => "alert_id"]);
+$result = $client->alert()->remove(["id" => "alert_id"]);
 ```
 
 ### Common Methods
@@ -166,7 +169,7 @@ Return the entity name.
 ## DealEntity
 
 ```php
-$deal = $client->Deal();
+$deal = $client->deal();
 ```
 
 ### Fields
@@ -195,12 +198,12 @@ $deal = $client->Deal();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Deal()->list([]);
+$results = $client->deal()->list([]);
 ```
 
 ### Common Methods
@@ -236,7 +239,7 @@ Return the entity name.
 ## GameEntity
 
 ```php
-$game = $client->Game();
+$game = $client->game();
 ```
 
 ### Fields
@@ -253,12 +256,12 @@ $game = $client->Game();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Game()->list([]);
+$results = $client->game()->list([]);
 ```
 
 ### Common Methods
@@ -294,7 +297,7 @@ Return the entity name.
 ## StoreEntity
 
 ```php
-$store = $client->Store();
+$store = $client->store();
 ```
 
 ### Fields
@@ -308,12 +311,12 @@ $store = $client->Store();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Store()->list([]);
+$results = $client->store()->list([]);
 ```
 
 ### Common Methods

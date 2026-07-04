@@ -45,6 +45,7 @@ class DealEntity
     end
   end
 
+  # @return [Deal, Hash] the current Deal data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class DealEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Deal fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class DealEntity
   
 
   
+  # List Deal items matching the given filter.
+  #
+  # @param reqmatch [DealListMatch, Hash, nil] match filter (any subset of Deal fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Deal>, Array] the matching Deal items; raises CheapsharkError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

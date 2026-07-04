@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch AlertListMatch
+---@param ctrl? table
+---@return Alert[]
+---@return string? err
 function AlertEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -103,6 +107,10 @@ end
 
 
 
+---@param reqdata AlertCreateData
+---@param ctrl? table
+---@return Alert
+---@return string? err
 function AlertEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -127,6 +135,10 @@ end
 
 
 
+---@param reqmatch AlertRemoveMatch
+---@param ctrl? table
+---@return Alert
+---@return string? err
 function AlertEntity:remove(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

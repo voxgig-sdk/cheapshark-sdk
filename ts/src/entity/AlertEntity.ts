@@ -14,9 +14,15 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Alert,
+  AlertListMatch,
+  AlertCreateData,
+  AlertRemoveMatch,
+} from '../CheapsharkTypes'
 
 // TODO: needs Entity superclass
-class AlertEntity extends CheapsharkEntityBase {
+class AlertEntity extends CheapsharkEntityBase<Alert> {
 
   constructor(client: CheapsharkSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +39,7 @@ class AlertEntity extends CheapsharkEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: AlertListMatch, ctrl?: Control): Promise<Alert[]> {
 
     const utility = this._utility
 
@@ -133,14 +139,16 @@ class AlertEntity extends CheapsharkEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Alert[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: AlertCreateData, ctrl?: Control): Promise<Alert> {
 
     const utility = this._utility
     const {
@@ -239,7 +247,9 @@ class AlertEntity extends CheapsharkEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Alert> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
@@ -247,7 +257,7 @@ class AlertEntity extends CheapsharkEntityBase {
 
 
 
-  async remove(this: any, reqmatch?: any, ctrl?: Control) {
+  async remove(this: any, reqmatch?: AlertRemoveMatch, ctrl?: Control): Promise<Alert> {
 
     const utility = this._utility
 
@@ -352,7 +362,9 @@ class AlertEntity extends CheapsharkEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Alert> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

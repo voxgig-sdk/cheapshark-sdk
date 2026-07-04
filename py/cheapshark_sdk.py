@@ -144,16 +144,23 @@ class CheapsharkSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class CheapsharkSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,30 +212,74 @@ class CheapsharkSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def alert(self):
+        """Idiomatic facade: client.alert.list() / client.alert.load({"id": ...})."""
+        from entity.alert_entity import AlertEntity
+        cached = getattr(self, "_alert", None)
+        if cached is None:
+            cached = AlertEntity(self, None)
+            self._alert = cached
+        return cached
 
     def Alert(self, data=None):
+        # Deprecated: use client.alert instead.
         from entity.alert_entity import AlertEntity
         return AlertEntity(self, data)
 
 
+    @property
+    def deal(self):
+        """Idiomatic facade: client.deal.list() / client.deal.load({"id": ...})."""
+        from entity.deal_entity import DealEntity
+        cached = getattr(self, "_deal", None)
+        if cached is None:
+            cached = DealEntity(self, None)
+            self._deal = cached
+        return cached
+
     def Deal(self, data=None):
+        # Deprecated: use client.deal instead.
         from entity.deal_entity import DealEntity
         return DealEntity(self, data)
 
 
+    @property
+    def game(self):
+        """Idiomatic facade: client.game.list() / client.game.load({"id": ...})."""
+        from entity.game_entity import GameEntity
+        cached = getattr(self, "_game", None)
+        if cached is None:
+            cached = GameEntity(self, None)
+            self._game = cached
+        return cached
+
     def Game(self, data=None):
+        # Deprecated: use client.game instead.
         from entity.game_entity import GameEntity
         return GameEntity(self, data)
 
 
+    @property
+    def store(self):
+        """Idiomatic facade: client.store.list() / client.store.load({"id": ...})."""
+        from entity.store_entity import StoreEntity
+        cached = getattr(self, "_store", None)
+        if cached is None:
+            cached = StoreEntity(self, None)
+            self._store = cached
+        return cached
+
     def Store(self, data=None):
+        # Deprecated: use client.store instead.
         from entity.store_entity import StoreEntity
         return StoreEntity(self, data)
 

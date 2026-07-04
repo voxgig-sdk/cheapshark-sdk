@@ -43,8 +43,7 @@ class StoreEntityTest < Minitest::Test
     store_ref01_ent = client.Store(nil)
     store_ref01_match = {}
 
-    store_ref01_list_result, err = store_ref01_ent.list(store_ref01_match, nil)
-    assert_nil err
+    store_ref01_list_result = store_ref01_ent.list(store_ref01_match, nil)
     assert store_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def store_basic_setup(extra)
     "CHEAPSHARK_TEST_STORE_ENTID" => idmap,
     "CHEAPSHARK_TEST_LIVE" => "FALSE",
     "CHEAPSHARK_TEST_EXPLAIN" => "FALSE",
-    "CHEAPSHARK_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def store_basic_setup(extra)
   if env["CHEAPSHARK_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["CHEAPSHARK_APIKEY"],
       },
       extra || {},
     ])

@@ -50,8 +50,7 @@ class TestStoreEntity:
         store_ref01_ent = client.Store(None)
         store_ref01_match = {}
 
-        store_ref01_list_result, err = store_ref01_ent.list(store_ref01_match, None)
-        assert err is None
+        store_ref01_list_result = store_ref01_ent.list(store_ref01_match, None)
         assert isinstance(store_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _store_basic_setup(extra):
         "CHEAPSHARK_TEST_STORE_ENTID": idmap,
         "CHEAPSHARK_TEST_LIVE": "FALSE",
         "CHEAPSHARK_TEST_EXPLAIN": "FALSE",
-        "CHEAPSHARK_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _store_basic_setup(extra):
     if env.get("CHEAPSHARK_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("CHEAPSHARK_APIKEY"),
             },
             extra or {},
         ])

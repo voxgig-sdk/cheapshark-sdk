@@ -50,8 +50,7 @@ class TestDealEntity:
         deal_ref01_ent = client.Deal(None)
         deal_ref01_match = {}
 
-        deal_ref01_list_result, err = deal_ref01_ent.list(deal_ref01_match, None)
-        assert err is None
+        deal_ref01_list_result = deal_ref01_ent.list(deal_ref01_match, None)
         assert isinstance(deal_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _deal_basic_setup(extra):
         "CHEAPSHARK_TEST_DEAL_ENTID": idmap,
         "CHEAPSHARK_TEST_LIVE": "FALSE",
         "CHEAPSHARK_TEST_EXPLAIN": "FALSE",
-        "CHEAPSHARK_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _deal_basic_setup(extra):
     if env.get("CHEAPSHARK_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("CHEAPSHARK_APIKEY"),
             },
             extra or {},
         ])

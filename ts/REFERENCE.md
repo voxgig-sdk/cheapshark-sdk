@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -146,7 +145,7 @@ Alias for `CheapsharkSDK.test()`.
 ## AlertEntity
 
 ```ts
-const alert = client.Alert()
+const alert = client.alert
 ```
 
 ### Fields
@@ -165,7 +164,7 @@ const alert = client.Alert()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Alert().create({
+const result = await client.alert.create({
 })
 ```
 
@@ -174,7 +173,7 @@ const result = await client.Alert().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Alert().list()
+const results = await client.alert.list()
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -182,7 +181,7 @@ const results = await client.Alert().list()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Alert().remove({ id: 'alert_id' })
+const result = await client.alert.remove({ id: 'alert_id' })
 ```
 
 ### Common Methods
@@ -216,7 +215,7 @@ Return a copy of the entity options.
 ## DealEntity
 
 ```ts
-const deal = client.Deal()
+const deal = client.deal
 ```
 
 ### Fields
@@ -250,7 +249,7 @@ const deal = client.Deal()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Deal().list()
+const results = await client.deal.list()
 ```
 
 ### Common Methods
@@ -284,7 +283,7 @@ Return a copy of the entity options.
 ## GameEntity
 
 ```ts
-const game = client.Game()
+const game = client.game
 ```
 
 ### Fields
@@ -306,7 +305,7 @@ const game = client.Game()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Game().list()
+const results = await client.game.list()
 ```
 
 ### Common Methods
@@ -340,7 +339,7 @@ Return a copy of the entity options.
 ## StoreEntity
 
 ```ts
-const store = client.Store()
+const store = client.store
 ```
 
 ### Fields
@@ -359,7 +358,7 @@ const store = client.Store()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Store().list()
+const results = await client.store.list()
 ```
 
 ### Common Methods

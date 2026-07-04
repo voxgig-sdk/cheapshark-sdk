@@ -103,7 +103,7 @@ class CheapsharkSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class CheapsharkSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class CheapsharkSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,45 +216,89 @@ class CheapsharkSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Alert($data = null)
+    private $_alert = null;
+
+    // Idiomatic facade: $client->alert()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Alert() (PHP method
+    // names are case-insensitive).
+    public function alert($data = null)
     {
         require_once __DIR__ . '/entity/alert_entity.php';
+        if ($data === null) {
+            if ($this->_alert === null) {
+                $this->_alert = new AlertEntity($this, null);
+            }
+            return $this->_alert;
+        }
         return new AlertEntity($this, $data);
     }
 
 
-    public function Deal($data = null)
+    private $_deal = null;
+
+    // Idiomatic facade: $client->deal()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Deal() (PHP method
+    // names are case-insensitive).
+    public function deal($data = null)
     {
         require_once __DIR__ . '/entity/deal_entity.php';
+        if ($data === null) {
+            if ($this->_deal === null) {
+                $this->_deal = new DealEntity($this, null);
+            }
+            return $this->_deal;
+        }
         return new DealEntity($this, $data);
     }
 
 
-    public function Game($data = null)
+    private $_game = null;
+
+    // Idiomatic facade: $client->game()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Game() (PHP method
+    // names are case-insensitive).
+    public function game($data = null)
     {
         require_once __DIR__ . '/entity/game_entity.php';
+        if ($data === null) {
+            if ($this->_game === null) {
+                $this->_game = new GameEntity($this, null);
+            }
+            return $this->_game;
+        }
         return new GameEntity($this, $data);
     }
 
 
-    public function Store($data = null)
+    private $_store = null;
+
+    // Idiomatic facade: $client->store()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Store() (PHP method
+    // names are case-insensitive).
+    public function store($data = null)
     {
         require_once __DIR__ . '/entity/store_entity.php';
+        if ($data === null) {
+            if ($this->_store === null) {
+                $this->_store = new StoreEntity($this, null);
+            }
+            return $this->_store;
+        }
         return new StoreEntity($this, $data);
     }
 

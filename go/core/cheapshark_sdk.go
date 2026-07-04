@@ -245,21 +245,33 @@ func (sdk *CheapsharkSDK) Direct(fetchargs map[string]any) (map[string]any, erro
 }
 
 
+// Alert returns a Alert entity bound to this client.
+// Idiomatic usage: client.Alert(nil).List(nil, nil) or
+// client.Alert(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CheapsharkSDK) Alert(data map[string]any) CheapsharkEntity {
 	return NewAlertEntityFunc(sdk, data)
 }
 
 
+// Deal returns a Deal entity bound to this client.
+// Idiomatic usage: client.Deal(nil).List(nil, nil) or
+// client.Deal(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CheapsharkSDK) Deal(data map[string]any) CheapsharkEntity {
 	return NewDealEntityFunc(sdk, data)
 }
 
 
+// Game returns a Game entity bound to this client.
+// Idiomatic usage: client.Game(nil).List(nil, nil) or
+// client.Game(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CheapsharkSDK) Game(data map[string]any) CheapsharkEntity {
 	return NewGameEntityFunc(sdk, data)
 }
 
 
+// Store returns a Store entity bound to this client.
+// Idiomatic usage: client.Store(nil).List(nil, nil) or
+// client.Store(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CheapsharkSDK) Store(data map[string]any) CheapsharkEntity {
 	return NewStoreEntityFunc(sdk, data)
 }

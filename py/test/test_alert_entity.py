@@ -44,16 +44,13 @@ class TestAlertEntity:
         alert_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.alert"), "alert_ref01"))
 
-        alert_ref01_data_result, err = alert_ref01_ent.create(alert_ref01_data, None)
-        assert err is None
-        alert_ref01_data = helpers.to_map(alert_ref01_data_result)
+        alert_ref01_data = helpers.to_map(alert_ref01_ent.create(alert_ref01_data, None))
         assert alert_ref01_data is not None
 
         # LIST
         alert_ref01_match = {}
 
-        alert_ref01_list_result, err = alert_ref01_ent.list(alert_ref01_match, None)
-        assert err is None
+        alert_ref01_list_result = alert_ref01_ent.list(alert_ref01_match, None)
         assert isinstance(alert_ref01_list_result, list)
 
         found_item = vs.select(
@@ -65,14 +62,12 @@ class TestAlertEntity:
         alert_ref01_match_rm0 = {
             "id": alert_ref01_data["id"],
         }
-        _, err = alert_ref01_ent.remove(alert_ref01_match_rm0, None)
-        assert err is None
+        alert_ref01_ent.remove(alert_ref01_match_rm0, None)
 
         # LIST
         alert_ref01_match_rt0 = {}
 
-        alert_ref01_list_rt0_result, err = alert_ref01_ent.list(alert_ref01_match_rt0, None)
-        assert err is None
+        alert_ref01_list_rt0_result = alert_ref01_ent.list(alert_ref01_match_rt0, None)
         assert isinstance(alert_ref01_list_rt0_result, list)
 
         not_found_item = vs.select(
@@ -118,7 +113,6 @@ def _alert_basic_setup(extra):
         "CHEAPSHARK_TEST_ALERT_ENTID": idmap,
         "CHEAPSHARK_TEST_LIVE": "FALSE",
         "CHEAPSHARK_TEST_EXPLAIN": "FALSE",
-        "CHEAPSHARK_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -129,7 +123,6 @@ def _alert_basic_setup(extra):
     if env.get("CHEAPSHARK_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("CHEAPSHARK_APIKEY"),
             },
             extra or {},
         ])

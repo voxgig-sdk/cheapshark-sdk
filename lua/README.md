@@ -9,12 +9,9 @@ The Lua SDK for the Cheapshark API — an entity-oriented client using Lua conve
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-cheapshark
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/cheapshark-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("cheapshark_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("CHEAPSHARK_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List alerts
 
 ```lua
-local result, err = client:Alert():list()
+local result, err = client:alert():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -54,10 +49,10 @@ end
 
 ```lua
 -- Create
-local created, _ = client:Alert():create({ name = "Example" })
+local created, _ = client:alert():create({ name = "Example" })
 
 -- Remove
-client:Alert():remove({ id = created["id"] })
+client:alert():remove({ id = created["id"] })
 ```
 
 
@@ -103,7 +98,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Cheapshark():load({ id = "test01" })
+local result, err = client:alert():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -137,7 +132,6 @@ Create a `.env.local` file at the project root:
 
 ```
 CHEAPSHARK_TEST_LIVE=TRUE
-CHEAPSHARK_APIKEY=<your-key>
 ```
 
 Then run:
@@ -160,7 +154,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -300,7 +293,7 @@ API path: `/stores`
 
 ### Alert
 
-Create an instance: `const alert = client.Alert()`
+Create an instance: `const alert = client.alert`
 
 #### Operations
 
@@ -322,20 +315,20 @@ Create an instance: `const alert = client.Alert()`
 #### Example: List
 
 ```ts
-const alerts = await client.Alert().list()
+const alerts = await client.alert.list()
 ```
 
 #### Example: Create
 
 ```ts
-const alert = await client.Alert().create({
+const alert = await client.alert.create({
 })
 ```
 
 
 ### Deal
 
-Create an instance: `const deal = client.Deal()`
+Create an instance: `const deal = client.deal`
 
 #### Operations
 
@@ -370,13 +363,13 @@ Create an instance: `const deal = client.Deal()`
 #### Example: List
 
 ```ts
-const deals = await client.Deal().list()
+const deals = await client.deal.list()
 ```
 
 
 ### Game
 
-Create an instance: `const game = client.Game()`
+Create an instance: `const game = client.game`
 
 #### Operations
 
@@ -399,13 +392,13 @@ Create an instance: `const game = client.Game()`
 #### Example: List
 
 ```ts
-const games = await client.Game().list()
+const games = await client.game.list()
 ```
 
 
 ### Store
 
-Create an instance: `const store = client.Store()`
+Create an instance: `const store = client.store`
 
 #### Operations
 
@@ -425,7 +418,7 @@ Create an instance: `const store = client.Store()`
 #### Example: List
 
 ```ts
-const stores = await client.Store().list()
+const stores = await client.store.list()
 ```
 
 
@@ -500,11 +493,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local alert = client:alert()
+alert:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- alert:data_get() now returns the loaded alert data
+-- alert:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Deal,
+  DealListMatch,
+} from '../CheapsharkTypes'
 
 // TODO: needs Entity superclass
-class DealEntity extends CheapsharkEntityBase {
+class DealEntity extends CheapsharkEntityBase<Deal> {
 
   constructor(client: CheapsharkSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class DealEntity extends CheapsharkEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: DealListMatch, ctrl?: Control): Promise<Deal[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class DealEntity extends CheapsharkEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Deal[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

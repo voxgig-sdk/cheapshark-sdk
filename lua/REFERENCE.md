@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -96,7 +95,7 @@ same parameters as `direct()`.
 ## AlertEntity
 
 ```lua
-local alert = client:Alert(nil)
+local alert = client:alert(nil)
 ```
 
 ### Fields
@@ -115,7 +114,7 @@ local alert = client:Alert(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Alert():create({
+local result, err = client:alert():create({
 })
 ```
 
@@ -124,7 +123,7 @@ local result, err = client:Alert():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Alert():list()
+local results, err = client:alert():list()
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -132,7 +131,7 @@ local results, err = client:Alert():list()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Alert():remove({ id = "alert_id" })
+local result, err = client:alert():remove({ id = "alert_id" })
 ```
 
 ### Common Methods
@@ -168,7 +167,7 @@ Return the entity name.
 ## DealEntity
 
 ```lua
-local deal = client:Deal(nil)
+local deal = client:deal(nil)
 ```
 
 ### Fields
@@ -202,7 +201,7 @@ local deal = client:Deal(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Deal():list()
+local results, err = client:deal():list()
 ```
 
 ### Common Methods
@@ -238,7 +237,7 @@ Return the entity name.
 ## GameEntity
 
 ```lua
-local game = client:Game(nil)
+local game = client:game(nil)
 ```
 
 ### Fields
@@ -260,7 +259,7 @@ local game = client:Game(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Game():list()
+local results, err = client:game():list()
 ```
 
 ### Common Methods
@@ -296,7 +295,7 @@ Return the entity name.
 ## StoreEntity
 
 ```lua
-local store = client:Store(nil)
+local store = client:store(nil)
 ```
 
 ### Fields
@@ -315,7 +314,7 @@ local store = client:Store(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Store():list()
+local results, err = client:store():list()
 ```
 
 ### Common Methods

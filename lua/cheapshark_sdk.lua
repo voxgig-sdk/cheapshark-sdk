@@ -244,24 +244,76 @@ end
 
 
 
+-- Idiomatic facade: client:alert():list() / client:alert():load({ id = ... })
+function CheapsharkSDK:alert(data)
+  local EntityMod = require("entity.alert_entity")
+  if data == nil then
+    if self._alert == nil then
+      self._alert = EntityMod.new(self, nil)
+    end
+    return self._alert
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:alert() instead.
 function CheapsharkSDK:Alert(data)
   local EntityMod = require("entity.alert_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:deal():list() / client:deal():load({ id = ... })
+function CheapsharkSDK:deal(data)
+  local EntityMod = require("entity.deal_entity")
+  if data == nil then
+    if self._deal == nil then
+      self._deal = EntityMod.new(self, nil)
+    end
+    return self._deal
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:deal() instead.
 function CheapsharkSDK:Deal(data)
   local EntityMod = require("entity.deal_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:game():list() / client:game():load({ id = ... })
+function CheapsharkSDK:game(data)
+  local EntityMod = require("entity.game_entity")
+  if data == nil then
+    if self._game == nil then
+      self._game = EntityMod.new(self, nil)
+    end
+    return self._game
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:game() instead.
 function CheapsharkSDK:Game(data)
   local EntityMod = require("entity.game_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:store():list() / client:store():load({ id = ... })
+function CheapsharkSDK:store(data)
+  local EntityMod = require("entity.store_entity")
+  if data == nil then
+    if self._store == nil then
+      self._store = EntityMod.new(self, nil)
+    end
+    return self._store
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:store() instead.
 function CheapsharkSDK:Store(data)
   local EntityMod = require("entity.store_entity")
   return EntityMod.new(self, data)

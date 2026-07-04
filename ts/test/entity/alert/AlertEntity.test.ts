@@ -134,7 +134,6 @@ function basicSetup(extra?: any) {
     'CHEAPSHARK_TEST_ALERT_ENTID': idmap,
     'CHEAPSHARK_TEST_LIVE': 'FALSE',
     'CHEAPSHARK_TEST_EXPLAIN': 'FALSE',
-    'CHEAPSHARK_APIKEY': 'NONE',
   })
 
   idmap = env['CHEAPSHARK_TEST_ALERT_ENTID']
@@ -144,7 +143,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new CheapsharkSDK(merge([
       {
-        apikey: env.CHEAPSHARK_APIKEY,
       },
       extra
     ]))

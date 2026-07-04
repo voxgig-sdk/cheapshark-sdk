@@ -50,8 +50,7 @@ class DealEntityTest extends TestCase
         $deal_ref01_ent = $client->Deal(null);
         $deal_ref01_match = [];
 
-        [$deal_ref01_list_result, $err] = $deal_ref01_ent->list($deal_ref01_match, null);
-        $this->assertNull($err);
+        $deal_ref01_list_result = $deal_ref01_ent->list($deal_ref01_match, null);
         $this->assertIsArray($deal_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function deal_basic_setup($extra)
         "CHEAPSHARK_TEST_DEAL_ENTID" => $idmap,
         "CHEAPSHARK_TEST_LIVE" => "FALSE",
         "CHEAPSHARK_TEST_EXPLAIN" => "FALSE",
-        "CHEAPSHARK_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function deal_basic_setup($extra)
     if ($env["CHEAPSHARK_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["CHEAPSHARK_APIKEY"],
             ],
             $extra ?? [],
         ]);

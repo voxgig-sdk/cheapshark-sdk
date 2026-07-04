@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch StoreListMatch
+---@param ctrl? table
+---@return Store[]
+---@return string? err
 function StoreEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch DealListMatch
+---@param ctrl? table
+---@return Deal[]
+---@return string? err
 function DealEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

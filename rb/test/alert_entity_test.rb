@@ -36,16 +36,14 @@ class AlertEntityTest < Minitest::Test
     alert_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.alert"), "alert_ref01"))
 
-    alert_ref01_data_result, err = alert_ref01_ent.create(alert_ref01_data, nil)
-    assert_nil err
+    alert_ref01_data_result = alert_ref01_ent.create(alert_ref01_data, nil)
     alert_ref01_data = Helpers.to_map(alert_ref01_data_result)
     assert !alert_ref01_data.nil?
 
     # LIST
     alert_ref01_match = {}
 
-    alert_ref01_list_result, err = alert_ref01_ent.list(alert_ref01_match, nil)
-    assert_nil err
+    alert_ref01_list_result = alert_ref01_ent.list(alert_ref01_match, nil)
     assert alert_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(
@@ -57,14 +55,12 @@ class AlertEntityTest < Minitest::Test
     alert_ref01_match_rm0 = {
       "id" => alert_ref01_data["id"],
     }
-    _, err = alert_ref01_ent.remove(alert_ref01_match_rm0, nil)
-    assert_nil err
+    alert_ref01_ent.remove(alert_ref01_match_rm0, nil)
 
     # LIST
     alert_ref01_match_rt0 = {}
 
-    alert_ref01_list_rt0_result, err = alert_ref01_ent.list(alert_ref01_match_rt0, nil)
-    assert_nil err
+    alert_ref01_list_rt0_result = alert_ref01_ent.list(alert_ref01_match_rt0, nil)
     assert alert_ref01_list_rt0_result.is_a?(Array)
 
     not_found_item = Vs.select(
@@ -108,7 +104,6 @@ def alert_basic_setup(extra)
     "CHEAPSHARK_TEST_ALERT_ENTID" => idmap,
     "CHEAPSHARK_TEST_LIVE" => "FALSE",
     "CHEAPSHARK_TEST_EXPLAIN" => "FALSE",
-    "CHEAPSHARK_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -120,7 +115,6 @@ def alert_basic_setup(extra)
   if env["CHEAPSHARK_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["CHEAPSHARK_APIKEY"],
       },
       extra || {},
     ])
