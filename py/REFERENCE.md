@@ -92,7 +92,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## AlertEntity
 
 ```python
-alert = client.alert
+alert = client.Alert()
 ```
 
 ### Fields
@@ -111,7 +111,7 @@ alert = client.alert
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.alert.create({
+result = client.Alert().create({
 })
 ```
 
@@ -120,7 +120,9 @@ result = client.alert.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.alert.list({})
+results = client.Alert().list({})
+for alert in results:
+    print(alert)
 ```
 
 #### `remove(reqmatch, ctrl=None) -> dict`
@@ -128,7 +130,7 @@ results = client.alert.list({})
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.alert.remove({"id": "alert_id"})
+result = client.Alert().remove({"id": "alert_id"})
 ```
 
 ### Common Methods
@@ -163,7 +165,7 @@ Return the entity name.
 ## DealEntity
 
 ```python
-deal = client.deal
+deal = client.Deal()
 ```
 
 ### Fields
@@ -197,7 +199,9 @@ deal = client.deal
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.deal.list({})
+results = client.Deal().list({})
+for deal in results:
+    print(deal)
 ```
 
 ### Common Methods
@@ -232,7 +236,7 @@ Return the entity name.
 ## GameEntity
 
 ```python
-game = client.game
+game = client.Game()
 ```
 
 ### Fields
@@ -254,7 +258,9 @@ game = client.game
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.game.list({})
+results = client.Game().list({})
+for game in results:
+    print(game)
 ```
 
 ### Common Methods
@@ -289,7 +295,7 @@ Return the entity name.
 ## StoreEntity
 
 ```python
-store = client.store
+store = client.Store()
 ```
 
 ### Fields
@@ -308,7 +314,9 @@ store = client.store
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.store.list({})
+results = client.Store().list({})
+for store in results:
+    print(store)
 ```
 
 ### Common Methods

@@ -29,18 +29,16 @@ require_once 'cheapshark_sdk.php';
 $client = new CheapsharkSDK();
 ```
 
-### 2. List alerts
+### 2. List alert records
 
 ```php
 try {
-    $result = $client->alert()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Alert records — iterate directly.
+    $alerts = $client->Alert()->list();
+    foreach ($alerts as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -48,11 +46,11 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// Create
-$created = $client->alert()->create(["name" => "Example"]);
+// create() returns the bare created Alert record.
+$created = $client->Alert()->create(["name" => "Example"]);
 
 // Remove
-$client->alert()->remove(["id" => $created["id"]]);
+$client->Alert()->remove(["id" => $created["id"]]);
 ```
 
 
@@ -96,13 +94,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = CheapsharkSDK::test();
+$client = CheapsharkSDK::test([
+    "entity" => ["alert" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->alert()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$alert = $client->Alert()->load(["id" => "test01"]);
+print_r($alert);
 ```
 
 ### Use a custom fetch function
@@ -181,7 +183,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Alert` | `($data): AlertEntity` | Create a Alert entity instance. |
+| `Alert` | `($data): AlertEntity` | Create an Alert entity instance. |
 | `Deal` | `($data): DealEntity` | Create a Deal entity instance. |
 | `Game` | `($data): GameEntity` | Create a Game entity instance. |
 | `Store` | `($data): StoreEntity` | Create a Store entity instance. |
@@ -301,7 +303,7 @@ API path: `/stores`
 
 ### Alert
 
-Create an instance: `const alert = client.alert`
+Create an instance: `$alert = $client->Alert();`
 
 #### Operations
 
@@ -322,21 +324,22 @@ Create an instance: `const alert = client.alert`
 
 #### Example: List
 
-```ts
-const alerts = await client.alert.list()
+```php
+// list() returns an array of Alert records (throws on error).
+$alerts = $client->Alert()->list();
 ```
 
 #### Example: Create
 
-```ts
-const alert = await client.alert.create({
-})
+```php
+$alert = $client->Alert()->create([
+]);
 ```
 
 
 ### Deal
 
-Create an instance: `const deal = client.deal`
+Create an instance: `$deal = $client->Deal();`
 
 #### Operations
 
@@ -370,14 +373,15 @@ Create an instance: `const deal = client.deal`
 
 #### Example: List
 
-```ts
-const deals = await client.deal.list()
+```php
+// list() returns an array of Deal records (throws on error).
+$deals = $client->Deal()->list();
 ```
 
 
 ### Game
 
-Create an instance: `const game = client.game`
+Create an instance: `$game = $client->Game();`
 
 #### Operations
 
@@ -399,14 +403,15 @@ Create an instance: `const game = client.game`
 
 #### Example: List
 
-```ts
-const games = await client.game.list()
+```php
+// list() returns an array of Game records (throws on error).
+$games = $client->Game()->list();
 ```
 
 
 ### Store
 
-Create an instance: `const store = client.store`
+Create an instance: `$store = $client->Store();`
 
 #### Operations
 
@@ -425,8 +430,9 @@ Create an instance: `const store = client.store`
 
 #### Example: List
 
-```ts
-const stores = await client.store.list()
+```php
+// list() returns an array of Store records (throws on error).
+$stores = $client->Store()->list();
 ```
 
 
@@ -501,7 +507,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$alert = $client->alert();
+$alert = $client->Alert();
 $alert->load(["id" => "example_id"]);
 
 // $alert->dataGet() now returns the loaded alert data

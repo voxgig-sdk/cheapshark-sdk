@@ -28,16 +28,14 @@ require_relative "Cheapshark_sdk"
 client = CheapsharkSDK.new
 ```
 
-### 2. List alerts
+### 2. List alert records
 
 ```ruby
 begin
-  result = client.alert.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Alert records — iterate directly.
+  alerts = client.Alert.list
+  alerts.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -47,11 +45,11 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# Create
-created = client.alert.create({ "name" => "Example" })
+# create returns the bare created Alert record.
+created = client.Alert.create({ "name" => "Example" })
 
 # Remove
-client.alert.remove({ "id" => created["id"] })
+client.Alert.remove({ "id" => created["id"] })
 ```
 
 
@@ -95,13 +93,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = CheapsharkSDK.test
+client = CheapsharkSDK.test({
+  "entity" => { "alert" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.alert.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+alert = client.Alert.load({ "id" => "test01" })
+puts alert
 ```
 
 ### Use a custom fetch function
@@ -177,7 +179,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Alert` | `(data) -> AlertEntity` | Create a Alert entity instance. |
+| `Alert` | `(data) -> AlertEntity` | Create an Alert entity instance. |
 | `Deal` | `(data) -> DealEntity` | Create a Deal entity instance. |
 | `Game` | `(data) -> GameEntity` | Create a Game entity instance. |
 | `Store` | `(data) -> StoreEntity` | Create a Store entity instance. |
@@ -296,7 +298,7 @@ API path: `/stores`
 
 ### Alert
 
-Create an instance: `const alert = client.alert`
+Create an instance: `alert = client.Alert`
 
 #### Operations
 
@@ -317,21 +319,22 @@ Create an instance: `const alert = client.alert`
 
 #### Example: List
 
-```ts
-const alerts = await client.alert.list()
+```ruby
+# list returns an Array of Alert records (raises on error).
+alerts = client.Alert.list
 ```
 
 #### Example: Create
 
-```ts
-const alert = await client.alert.create({
+```ruby
+alert = client.Alert.create({
 })
 ```
 
 
 ### Deal
 
-Create an instance: `const deal = client.deal`
+Create an instance: `deal = client.Deal`
 
 #### Operations
 
@@ -365,14 +368,15 @@ Create an instance: `const deal = client.deal`
 
 #### Example: List
 
-```ts
-const deals = await client.deal.list()
+```ruby
+# list returns an Array of Deal records (raises on error).
+deals = client.Deal.list
 ```
 
 
 ### Game
 
-Create an instance: `const game = client.game`
+Create an instance: `game = client.Game`
 
 #### Operations
 
@@ -394,14 +398,15 @@ Create an instance: `const game = client.game`
 
 #### Example: List
 
-```ts
-const games = await client.game.list()
+```ruby
+# list returns an Array of Game records (raises on error).
+games = client.Game.list
 ```
 
 
 ### Store
 
-Create an instance: `const store = client.store`
+Create an instance: `store = client.Store`
 
 #### Operations
 
@@ -420,8 +425,9 @@ Create an instance: `const store = client.store`
 
 #### Example: List
 
-```ts
-const stores = await client.store.list()
+```ruby
+# list returns an Array of Store records (raises on error).
+stores = client.Store.list
 ```
 
 
@@ -496,7 +502,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-alert = client.alert
+alert = client.Alert
 alert.load({ "id" => "example_id" })
 
 # alert.data_get now returns the loaded alert data

@@ -31,17 +31,17 @@ local sdk = require("cheapshark_sdk")
 local client = sdk.new()
 ```
 
-### 2. List alerts
+### 2. List alert records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:alert():list()
+local alerts, err = client:Alert():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(alerts) do
+  print(item["id"], item["name"])
 end
 ```
 
@@ -49,10 +49,11 @@ end
 
 ```lua
 -- Create
-local created, _ = client:alert():create({ name = "Example" })
+local created, err = client:Alert():create({ name = "Example" })
+if err then error(err) end
 
 -- Remove
-client:alert():remove({ id = created["id"] })
+client:Alert():remove({ id = created["id"] })
 ```
 
 
@@ -98,8 +99,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:alert():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Alert():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -177,7 +178,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
-| `Alert` | `(data) -> AlertEntity` | Create a Alert entity instance. |
+| `Alert` | `(data) -> AlertEntity` | Create an Alert entity instance. |
 | `Deal` | `(data) -> DealEntity` | Create a Deal entity instance. |
 | `Game` | `(data) -> GameEntity` | Create a Game entity instance. |
 | `Store` | `(data) -> StoreEntity` | Create a Store entity instance. |
@@ -202,17 +203,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local alert, err = client:Alert():load({ id = "example_id" })
+    if err then error(err) end
+    -- alert is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -293,7 +299,7 @@ API path: `/stores`
 
 ### Alert
 
-Create an instance: `const alert = client.alert`
+Create an instance: `local alert = client:Alert(nil)`
 
 #### Operations
 
@@ -314,21 +320,21 @@ Create an instance: `const alert = client.alert`
 
 #### Example: List
 
-```ts
-const alerts = await client.alert.list()
+```lua
+local alerts, err = client:Alert():list()
 ```
 
 #### Example: Create
 
-```ts
-const alert = await client.alert.create({
+```lua
+local alert, err = client:Alert():create({
 })
 ```
 
 
 ### Deal
 
-Create an instance: `const deal = client.deal`
+Create an instance: `local deal = client:Deal(nil)`
 
 #### Operations
 
@@ -362,14 +368,14 @@ Create an instance: `const deal = client.deal`
 
 #### Example: List
 
-```ts
-const deals = await client.deal.list()
+```lua
+local deals, err = client:Deal():list()
 ```
 
 
 ### Game
 
-Create an instance: `const game = client.game`
+Create an instance: `local game = client:Game(nil)`
 
 #### Operations
 
@@ -391,14 +397,14 @@ Create an instance: `const game = client.game`
 
 #### Example: List
 
-```ts
-const games = await client.game.list()
+```lua
+local games, err = client:Game():list()
 ```
 
 
 ### Store
 
-Create an instance: `const store = client.store`
+Create an instance: `local store = client:Store(nil)`
 
 #### Operations
 
@@ -417,8 +423,8 @@ Create an instance: `const store = client.store`
 
 #### Example: List
 
-```ts
-const stores = await client.store.list()
+```lua
+local stores, err = client:Store():list()
 ```
 
 
@@ -493,7 +499,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local alert = client:alert()
+local alert = client:Alert()
 alert:load({ id = "example_id" })
 
 -- alert:data_get() now returns the loaded alert data

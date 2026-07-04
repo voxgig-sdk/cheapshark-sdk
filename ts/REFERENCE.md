@@ -145,7 +145,7 @@ Alias for `CheapsharkSDK.test()`.
 ## AlertEntity
 
 ```ts
-const alert = client.alert
+const alert = client.Alert()
 ```
 
 ### Fields
@@ -164,7 +164,7 @@ const alert = client.alert
 Create a new entity with the given data.
 
 ```ts
-const result = await client.alert.create({
+const result = await client.Alert().create({
 })
 ```
 
@@ -173,7 +173,7 @@ const result = await client.alert.create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.alert.list()
+const results = await client.Alert().list()
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -181,7 +181,7 @@ const results = await client.alert.list()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.alert.remove({ id: 'alert_id' })
+const result = await client.Alert().remove({ id: 'alert_id' })
 ```
 
 ### Common Methods
@@ -215,7 +215,7 @@ Return a copy of the entity options.
 ## DealEntity
 
 ```ts
-const deal = client.deal
+const deal = client.Deal()
 ```
 
 ### Fields
@@ -249,7 +249,7 @@ const deal = client.deal
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.deal.list()
+const results = await client.Deal().list()
 ```
 
 ### Common Methods
@@ -283,7 +283,7 @@ Return a copy of the entity options.
 ## GameEntity
 
 ```ts
-const game = client.game
+const game = client.Game()
 ```
 
 ### Fields
@@ -305,7 +305,7 @@ const game = client.game
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.game.list()
+const results = await client.Game().list()
 ```
 
 ### Common Methods
@@ -339,7 +339,7 @@ Return a copy of the entity options.
 ## StoreEntity
 
 ```ts
-const store = client.store
+const store = client.Store()
 ```
 
 ### Fields
@@ -358,7 +358,7 @@ const store = client.store
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.store.list()
+const results = await client.Store().list()
 ```
 
 ### Common Methods

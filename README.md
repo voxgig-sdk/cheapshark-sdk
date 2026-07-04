@@ -26,9 +26,11 @@ import { CheapsharkSDK } from '@voxgig-sdk/cheapshark'
 
 const client = new CheapsharkSDK()
 
-// List all alerts
-const alerts = await client.alert.list()
-console.log(alerts.data)
+// List all alerts (returns Alert[])
+const alerts = await client.Alert().list()
+for (const alert of alerts) {
+  console.log(alert)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -86,9 +88,10 @@ from cheapshark_sdk import CheapsharkSDK
 
 client = CheapsharkSDK()
 
-# List all alerts
-alerts = client.alert.list()
-print(alerts)
+# List all alerts (returns a list, raises on error)
+alerts = client.Alert().list({})
+for alert in alerts:
+    print(alert)
 ```
 
 ### PHP
@@ -99,8 +102,8 @@ require_once 'cheapshark_sdk.php';
 
 $client = new CheapsharkSDK();
 
-// List all alerts (throws on error)
-$alerts = $client->alert()->list();
+// List all alerts (returns an array; throws on error)
+$alerts = $client->Alert()->list();
 print_r($alerts);
 ```
 
@@ -123,8 +126,8 @@ require_relative "Cheapshark_sdk"
 
 client = CheapsharkSDK.new
 
-# List all alerts
-alerts = client.alert.list
+# List all alerts (returns an Array; raises on error)
+alerts = client.Alert.list
 puts alerts
 ```
 
@@ -136,7 +139,7 @@ local sdk = require("cheapshark_sdk")
 local client = sdk.new()
 
 -- List all alerts
-local alerts, err = client:alert():list()
+local alerts, err = client:Alert():list()
 print(alerts)
 ```
 
@@ -149,22 +152,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = CheapsharkSDK.test()
-const result = await client.alert.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const alert = await client.Alert().load({ id: 'test01' })
+// alert is a bare Alert populated with mock data
+console.log(alert)
 ```
 
 ### Python
 
 ```python
 client = CheapsharkSDK.test()
-result = client.alert.load({"id": "test01"})
+alert = client.Alert().load({"id": "test01"})
+print(alert)
 ```
 
 ### PHP
 
 ```php
-$client = CheapsharkSDK::test();
-$result = $client->alert()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = CheapsharkSDK::test([
+    "entity" => ["alert" => ["test01" => ["id" => "test01"]]],
+]);
+$alert = $client->Alert()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -179,15 +187,18 @@ result, err := client.Alert(nil).Load(
 ### Ruby
 
 ```ruby
-client = CheapsharkSDK.test
-result = client.alert.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = CheapsharkSDK.test({
+  "entity" => { "alert" => { "test01" => { "id" => "test01" } } },
+})
+alert = client.Alert.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:alert():load({ id = "test01" })
+local result, err = client:Alert():load({ id = "test01" })
 ```
 
 ## How it works
@@ -235,6 +246,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

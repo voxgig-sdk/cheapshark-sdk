@@ -97,7 +97,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## AlertEntity
 
 ```php
-$alert = $client->alert();
+$alert = $client->Alert();
 ```
 
 ### Fields
@@ -116,7 +116,7 @@ $alert = $client->alert();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->alert()->create([
+$result = $client->Alert()->create([
 ]);
 ```
 
@@ -125,7 +125,7 @@ $result = $client->alert()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->alert()->list([]);
+$results = $client->Alert()->list([]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -133,7 +133,7 @@ $results = $client->alert()->list([]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->alert()->remove(["id" => "alert_id"]);
+$result = $client->Alert()->remove(["id" => "alert_id"]);
 ```
 
 ### Common Methods
@@ -169,7 +169,7 @@ Return the entity name.
 ## DealEntity
 
 ```php
-$deal = $client->deal();
+$deal = $client->Deal();
 ```
 
 ### Fields
@@ -203,7 +203,7 @@ $deal = $client->deal();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->deal()->list([]);
+$results = $client->Deal()->list([]);
 ```
 
 ### Common Methods
@@ -239,7 +239,7 @@ Return the entity name.
 ## GameEntity
 
 ```php
-$game = $client->game();
+$game = $client->Game();
 ```
 
 ### Fields
@@ -261,7 +261,7 @@ $game = $client->game();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->game()->list([]);
+$results = $client->Game()->list([]);
 ```
 
 ### Common Methods
@@ -297,7 +297,7 @@ Return the entity name.
 ## StoreEntity
 
 ```php
-$store = $client->store();
+$store = $client->Store();
 ```
 
 ### Fields
@@ -316,7 +316,7 @@ $store = $client->store();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->store()->list([]);
+$results = $client->Store()->list([]);
 ```
 
 ### Common Methods

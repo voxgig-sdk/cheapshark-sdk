@@ -31,14 +31,16 @@ from cheapshark_sdk import CheapsharkSDK
 client = CheapsharkSDK()
 ```
 
-### 2. List alerts
+### 2. List alert records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.alert.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    alerts = client.Alert().list({})
+    for alert in alerts:
+        print(alert)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -46,11 +48,11 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.alert.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.Alert().create({"name": "Example"})
 
 # Remove
-client.alert.remove({"id": created["id"]})
+client.Alert().remove({"id": created["id"]})
 ```
 
 
@@ -96,8 +98,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = CheapsharkSDK.test()
 
-result = client.alert.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+alert = client.Alert().load({"id": "test01"})
+# alert contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -173,7 +176,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Alert` | `(data) -> AlertEntity` | Create a Alert entity instance. |
+| `Alert` | `(data) -> AlertEntity` | Create an Alert entity instance. |
 | `Deal` | `(data) -> DealEntity` | Create a Deal entity instance. |
 | `Game` | `(data) -> GameEntity` | Create a Game entity instance. |
 | `Store` | `(data) -> StoreEntity` | Create a Store entity instance. |
@@ -293,7 +296,7 @@ API path: `/stores`
 
 ### Alert
 
-Create an instance: `const alert = client.alert`
+Create an instance: `alert = client.Alert()`
 
 #### Operations
 
@@ -314,21 +317,21 @@ Create an instance: `const alert = client.alert`
 
 #### Example: List
 
-```ts
-const alerts = await client.alert.list()
+```python
+alerts = client.Alert().list({})
 ```
 
 #### Example: Create
 
-```ts
-const alert = await client.alert.create({
+```python
+alert = client.Alert().create({
 })
 ```
 
 
 ### Deal
 
-Create an instance: `const deal = client.deal`
+Create an instance: `deal = client.Deal()`
 
 #### Operations
 
@@ -362,14 +365,14 @@ Create an instance: `const deal = client.deal`
 
 #### Example: List
 
-```ts
-const deals = await client.deal.list()
+```python
+deals = client.Deal().list({})
 ```
 
 
 ### Game
 
-Create an instance: `const game = client.game`
+Create an instance: `game = client.Game()`
 
 #### Operations
 
@@ -391,14 +394,14 @@ Create an instance: `const game = client.game`
 
 #### Example: List
 
-```ts
-const games = await client.game.list()
+```python
+games = client.Game().list({})
 ```
 
 
 ### Store
 
-Create an instance: `const store = client.store`
+Create an instance: `store = client.Store()`
 
 #### Operations
 
@@ -417,8 +420,8 @@ Create an instance: `const store = client.store`
 
 #### Example: List
 
-```ts
-const stores = await client.store.list()
+```python
+stores = client.Store().list({})
 ```
 
 
@@ -492,7 +495,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-alert = client.alert
+alert = client.Alert()
 alert.load({"id": "example_id"})
 
 # alert.data_get() now returns the loaded alert data

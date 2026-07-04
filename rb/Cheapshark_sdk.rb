@@ -208,52 +208,28 @@ class CheapsharkSDK
   end
 
 
-  # Idiomatic facade: client.alert.list / client.alert.load({ "id" => ... })
-  def alert
-    require_relative 'entity/alert_entity'
-    @alert ||= AlertEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.alert instead.
+  # Canonical facade: client.Alert.list / client.Alert.load({ "id" => ... })
   def Alert(data = nil)
     require_relative 'entity/alert_entity'
     AlertEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.deal.list / client.deal.load({ "id" => ... })
-  def deal
-    require_relative 'entity/deal_entity'
-    @deal ||= DealEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.deal instead.
+  # Canonical facade: client.Deal.list / client.Deal.load({ "id" => ... })
   def Deal(data = nil)
     require_relative 'entity/deal_entity'
     DealEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.game.list / client.game.load({ "id" => ... })
-  def game
-    require_relative 'entity/game_entity'
-    @game ||= GameEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.game instead.
+  # Canonical facade: client.Game.list / client.Game.load({ "id" => ... })
   def Game(data = nil)
     require_relative 'entity/game_entity'
     GameEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.store.list / client.store.load({ "id" => ... })
-  def store
-    require_relative 'entity/store_entity'
-    @store ||= StoreEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.store instead.
+  # Canonical facade: client.Store.list / client.Store.load({ "id" => ... })
   def Store(data = nil)
     require_relative 'entity/store_entity'
     StoreEntity.new(self, data)

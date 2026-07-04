@@ -220,73 +220,33 @@ class CheapsharkSDK:
         }
 
 
-    @property
-    def alert(self):
-        """Idiomatic facade: client.alert.list() / client.alert.load({"id": ...})."""
-        from entity.alert_entity import AlertEntity
-        cached = getattr(self, "_alert", None)
-        if cached is None:
-            cached = AlertEntity(self, None)
-            self._alert = cached
-        return cached
-
-    def Alert(self, data=None):
-        # Deprecated: use client.alert instead.
+    def Alert(self, data=None) -> "AlertEntity":
+        """Entity factory: client.Alert().list({}) / client.Alert().load({"id": ...})."""
         from entity.alert_entity import AlertEntity
         return AlertEntity(self, data)
 
 
-    @property
-    def deal(self):
-        """Idiomatic facade: client.deal.list() / client.deal.load({"id": ...})."""
-        from entity.deal_entity import DealEntity
-        cached = getattr(self, "_deal", None)
-        if cached is None:
-            cached = DealEntity(self, None)
-            self._deal = cached
-        return cached
-
-    def Deal(self, data=None):
-        # Deprecated: use client.deal instead.
+    def Deal(self, data=None) -> "DealEntity":
+        """Entity factory: client.Deal().list({}) / client.Deal().load({"id": ...})."""
         from entity.deal_entity import DealEntity
         return DealEntity(self, data)
 
 
-    @property
-    def game(self):
-        """Idiomatic facade: client.game.list() / client.game.load({"id": ...})."""
-        from entity.game_entity import GameEntity
-        cached = getattr(self, "_game", None)
-        if cached is None:
-            cached = GameEntity(self, None)
-            self._game = cached
-        return cached
-
-    def Game(self, data=None):
-        # Deprecated: use client.game instead.
+    def Game(self, data=None) -> "GameEntity":
+        """Entity factory: client.Game().list({}) / client.Game().load({"id": ...})."""
         from entity.game_entity import GameEntity
         return GameEntity(self, data)
 
 
-    @property
-    def store(self):
-        """Idiomatic facade: client.store.list() / client.store.load({"id": ...})."""
-        from entity.store_entity import StoreEntity
-        cached = getattr(self, "_store", None)
-        if cached is None:
-            cached = StoreEntity(self, None)
-            self._store = cached
-        return cached
-
-    def Store(self, data=None):
-        # Deprecated: use client.store instead.
+    def Store(self, data=None) -> "StoreEntity":
+        """Entity factory: client.Store().list({}) / client.Store().load({"id": ...})."""
         from entity.store_entity import StoreEntity
         return StoreEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "CheapsharkSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -306,3 +266,12 @@ class CheapsharkSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.alert_entity import AlertEntity
+    from entity.deal_entity import DealEntity
+    from entity.game_entity import GameEntity
+    from entity.store_entity import StoreEntity

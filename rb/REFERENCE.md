@@ -98,7 +98,7 @@ same parameters as `direct()`. Raises on error.
 ## AlertEntity
 
 ```ruby
-alert = client.alert
+alert = client.Alert
 ```
 
 ### Fields
@@ -117,7 +117,7 @@ alert = client.alert
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.alert.create({
+result = client.Alert.create({
 })
 ```
 
@@ -126,7 +126,7 @@ result = client.alert.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.alert.list(nil)
+results = client.Alert.list(nil)
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -134,7 +134,7 @@ results = client.alert.list(nil)
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.alert.remove({ "id" => "alert_id" })
+result = client.Alert.remove({ "id" => "alert_id" })
 ```
 
 ### Common Methods
@@ -170,7 +170,7 @@ Return the entity name.
 ## DealEntity
 
 ```ruby
-deal = client.deal
+deal = client.Deal
 ```
 
 ### Fields
@@ -204,7 +204,7 @@ deal = client.deal
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.deal.list(nil)
+results = client.Deal.list(nil)
 ```
 
 ### Common Methods
@@ -240,7 +240,7 @@ Return the entity name.
 ## GameEntity
 
 ```ruby
-game = client.game
+game = client.Game
 ```
 
 ### Fields
@@ -262,7 +262,7 @@ game = client.game
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.game.list(nil)
+results = client.Game.list(nil)
 ```
 
 ### Common Methods
@@ -298,7 +298,7 @@ Return the entity name.
 ## StoreEntity
 
 ```ruby
-store = client.store
+store = client.Store
 ```
 
 ### Fields
@@ -317,7 +317,7 @@ store = client.store
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.store.list(nil)
+results = client.Store.list(nil)
 ```
 
 ### Common Methods

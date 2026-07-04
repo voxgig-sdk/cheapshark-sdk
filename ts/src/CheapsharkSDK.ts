@@ -207,56 +207,28 @@ class CheapsharkSDK {
 
 
 
-  _alert?: AlertEntity
-
-  // Idiomatic facade: `client.alert.list()` / `client.alert.load({ id })`.
-  get alert(): AlertEntity {
-    return (this._alert ??= new AlertEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.alert` instead. */
+  // Entity access: `client.Alert().list()` / `client.Alert().load({ id })`.
   Alert(data?: any) {
     const self = this
     return new AlertEntity(self,data)
   }
 
 
-  _deal?: DealEntity
-
-  // Idiomatic facade: `client.deal.list()` / `client.deal.load({ id })`.
-  get deal(): DealEntity {
-    return (this._deal ??= new DealEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.deal` instead. */
+  // Entity access: `client.Deal().list()` / `client.Deal().load({ id })`.
   Deal(data?: any) {
     const self = this
     return new DealEntity(self,data)
   }
 
 
-  _game?: GameEntity
-
-  // Idiomatic facade: `client.game.list()` / `client.game.load({ id })`.
-  get game(): GameEntity {
-    return (this._game ??= new GameEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.game` instead. */
+  // Entity access: `client.Game().list()` / `client.Game().load({ id })`.
   Game(data?: any) {
     const self = this
     return new GameEntity(self,data)
   }
 
 
-  _store?: StoreEntity
-
-  // Idiomatic facade: `client.store.list()` / `client.store.load({ id })`.
-  get store(): StoreEntity {
-    return (this._store ??= new StoreEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.store` instead. */
+  // Entity access: `client.Store().list()` / `client.Store().load({ id })`.
   Store(data?: any) {
     const self = this
     return new StoreEntity(self,data)

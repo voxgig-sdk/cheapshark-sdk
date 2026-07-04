@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:alert():list() / client:alert():load({ id = ... })
-function CheapsharkSDK:alert(data)
+-- Idiomatic facade: client:Alert():list() / client:Alert():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function CheapsharkSDK:Alert(data)
   local EntityMod = require("entity.alert_entity")
   if data == nil then
     if self._alert == nil then
@@ -256,15 +257,10 @@ function CheapsharkSDK:alert(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:alert() instead.
-function CheapsharkSDK:Alert(data)
-  local EntityMod = require("entity.alert_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:deal():list() / client:deal():load({ id = ... })
-function CheapsharkSDK:deal(data)
+-- Idiomatic facade: client:Deal():list() / client:Deal():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function CheapsharkSDK:Deal(data)
   local EntityMod = require("entity.deal_entity")
   if data == nil then
     if self._deal == nil then
@@ -275,15 +271,10 @@ function CheapsharkSDK:deal(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:deal() instead.
-function CheapsharkSDK:Deal(data)
-  local EntityMod = require("entity.deal_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:game():list() / client:game():load({ id = ... })
-function CheapsharkSDK:game(data)
+-- Idiomatic facade: client:Game():list() / client:Game():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function CheapsharkSDK:Game(data)
   local EntityMod = require("entity.game_entity")
   if data == nil then
     if self._game == nil then
@@ -294,15 +285,10 @@ function CheapsharkSDK:game(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:game() instead.
-function CheapsharkSDK:Game(data)
-  local EntityMod = require("entity.game_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:store():list() / client:store():load({ id = ... })
-function CheapsharkSDK:store(data)
+-- Idiomatic facade: client:Store():list() / client:Store():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function CheapsharkSDK:Store(data)
   local EntityMod = require("entity.store_entity")
   if data == nil then
     if self._store == nil then
@@ -310,12 +296,6 @@ function CheapsharkSDK:store(data)
     end
     return self._store
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:store() instead.
-function CheapsharkSDK:Store(data)
-  local EntityMod = require("entity.store_entity")
   return EntityMod.new(self, data)
 end
 

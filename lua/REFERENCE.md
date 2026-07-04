@@ -95,7 +95,7 @@ same parameters as `direct()`.
 ## AlertEntity
 
 ```lua
-local alert = client:alert(nil)
+local alert = client:Alert(nil)
 ```
 
 ### Fields
@@ -114,7 +114,7 @@ local alert = client:alert(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:alert():create({
+local result, err = client:Alert():create({
 })
 ```
 
@@ -123,7 +123,7 @@ local result, err = client:alert():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:alert():list()
+local results, err = client:Alert():list()
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -131,7 +131,7 @@ local results, err = client:alert():list()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:alert():remove({ id = "alert_id" })
+local result, err = client:Alert():remove({ id = "alert_id" })
 ```
 
 ### Common Methods
@@ -167,7 +167,7 @@ Return the entity name.
 ## DealEntity
 
 ```lua
-local deal = client:deal(nil)
+local deal = client:Deal(nil)
 ```
 
 ### Fields
@@ -201,7 +201,7 @@ local deal = client:deal(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:deal():list()
+local results, err = client:Deal():list()
 ```
 
 ### Common Methods
@@ -237,7 +237,7 @@ Return the entity name.
 ## GameEntity
 
 ```lua
-local game = client:game(nil)
+local game = client:Game(nil)
 ```
 
 ### Fields
@@ -259,7 +259,7 @@ local game = client:game(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:game():list()
+local results, err = client:Game():list()
 ```
 
 ### Common Methods
@@ -295,7 +295,7 @@ Return the entity name.
 ## StoreEntity
 
 ```lua
-local store = client:store(nil)
+local store = client:Store(nil)
 ```
 
 ### Fields
@@ -314,7 +314,7 @@ local store = client:store(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:store():list()
+local results, err = client:Store():list()
 ```
 
 ### Common Methods
