@@ -29,7 +29,7 @@ Alert = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Alert#list (any subset of Alert fields).
+# Request payload for Alert#list.
 #
 # @!attribute [rw] email
 #   @return [String, nil]
@@ -50,7 +50,7 @@ AlertListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Alert#create (any subset of Alert fields).
+# Request payload for Alert#create.
 #
 # @!attribute [rw] email
 #   @return [String, nil]
@@ -71,7 +71,7 @@ AlertCreateData = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Alert#remove (any subset of Alert fields).
+# Request payload for Alert#remove.
 #
 # @!attribute [rw] email
 #   @return [String, nil]
@@ -173,7 +173,7 @@ Deal = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Deal#list (any subset of Deal fields).
+# Request payload for Deal#list.
 #
 # @!attribute [rw] deal_id
 #   @return [String, nil]
@@ -287,7 +287,7 @@ Game = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Game#list (any subset of Game fields).
+# Request payload for Game#list.
 #
 # @!attribute [rw] cheapest
 #   @return [String, nil]
@@ -341,7 +341,7 @@ Store = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Store#list (any subset of Store fields).
+# Request payload for Store#list.
 #
 # @!attribute [rw] image
 #   @return [Hash, nil]

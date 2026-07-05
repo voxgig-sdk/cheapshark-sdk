@@ -4,6 +4,8 @@
 
 The Ruby SDK for the Cheapshark API — an entity-oriented client using idiomatic Ruby conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Alert` — with named operations (`list`/`create`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -35,7 +37,7 @@ begin
   # list returns an Array of Alert records — iterate directly.
   alerts = client.Alert.list
   alerts.each do |item|
-    puts "#{item["id"]} #{item["name"]}"
+    puts "#{item["email"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -46,10 +48,37 @@ end
 
 ```ruby
 # create returns the bare created Alert record.
-created = client.Alert.create({ "name" => "Example" })
+created = client.Alert.create({ "email" => "example", "game_id" => "example" })
 
 # Remove
-client.Alert.remove({ "id" => created["id"] })
+client.Alert.remove()
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so rescue them:
+
+```ruby
+begin
+  alerts = client.Alert.list()
+rescue => err
+  warn "list failed: #{err}"
+end
+```
+
+`direct` does **not** raise — it returns the result hash. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```ruby
+result = client.direct({
+  "path" => "/api/resource/{id}",
+  "method" => "GET",
+  "params" => { "id" => "example_id" },
+})
+
+warn "request failed: #{result["err"] || "HTTP #{result["status"]}"}" unless result["ok"]
 ```
 
 
@@ -70,7 +99,9 @@ if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
 else
-  warn result["err"]
+  # On an HTTP error status there is no err (only a transport failure sets
+  # it), so fall back to the status code.
+  warn(result["err"] || "HTTP #{result["status"]}")
 end
 ```
 
@@ -93,16 +124,13 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = CheapsharkSDK.test({
-  "entity" => { "alert" => { "test01" => { "id" => "test01" } } },
-})
+client = CheapsharkSDK.test
 
-# load returns the bare mock record (raises on error).
-alert = client.Alert.load({ "id" => "test01" })
+# Entity ops return the bare mock record (raises on error).
+alert = client.Alert.list()
 puts alert
 ```
 
@@ -190,10 +218,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
 | `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
@@ -312,10 +338,10 @@ Create an instance: `alert = client.Alert`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `email` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `game_title` | ``$STRING`` |  |
-| `price` | ``$NUMBER`` |  |
+| `email` | `String` |  |
+| `game_id` | `String` |  |
+| `game_title` | `String` |  |
+| `price` | `Float` |  |
 
 #### Example: List
 
@@ -346,25 +372,25 @@ Create an instance: `deal = client.Deal`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `deal_id` | ``$STRING`` |  |
-| `deal_rating` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `is_on_sale` | ``$BOOLEAN`` |  |
-| `last_change` | ``$INTEGER`` |  |
-| `metacritic_link` | ``$STRING`` |  |
-| `metacritic_score` | ``$STRING`` |  |
-| `normal_price` | ``$STRING`` |  |
-| `release_date` | ``$INTEGER`` |  |
-| `sale_price` | ``$STRING`` |  |
-| `saving` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `steam_rating_count` | ``$STRING`` |  |
-| `steam_rating_percent` | ``$STRING`` |  |
-| `steam_rating_text` | ``$STRING`` |  |
-| `store_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `deal_id` | `String` |  |
+| `deal_rating` | `String` |  |
+| `game_id` | `String` |  |
+| `internal_name` | `String` |  |
+| `is_on_sale` | `Boolean` |  |
+| `last_change` | `Integer` |  |
+| `metacritic_link` | `String` |  |
+| `metacritic_score` | `String` |  |
+| `normal_price` | `String` |  |
+| `release_date` | `Integer` |  |
+| `sale_price` | `String` |  |
+| `saving` | `String` |  |
+| `steam_app_id` | `String` |  |
+| `steam_rating_count` | `String` |  |
+| `steam_rating_percent` | `String` |  |
+| `steam_rating_text` | `String` |  |
+| `store_id` | `String` |  |
+| `thumb` | `String` |  |
+| `title` | `String` |  |
 
 #### Example: List
 
@@ -388,13 +414,13 @@ Create an instance: `game = client.Game`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cheapest` | ``$STRING`` |  |
-| `cheapest_deal_id` | ``$STRING`` |  |
-| `external` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
+| `cheapest` | `String` |  |
+| `cheapest_deal_id` | `String` |  |
+| `external` | `String` |  |
+| `game_id` | `String` |  |
+| `internal_name` | `String` |  |
+| `steam_app_id` | `String` |  |
+| `thumb` | `String` |  |
 
 #### Example: List
 
@@ -418,10 +444,10 @@ Create an instance: `store = client.Store`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `image` | ``$OBJECT`` |  |
-| `is_active` | ``$INTEGER`` |  |
-| `store_id` | ``$STRING`` |  |
-| `store_name` | ``$STRING`` |  |
+| `image` | `Hash` |  |
+| `is_active` | `Integer` |  |
+| `store_id` | `String` |  |
+| `store_name` | `String` |  |
 
 #### Example: List
 
@@ -431,12 +457,16 @@ stores = client.Store.list
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -453,8 +483,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -498,14 +529,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
 alert = client.Alert
-alert.load({ "id" => "example_id" })
+alert.list()
 
-# alert.data_get now returns the loaded alert data
+# alert.data_get now returns the alert data from the last list
 # alert.match_get returns the last match criteria
 ```
 

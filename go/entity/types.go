@@ -16,8 +16,7 @@ type Alert struct {
 	Price *float64 `json:"price,omitempty"`
 }
 
-// AlertListMatch mirrors the alert fields as an all-optional match
-// filter (Go analog of Partial<Alert>).
+// AlertListMatch is the typed request payload for Alert.ListTyped.
 type AlertListMatch struct {
 	Email *string `json:"email,omitempty"`
 	GameId *string `json:"game_id,omitempty"`
@@ -25,8 +24,7 @@ type AlertListMatch struct {
 	Price *float64 `json:"price,omitempty"`
 }
 
-// AlertCreateData mirrors the alert fields as an all-optional match
-// filter (Go analog of Partial<Alert>).
+// AlertCreateData is the typed request payload for Alert.CreateTyped.
 type AlertCreateData struct {
 	Email *string `json:"email,omitempty"`
 	GameId *string `json:"game_id,omitempty"`
@@ -34,8 +32,7 @@ type AlertCreateData struct {
 	Price *float64 `json:"price,omitempty"`
 }
 
-// AlertRemoveMatch mirrors the alert fields as an all-optional match
-// filter (Go analog of Partial<Alert>).
+// AlertRemoveMatch is the typed request payload for Alert.RemoveTyped.
 type AlertRemoveMatch struct {
 	Email *string `json:"email,omitempty"`
 	GameId *string `json:"game_id,omitempty"`
@@ -66,8 +63,7 @@ type Deal struct {
 	Title *string `json:"title,omitempty"`
 }
 
-// DealListMatch mirrors the deal fields as an all-optional match
-// filter (Go analog of Partial<Deal>).
+// DealListMatch is the typed request payload for Deal.ListTyped.
 type DealListMatch struct {
 	DealId *string `json:"deal_id,omitempty"`
 	DealRating *string `json:"deal_rating,omitempty"`
@@ -101,8 +97,7 @@ type Game struct {
 	Thumb *string `json:"thumb,omitempty"`
 }
 
-// GameListMatch mirrors the game fields as an all-optional match
-// filter (Go analog of Partial<Game>).
+// GameListMatch is the typed request payload for Game.ListTyped.
 type GameListMatch struct {
 	Cheapest *string `json:"cheapest,omitempty"`
 	CheapestDealId *string `json:"cheapest_deal_id,omitempty"`
@@ -121,8 +116,7 @@ type Store struct {
 	StoreName *string `json:"store_name,omitempty"`
 }
 
-// StoreListMatch mirrors the store fields as an all-optional match
-// filter (Go analog of Partial<Store>).
+// StoreListMatch is the typed request payload for Store.ListTyped.
 type StoreListMatch struct {
 	Image *map[string]any `json:"image,omitempty"`
 	IsActive *int `json:"is_active,omitempty"`

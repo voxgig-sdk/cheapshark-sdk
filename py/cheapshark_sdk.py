@@ -221,25 +221,25 @@ class CheapsharkSDK:
 
 
     def Alert(self, data=None) -> "AlertEntity":
-        """Entity factory: client.Alert().list({}) / client.Alert().load({"id": ...})."""
+        """Entity factory: client.Alert().list() / client.Alert().load({"id": ...})."""
         from entity.alert_entity import AlertEntity
         return AlertEntity(self, data)
 
 
     def Deal(self, data=None) -> "DealEntity":
-        """Entity factory: client.Deal().list({}) / client.Deal().load({"id": ...})."""
+        """Entity factory: client.Deal().list() / client.Deal().load({"id": ...})."""
         from entity.deal_entity import DealEntity
         return DealEntity(self, data)
 
 
     def Game(self, data=None) -> "GameEntity":
-        """Entity factory: client.Game().list({}) / client.Game().load({"id": ...})."""
+        """Entity factory: client.Game().list() / client.Game().load({"id": ...})."""
         from entity.game_entity import GameEntity
         return GameEntity(self, data)
 
 
     def Store(self, data=None) -> "StoreEntity":
-        """Entity factory: client.Store().list({}) / client.Store().load({"id": ...})."""
+        """Entity factory: client.Store().list() / client.Store().load({"id": ...})."""
         from entity.store_entity import StoreEntity
         return StoreEntity(self, data)
 

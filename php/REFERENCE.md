@@ -57,11 +57,11 @@ Create a new `GameEntity` instance. Pass `null` for no initial data.
 
 Create a new `StoreEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): CheapsharkUtility`
 
 Return a copy of the SDK utility object.
 
@@ -104,10 +104,10 @@ $alert = $client->Alert();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `email` | ``$STRING`` | No |  |
-| `game_id` | ``$STRING`` | No |  |
-| `game_title` | ``$STRING`` | No |  |
-| `price` | ``$NUMBER`` | No |  |
+| `email` | `string` | No |  |
+| `game_id` | `string` | No |  |
+| `game_title` | `string` | No |  |
+| `price` | `float` | No |  |
 
 ### Operations
 
@@ -120,12 +120,12 @@ $result = $client->Alert()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Alert()->list([]);
+$results = $client->Alert()->list();
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -133,24 +133,24 @@ $results = $client->Alert()->list([]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Alert()->remove(["id" => "alert_id"]);
+$result = $client->Alert()->remove();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -159,7 +159,7 @@ Set the entity match criteria.
 Create a new `AlertEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -176,51 +176,51 @@ $deal = $client->Deal();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `deal_id` | ``$STRING`` | No |  |
-| `deal_rating` | ``$STRING`` | No |  |
-| `game_id` | ``$STRING`` | No |  |
-| `internal_name` | ``$STRING`` | No |  |
-| `is_on_sale` | ``$BOOLEAN`` | No |  |
-| `last_change` | ``$INTEGER`` | No |  |
-| `metacritic_link` | ``$STRING`` | No |  |
-| `metacritic_score` | ``$STRING`` | No |  |
-| `normal_price` | ``$STRING`` | No |  |
-| `release_date` | ``$INTEGER`` | No |  |
-| `sale_price` | ``$STRING`` | No |  |
-| `saving` | ``$STRING`` | No |  |
-| `steam_app_id` | ``$STRING`` | No |  |
-| `steam_rating_count` | ``$STRING`` | No |  |
-| `steam_rating_percent` | ``$STRING`` | No |  |
-| `steam_rating_text` | ``$STRING`` | No |  |
-| `store_id` | ``$STRING`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `deal_id` | `string` | No |  |
+| `deal_rating` | `string` | No |  |
+| `game_id` | `string` | No |  |
+| `internal_name` | `string` | No |  |
+| `is_on_sale` | `bool` | No |  |
+| `last_change` | `int` | No |  |
+| `metacritic_link` | `string` | No |  |
+| `metacritic_score` | `string` | No |  |
+| `normal_price` | `string` | No |  |
+| `release_date` | `int` | No |  |
+| `sale_price` | `string` | No |  |
+| `saving` | `string` | No |  |
+| `steam_app_id` | `string` | No |  |
+| `steam_rating_count` | `string` | No |  |
+| `steam_rating_percent` | `string` | No |  |
+| `steam_rating_text` | `string` | No |  |
+| `store_id` | `string` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Deal()->list([]);
+$results = $client->Deal()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -229,7 +229,7 @@ Set the entity match criteria.
 Create a new `DealEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -246,39 +246,39 @@ $game = $client->Game();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cheapest` | ``$STRING`` | No |  |
-| `cheapest_deal_id` | ``$STRING`` | No |  |
-| `external` | ``$STRING`` | No |  |
-| `game_id` | ``$STRING`` | No |  |
-| `internal_name` | ``$STRING`` | No |  |
-| `steam_app_id` | ``$STRING`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
+| `cheapest` | `string` | No |  |
+| `cheapest_deal_id` | `string` | No |  |
+| `external` | `string` | No |  |
+| `game_id` | `string` | No |  |
+| `internal_name` | `string` | No |  |
+| `steam_app_id` | `string` | No |  |
+| `thumb` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Game()->list([]);
+$results = $client->Game()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -287,7 +287,7 @@ Set the entity match criteria.
 Create a new `GameEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -304,36 +304,36 @@ $store = $client->Store();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `image` | ``$OBJECT`` | No |  |
-| `is_active` | ``$INTEGER`` | No |  |
-| `store_id` | ``$STRING`` | No |  |
-| `store_name` | ``$STRING`` | No |  |
+| `image` | `array` | No |  |
+| `is_active` | `int` | No |  |
+| `store_id` | `string` | No |  |
+| `store_name` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Store()->list([]);
+$results = $client->Store()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -342,7 +342,7 @@ Set the entity match criteria.
 Create a new `StoreEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

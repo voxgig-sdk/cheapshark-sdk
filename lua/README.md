@@ -4,6 +4,8 @@
 
 The Lua SDK for the Cheapshark API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Alert()` — each with the same small set of operations (`list`, `create`, `remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -41,7 +43,7 @@ local alerts, err = client:Alert():list()
 if err then error(err) end
 
 for _, item in ipairs(alerts) do
-  print(item["id"], item["name"])
+  print(item["email"])
 end
 ```
 
@@ -49,11 +51,33 @@ end
 
 ```lua
 -- Create
-local created, err = client:Alert():create({ name = "Example" })
+local created, err = client:Alert():create({ email = "example", game_id = "example" })
 if err then error(err) end
 
 -- Remove
-client:Alert():remove({ id = created["id"] })
+client:Alert():remove()
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local alerts, err = client:Alert():list()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -99,8 +123,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Alert():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:Alert():list()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -189,10 +213,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
 | `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
 | `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity. |
 | `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
@@ -208,12 +230,12 @@ data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `create` / `remove` | the entity record (a `table`) |
 | `list` | an array (`table`) of entity records |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local alert, err = client:Alert():load({ id = "example_id" })
+    local alert, err = client:Alert():load()
     if err then error(err) end
     -- alert is the loaded record
 
@@ -313,10 +335,10 @@ Create an instance: `local alert = client:Alert(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `email` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `game_title` | ``$STRING`` |  |
-| `price` | ``$NUMBER`` |  |
+| `email` | `string` |  |
+| `game_id` | `string` |  |
+| `game_title` | `string` |  |
+| `price` | `number` |  |
 
 #### Example: List
 
@@ -346,25 +368,25 @@ Create an instance: `local deal = client:Deal(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `deal_id` | ``$STRING`` |  |
-| `deal_rating` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `is_on_sale` | ``$BOOLEAN`` |  |
-| `last_change` | ``$INTEGER`` |  |
-| `metacritic_link` | ``$STRING`` |  |
-| `metacritic_score` | ``$STRING`` |  |
-| `normal_price` | ``$STRING`` |  |
-| `release_date` | ``$INTEGER`` |  |
-| `sale_price` | ``$STRING`` |  |
-| `saving` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `steam_rating_count` | ``$STRING`` |  |
-| `steam_rating_percent` | ``$STRING`` |  |
-| `steam_rating_text` | ``$STRING`` |  |
-| `store_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `deal_id` | `string` |  |
+| `deal_rating` | `string` |  |
+| `game_id` | `string` |  |
+| `internal_name` | `string` |  |
+| `is_on_sale` | `boolean` |  |
+| `last_change` | `number` |  |
+| `metacritic_link` | `string` |  |
+| `metacritic_score` | `string` |  |
+| `normal_price` | `string` |  |
+| `release_date` | `number` |  |
+| `sale_price` | `string` |  |
+| `saving` | `string` |  |
+| `steam_app_id` | `string` |  |
+| `steam_rating_count` | `string` |  |
+| `steam_rating_percent` | `string` |  |
+| `steam_rating_text` | `string` |  |
+| `store_id` | `string` |  |
+| `thumb` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: List
 
@@ -387,13 +409,13 @@ Create an instance: `local game = client:Game(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cheapest` | ``$STRING`` |  |
-| `cheapest_deal_id` | ``$STRING`` |  |
-| `external` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
+| `cheapest` | `string` |  |
+| `cheapest_deal_id` | `string` |  |
+| `external` | `string` |  |
+| `game_id` | `string` |  |
+| `internal_name` | `string` |  |
+| `steam_app_id` | `string` |  |
+| `thumb` | `string` |  |
 
 #### Example: List
 
@@ -416,10 +438,10 @@ Create an instance: `local store = client:Store(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `image` | ``$OBJECT`` |  |
-| `is_active` | ``$INTEGER`` |  |
-| `store_id` | ``$STRING`` |  |
-| `store_name` | ``$STRING`` |  |
+| `image` | `table` |  |
+| `is_active` | `number` |  |
+| `store_id` | `string` |  |
+| `store_name` | `string` |  |
 
 #### Example: List
 
@@ -428,12 +450,16 @@ local stores, err = client:Store():list()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -450,8 +476,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -495,14 +522,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
 local alert = client:Alert()
-alert:load({ id = "example_id" })
+alert:list()
 
--- alert:data_get() now returns the loaded alert data
+-- alert:data_get() now returns the alert data from the last list
 -- alert:match_get() returns the last match criteria
 ```
 

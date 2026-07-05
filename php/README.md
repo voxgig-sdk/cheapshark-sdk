@@ -4,6 +4,8 @@
 
 The PHP SDK for the Cheapshark API — an entity-oriented client using PHP conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Alert()` — with named operations (`list`/`create`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -36,7 +38,7 @@ try {
     // list() returns an array of Alert records — iterate directly.
     $alerts = $client->Alert()->list();
     foreach ($alerts as $item) {
-        echo $item["id"] . " " . $item["name"] . "\n";
+        echo $item["email"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -47,10 +49,41 @@ try {
 
 ```php
 // create() returns the bare created Alert record.
-$created = $client->Alert()->create(["name" => "Example"]);
+$created = $client->Alert()->create(["email" => "example", "game_id" => "example"]);
 
 // Remove
-$client->Alert()->remove(["id" => $created["id"]]);
+$client->Alert()->remove();
+```
+
+
+## Error handling
+
+Entity operations throw a `\Throwable` on failure, so wrap them in
+`try` / `catch`:
+
+```php
+try {
+    $alerts = $client->Alert()->list();
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
+`direct()` does **not** throw — it returns the result array. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```php
+$result = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example_id"],
+]);
+
+if (! $result["ok"]) {
+    $err = $result["err"] ?? null;
+    echo "request failed: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
+}
 ```
 
 
@@ -73,7 +106,10 @@ if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
 } else {
-    echo "Error: " . $result["err"]->getMessage();
+    // On an HTTP error status there is no err (only a transport failure sets
+    // it), so fall back to the status code.
+    $err = $result["err"] ?? null;
+    echo "Error: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -94,16 +130,13 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = CheapsharkSDK::test([
-    "entity" => ["alert" => ["test01" => ["id" => "test01"]]],
-]);
+$client = CheapsharkSDK::test();
 
-// load() returns the bare mock record (throws on error).
-$alert = $client->Alert()->load(["id" => "test01"]);
+// Entity ops return the bare mock record (throws on error).
+$alert = $client->Alert()->list();
 print_r($alert);
 ```
 
@@ -194,10 +227,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `($reqmatch, $ctrl): array` | List entities matching the criteria. |
+| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
 | `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
 | `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
@@ -317,10 +348,10 @@ Create an instance: `$alert = $client->Alert();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `email` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `game_title` | ``$STRING`` |  |
-| `price` | ``$NUMBER`` |  |
+| `email` | `string` |  |
+| `game_id` | `string` |  |
+| `game_title` | `string` |  |
+| `price` | `float` |  |
 
 #### Example: List
 
@@ -351,25 +382,25 @@ Create an instance: `$deal = $client->Deal();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `deal_id` | ``$STRING`` |  |
-| `deal_rating` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `is_on_sale` | ``$BOOLEAN`` |  |
-| `last_change` | ``$INTEGER`` |  |
-| `metacritic_link` | ``$STRING`` |  |
-| `metacritic_score` | ``$STRING`` |  |
-| `normal_price` | ``$STRING`` |  |
-| `release_date` | ``$INTEGER`` |  |
-| `sale_price` | ``$STRING`` |  |
-| `saving` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `steam_rating_count` | ``$STRING`` |  |
-| `steam_rating_percent` | ``$STRING`` |  |
-| `steam_rating_text` | ``$STRING`` |  |
-| `store_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `deal_id` | `string` |  |
+| `deal_rating` | `string` |  |
+| `game_id` | `string` |  |
+| `internal_name` | `string` |  |
+| `is_on_sale` | `bool` |  |
+| `last_change` | `int` |  |
+| `metacritic_link` | `string` |  |
+| `metacritic_score` | `string` |  |
+| `normal_price` | `string` |  |
+| `release_date` | `int` |  |
+| `sale_price` | `string` |  |
+| `saving` | `string` |  |
+| `steam_app_id` | `string` |  |
+| `steam_rating_count` | `string` |  |
+| `steam_rating_percent` | `string` |  |
+| `steam_rating_text` | `string` |  |
+| `store_id` | `string` |  |
+| `thumb` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: List
 
@@ -393,13 +424,13 @@ Create an instance: `$game = $client->Game();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cheapest` | ``$STRING`` |  |
-| `cheapest_deal_id` | ``$STRING`` |  |
-| `external` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
+| `cheapest` | `string` |  |
+| `cheapest_deal_id` | `string` |  |
+| `external` | `string` |  |
+| `game_id` | `string` |  |
+| `internal_name` | `string` |  |
+| `steam_app_id` | `string` |  |
+| `thumb` | `string` |  |
 
 #### Example: List
 
@@ -423,10 +454,10 @@ Create an instance: `$store = $client->Store();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `image` | ``$OBJECT`` |  |
-| `is_active` | ``$INTEGER`` |  |
-| `store_id` | ``$STRING`` |  |
-| `store_name` | ``$STRING`` |  |
+| `image` | `array` |  |
+| `is_active` | `int` |  |
+| `store_id` | `string` |  |
+| `store_name` | `string` |  |
 
 #### Example: List
 
@@ -436,12 +467,16 @@ $stores = $client->Store()->list();
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -458,8 +493,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return array.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -503,15 +539,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
 $alert = $client->Alert();
-$alert->load(["id" => "example_id"]);
+$alert->list();
 
-// $alert->dataGet() now returns the loaded alert data
-// $alert->matchGet() returns the last match criteria
+// $alert->data_get() now returns the alert data from the last list
+// $alert->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

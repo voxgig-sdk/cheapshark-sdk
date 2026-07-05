@@ -12,11 +12,26 @@ export interface Alert {
   price?: number
 }
 
-export type AlertListMatch = Partial<Alert>
+export interface AlertListMatch {
+  email?: string
+  game_id?: string
+  game_title?: string
+  price?: number
+}
 
-export type AlertCreateData = Partial<Alert>
+export interface AlertCreateData {
+  email?: string
+  game_id?: string
+  game_title?: string
+  price?: number
+}
 
-export type AlertRemoveMatch = Partial<Alert>
+export interface AlertRemoveMatch {
+  email?: string
+  game_id?: string
+  game_title?: string
+  price?: number
+}
 
 export interface Deal {
   deal_id?: string
@@ -40,7 +55,27 @@ export interface Deal {
   title?: string
 }
 
-export type DealListMatch = Partial<Deal>
+export interface DealListMatch {
+  deal_id?: string
+  deal_rating?: string
+  game_id?: string
+  internal_name?: string
+  is_on_sale?: boolean
+  last_change?: number
+  metacritic_link?: string
+  metacritic_score?: string
+  normal_price?: string
+  release_date?: number
+  sale_price?: string
+  saving?: string
+  steam_app_id?: string
+  steam_rating_count?: string
+  steam_rating_percent?: string
+  steam_rating_text?: string
+  store_id?: string
+  thumb?: string
+  title?: string
+}
 
 export interface Game {
   cheapest?: string
@@ -52,7 +87,15 @@ export interface Game {
   thumb?: string
 }
 
-export type GameListMatch = Partial<Game>
+export interface GameListMatch {
+  cheapest?: string
+  cheapest_deal_id?: string
+  external?: string
+  game_id?: string
+  internal_name?: string
+  steam_app_id?: string
+  thumb?: string
+}
 
 export interface Store {
   image?: Record<string, any>
@@ -61,5 +104,10 @@ export interface Store {
   store_name?: string
 }
 
-export type StoreListMatch = Partial<Store>
+export interface StoreListMatch {
+  image?: Record<string, any>
+  is_active?: number
+  store_id?: string
+  store_name?: string
+}
 

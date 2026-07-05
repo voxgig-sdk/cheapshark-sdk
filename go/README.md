@@ -4,6 +4,8 @@
 
 The Golang SDK for the Cheapshark API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Alert(nil)` — each with the same small set of operations (`List`, `Create`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -58,19 +60,48 @@ func main() {
     }
 
     // Create a alert.
-    created, err := client.Alert(nil).Create(map[string]any{"name": "Example"}, nil)
+    created, err := client.Alert(nil).Create(map[string]any{"email": "example", "game_id": "example"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(created)
 
     // Remove a alert.
-    removed, err := client.Alert(nil).Remove(map[string]any{"id": "example_id"}, nil)
+    removed, err := client.Alert(nil).Remove(nil, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(removed)
 }
+```
+
+
+## Error handling
+
+Every entity operation returns `(value, error)`. Check `err` before
+using the value — there is no exception to catch:
+
+```go
+alerts, err := client.Alert(nil).List(nil, nil)
+if err != nil {
+    // handle err
+    return
+}
+_ = alerts
+```
+
+`Direct` follows the same `(value, error)` convention:
+
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example_id"},
+})
+if err != nil {
+    // handle err
+}
+_ = result
 ```
 
 
@@ -120,13 +151,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-alert, err := client.Alert(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+alert, err := client.Alert(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(alert) // the loaded mock data
+fmt.Println(alert) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -214,10 +245,8 @@ All entities implement the `CheapsharkEntity` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
 | `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
 | `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
 | `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
@@ -231,16 +260,16 @@ operation's data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `Create` / `Remove` | the entity record (`map[string]any`) |
 | `List` | a `[]any` of entity records |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    alert, err := client.Alert(nil).Load(map[string]any{"id": "example_id"}, nil)
+    alert, err := client.Alert(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // alert is the loaded record
+    // alert is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -338,10 +367,10 @@ Create an instance: `alert := client.Alert(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `email` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `game_title` | ``$STRING`` |  |
-| `price` | ``$NUMBER`` |  |
+| `email` | `string` |  |
+| `game_id` | `string` |  |
+| `game_title` | `string` |  |
+| `price` | `float64` |  |
 
 #### Example: List
 
@@ -375,25 +404,25 @@ Create an instance: `deal := client.Deal(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `deal_id` | ``$STRING`` |  |
-| `deal_rating` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `is_on_sale` | ``$BOOLEAN`` |  |
-| `last_change` | ``$INTEGER`` |  |
-| `metacritic_link` | ``$STRING`` |  |
-| `metacritic_score` | ``$STRING`` |  |
-| `normal_price` | ``$STRING`` |  |
-| `release_date` | ``$INTEGER`` |  |
-| `sale_price` | ``$STRING`` |  |
-| `saving` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `steam_rating_count` | ``$STRING`` |  |
-| `steam_rating_percent` | ``$STRING`` |  |
-| `steam_rating_text` | ``$STRING`` |  |
-| `store_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `deal_id` | `string` |  |
+| `deal_rating` | `string` |  |
+| `game_id` | `string` |  |
+| `internal_name` | `string` |  |
+| `is_on_sale` | `bool` |  |
+| `last_change` | `int` |  |
+| `metacritic_link` | `string` |  |
+| `metacritic_score` | `string` |  |
+| `normal_price` | `string` |  |
+| `release_date` | `int` |  |
+| `sale_price` | `string` |  |
+| `saving` | `string` |  |
+| `steam_app_id` | `string` |  |
+| `steam_rating_count` | `string` |  |
+| `steam_rating_percent` | `string` |  |
+| `steam_rating_text` | `string` |  |
+| `store_id` | `string` |  |
+| `thumb` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: List
 
@@ -420,13 +449,13 @@ Create an instance: `game := client.Game(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cheapest` | ``$STRING`` |  |
-| `cheapest_deal_id` | ``$STRING`` |  |
-| `external` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
+| `cheapest` | `string` |  |
+| `cheapest_deal_id` | `string` |  |
+| `external` | `string` |  |
+| `game_id` | `string` |  |
+| `internal_name` | `string` |  |
+| `steam_app_id` | `string` |  |
+| `thumb` | `string` |  |
 
 #### Example: List
 
@@ -453,10 +482,10 @@ Create an instance: `store := client.Store(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `image` | ``$OBJECT`` |  |
-| `is_active` | ``$INTEGER`` |  |
-| `store_id` | ``$STRING`` |  |
-| `store_name` | ``$STRING`` |  |
+| `image` | `map[string]any` |  |
+| `is_active` | `int` |  |
+| `store_id` | `string` |  |
+| `store_name` | `string` |  |
 
 #### Example: List
 
@@ -469,12 +498,16 @@ fmt.Println(stores) // the array of records
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -491,9 +524,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller. An unexpected panic triggers the
-`PreUnexpected` hook.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -534,14 +567,14 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
 alert := client.Alert(nil)
-alert.Load(map[string]any{"id": "example_id"}, nil)
+alert.List(nil, nil)
 
-// alert.Data() now returns the loaded alert data
+// alert.Data() now returns the alert data from the last list
 // alert.Match() returns the last match criteria
 ```
 

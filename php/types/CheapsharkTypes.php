@@ -21,7 +21,7 @@ class Alert
     public ?float $price = null;
 }
 
-/** Match filter for Alert#list (any subset of Alert fields). */
+/** Request payload for Alert#list. */
 class AlertListMatch
 {
     public ?string $email = null;
@@ -30,7 +30,7 @@ class AlertListMatch
     public ?float $price = null;
 }
 
-/** Match filter for Alert#create (any subset of Alert fields). */
+/** Request payload for Alert#create. */
 class AlertCreateData
 {
     public ?string $email = null;
@@ -39,7 +39,7 @@ class AlertCreateData
     public ?float $price = null;
 }
 
-/** Match filter for Alert#remove (any subset of Alert fields). */
+/** Request payload for Alert#remove. */
 class AlertRemoveMatch
 {
     public ?string $email = null;
@@ -72,7 +72,7 @@ class Deal
     public ?string $title = null;
 }
 
-/** Match filter for Deal#list (any subset of Deal fields). */
+/** Request payload for Deal#list. */
 class DealListMatch
 {
     public ?string $deal_id = null;
@@ -108,7 +108,7 @@ class Game
     public ?string $thumb = null;
 }
 
-/** Match filter for Game#list (any subset of Game fields). */
+/** Request payload for Game#list. */
 class GameListMatch
 {
     public ?string $cheapest = null;
@@ -129,7 +129,7 @@ class Store
     public ?string $store_name = null;
 }
 
-/** Match filter for Store#list (any subset of Store fields). */
+/** Request payload for Store#list. */
 class StoreListMatch
 {
     public ?array $image = null;

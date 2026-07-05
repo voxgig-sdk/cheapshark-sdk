@@ -8,7 +8,7 @@ Complete API reference for the Cheapshark Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'cheapshark_sdk'
+require_relative 'Cheapshark_sdk'
 
 client = CheapsharkSDK.new(options)
 ```
@@ -105,10 +105,10 @@ alert = client.Alert
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `email` | ``$STRING`` | No |  |
-| `game_id` | ``$STRING`` | No |  |
-| `game_title` | ``$STRING`` | No |  |
-| `price` | ``$NUMBER`` | No |  |
+| `email` | `String` | No |  |
+| `game_id` | `String` | No |  |
+| `game_title` | `String` | No |  |
+| `price` | `Float` | No |  |
 
 ### Operations
 
@@ -121,12 +121,12 @@ result = client.Alert.create({
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Alert.list(nil)
+results = client.Alert.list
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -134,7 +134,7 @@ results = client.Alert.list(nil)
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Alert.remove({ "id" => "alert_id" })
+result = client.Alert.remove()
 ```
 
 ### Common Methods
@@ -177,34 +177,34 @@ deal = client.Deal
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `deal_id` | ``$STRING`` | No |  |
-| `deal_rating` | ``$STRING`` | No |  |
-| `game_id` | ``$STRING`` | No |  |
-| `internal_name` | ``$STRING`` | No |  |
-| `is_on_sale` | ``$BOOLEAN`` | No |  |
-| `last_change` | ``$INTEGER`` | No |  |
-| `metacritic_link` | ``$STRING`` | No |  |
-| `metacritic_score` | ``$STRING`` | No |  |
-| `normal_price` | ``$STRING`` | No |  |
-| `release_date` | ``$INTEGER`` | No |  |
-| `sale_price` | ``$STRING`` | No |  |
-| `saving` | ``$STRING`` | No |  |
-| `steam_app_id` | ``$STRING`` | No |  |
-| `steam_rating_count` | ``$STRING`` | No |  |
-| `steam_rating_percent` | ``$STRING`` | No |  |
-| `steam_rating_text` | ``$STRING`` | No |  |
-| `store_id` | ``$STRING`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `deal_id` | `String` | No |  |
+| `deal_rating` | `String` | No |  |
+| `game_id` | `String` | No |  |
+| `internal_name` | `String` | No |  |
+| `is_on_sale` | `Boolean` | No |  |
+| `last_change` | `Integer` | No |  |
+| `metacritic_link` | `String` | No |  |
+| `metacritic_score` | `String` | No |  |
+| `normal_price` | `String` | No |  |
+| `release_date` | `Integer` | No |  |
+| `sale_price` | `String` | No |  |
+| `saving` | `String` | No |  |
+| `steam_app_id` | `String` | No |  |
+| `steam_rating_count` | `String` | No |  |
+| `steam_rating_percent` | `String` | No |  |
+| `steam_rating_text` | `String` | No |  |
+| `store_id` | `String` | No |  |
+| `thumb` | `String` | No |  |
+| `title` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Deal.list(nil)
+results = client.Deal.list
 ```
 
 ### Common Methods
@@ -247,22 +247,22 @@ game = client.Game
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cheapest` | ``$STRING`` | No |  |
-| `cheapest_deal_id` | ``$STRING`` | No |  |
-| `external` | ``$STRING`` | No |  |
-| `game_id` | ``$STRING`` | No |  |
-| `internal_name` | ``$STRING`` | No |  |
-| `steam_app_id` | ``$STRING`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
+| `cheapest` | `String` | No |  |
+| `cheapest_deal_id` | `String` | No |  |
+| `external` | `String` | No |  |
+| `game_id` | `String` | No |  |
+| `internal_name` | `String` | No |  |
+| `steam_app_id` | `String` | No |  |
+| `thumb` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Game.list(nil)
+results = client.Game.list
 ```
 
 ### Common Methods
@@ -305,19 +305,19 @@ store = client.Store
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `image` | ``$OBJECT`` | No |  |
-| `is_active` | ``$INTEGER`` | No |  |
-| `store_id` | ``$STRING`` | No |  |
-| `store_name` | ``$STRING`` | No |  |
+| `image` | `Hash` | No |  |
+| `is_active` | `Integer` | No |  |
+| `store_id` | `String` | No |  |
+| `store_name` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Store.list(nil)
+results = client.Store.list
 ```
 
 ### Common Methods

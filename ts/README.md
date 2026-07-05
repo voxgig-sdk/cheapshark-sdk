@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the Cheapshark API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Alert()` — each with a small set of operations (`list`, `create`, `remove`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -45,13 +50,41 @@ for (const alert of alerts) {
 ```ts
 // Create — returns the created Alert
 const created = await client.Alert().create({
-  name: 'Example',
+  email: 'example_email',
+  game_id: 'example_game_id',
 })
 
 // Remove
-await client.Alert().remove({
-  id: created.id,
+await client.Alert().remove()
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const alerts = await client.Alert().list()
+  console.log(alerts)
+} catch (err) {
+  console.error('list failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
 })
+
+if (result instanceof Error) {
+  throw result
+}
 ```
 
 
@@ -99,7 +132,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = CheapsharkSDK.test()
 
-const alert = await client.Alert().load({ id: 'test01' })
+const alert = await client.Alert().list()
 // alert is a bare entity populated with mock response data
 console.log(alert)
 ```
@@ -118,12 +151,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Alert()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.list()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -214,13 +247,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
 | `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
 | `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
 | `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): CheapsharkSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -230,7 +261,7 @@ All entities share the same interface.
 Entity operations resolve to the entity data directly — there is no
 result envelope:
 
-- `load`, `create` and `update` resolve to a single entity object.
+- `create` resolves to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
 - `remove` resolves to `void`.
@@ -360,10 +391,10 @@ Create an instance: `const alert = client.Alert()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `email` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `game_title` | ``$STRING`` |  |
-| `price` | ``$NUMBER`` |  |
+| `email` | `string` |  |
+| `game_id` | `string` |  |
+| `game_title` | `string` |  |
+| `price` | `number` |  |
 
 #### Example: List
 
@@ -393,25 +424,25 @@ Create an instance: `const deal = client.Deal()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `deal_id` | ``$STRING`` |  |
-| `deal_rating` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `is_on_sale` | ``$BOOLEAN`` |  |
-| `last_change` | ``$INTEGER`` |  |
-| `metacritic_link` | ``$STRING`` |  |
-| `metacritic_score` | ``$STRING`` |  |
-| `normal_price` | ``$STRING`` |  |
-| `release_date` | ``$INTEGER`` |  |
-| `sale_price` | ``$STRING`` |  |
-| `saving` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `steam_rating_count` | ``$STRING`` |  |
-| `steam_rating_percent` | ``$STRING`` |  |
-| `steam_rating_text` | ``$STRING`` |  |
-| `store_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `deal_id` | `string` |  |
+| `deal_rating` | `string` |  |
+| `game_id` | `string` |  |
+| `internal_name` | `string` |  |
+| `is_on_sale` | `boolean` |  |
+| `last_change` | `number` |  |
+| `metacritic_link` | `string` |  |
+| `metacritic_score` | `string` |  |
+| `normal_price` | `string` |  |
+| `release_date` | `number` |  |
+| `sale_price` | `string` |  |
+| `saving` | `string` |  |
+| `steam_app_id` | `string` |  |
+| `steam_rating_count` | `string` |  |
+| `steam_rating_percent` | `string` |  |
+| `steam_rating_text` | `string` |  |
+| `store_id` | `string` |  |
+| `thumb` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: List
 
@@ -434,13 +465,13 @@ Create an instance: `const game = client.Game()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cheapest` | ``$STRING`` |  |
-| `cheapest_deal_id` | ``$STRING`` |  |
-| `external` | ``$STRING`` |  |
-| `game_id` | ``$STRING`` |  |
-| `internal_name` | ``$STRING`` |  |
-| `steam_app_id` | ``$STRING`` |  |
-| `thumb` | ``$STRING`` |  |
+| `cheapest` | `string` |  |
+| `cheapest_deal_id` | `string` |  |
+| `external` | `string` |  |
+| `game_id` | `string` |  |
+| `internal_name` | `string` |  |
+| `steam_app_id` | `string` |  |
+| `thumb` | `string` |  |
 
 #### Example: List
 
@@ -463,10 +494,10 @@ Create an instance: `const store = client.Store()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `image` | ``$OBJECT`` |  |
-| `is_active` | ``$INTEGER`` |  |
-| `store_id` | ``$STRING`` |  |
-| `store_name` | ``$STRING`` |  |
+| `image` | `Record<string, any>` |  |
+| `is_active` | `number` |  |
+| `store_id` | `string` |  |
+| `store_name` | `string` |  |
 
 #### Example: List
 
@@ -475,12 +506,16 @@ const stores = await client.Store().list()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -497,11 +532,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -537,16 +570,16 @@ import { CheapsharkSDK } from '@voxgig-sdk/cheapshark'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const alert = client.Alert()
-await alert.load({ id: "example_id" })
+await alert.list()
 
-// alert.data() now returns the loaded alert data
-// alert.match() returns { id: "example_id" }
+// alert.data() now returns the alert data from the last `list`
+// alert.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

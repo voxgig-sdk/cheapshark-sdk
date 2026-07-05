@@ -17,8 +17,6 @@ go build -o cheapshark-cli ./...
 ```sh
 # One-shot: arguments form a single AQL expression
 ./cheapshark-cli list alert
-./cheapshark-cli load 1 alert
-./cheapshark-cli load '{id:1}' alert
 
 # REPL
 ./cheapshark-cli
@@ -29,8 +27,6 @@ go build -o cheapshark-cli ./...
 | Word     | Signatures                                   | Description                |
 |----------|----------------------------------------------|----------------------------|
 | `list`   | `[entity]` · `[query entity]`                | List records               |
-| `load`   | `[entity]` · `[query entity]`                | Load a single record       |
-| `update` | `[entity]` · `[query entity]`                | Update a record            |
 
 `query` is either a Map (`{id:1}`) or a Scalar (`1`, treated as `{id:1}`).
 `entity` is one of the SDK's entity names (auto-quoted as an atom).
