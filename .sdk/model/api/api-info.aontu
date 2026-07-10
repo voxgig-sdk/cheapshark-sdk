@@ -16,9 +16,9 @@ main: {
           url: "https://www.cheapshark.com/api/1.0"
         }
       ]
+      summary: "CheapShark is a price comparison website for digital PC Games, tracking prices across multiple stores including Steam, GreenManGaming, and Fanatical."
       title: "CheapShark API"
       version: "1.0.0"
+      website: "https://cheapshark.com"
     }
   }
-}
-

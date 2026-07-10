@@ -51,7 +51,7 @@ end
 
 ```lua
 -- Create
-local created, err = client:Alert():create({ email = "example", game_id = "example" })
+local created, err = client:Alert():create({ email = "example_email", game_id = "example_game_id" })
 if err then error(err) end
 
 -- Remove

@@ -49,7 +49,7 @@ try {
 
 ```php
 // create() returns the bare created Alert record.
-$created = $client->Alert()->create(["email" => "example", "game_id" => "example"]);
+$created = $client->Alert()->create(["email" => "example_email", "game_id" => "example_game_id"]);
 
 // Remove
 $client->Alert()->remove();

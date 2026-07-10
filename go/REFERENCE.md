@@ -103,6 +103,7 @@ same parameters as `Direct()`.
 
 ```go
 alert := client.Alert(nil)
+fmt.Println(alert.GetName()) // "alert"
 ```
 
 ### Fields
@@ -116,6 +117,18 @@ alert := client.Alert(nil)
 
 ### Operations
 
+#### `List(reqmatch, ctrl map[string]any) (any, error)`
+
+List entities matching the given criteria. Returns an array.
+
+```go
+results, err := client.Alert(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
+
 #### `Create(reqdata, ctrl map[string]any) (any, error)`
 
 Create a new entity with the given data.
@@ -123,14 +136,10 @@ Create a new entity with the given data.
 ```go
 result, err := client.Alert(nil).Create(map[string]any{
 }, nil)
-```
-
-#### `List(reqmatch, ctrl map[string]any) (any, error)`
-
-List entities matching the given criteria. Returns an array.
-
-```go
-results, err := client.Alert(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 #### `Remove(reqmatch, ctrl map[string]any) (any, error)`
@@ -139,6 +148,10 @@ Remove the entity matching the given criteria.
 
 ```go
 result, err := client.Alert(nil).Remove(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -169,6 +182,7 @@ Return the entity name.
 
 ```go
 deal := client.Deal(nil)
+fmt.Println(deal.GetName()) // "deal"
 ```
 
 ### Fields
@@ -203,6 +217,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Deal(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -233,6 +251,7 @@ Return the entity name.
 
 ```go
 game := client.Game(nil)
+fmt.Println(game.GetName()) // "game"
 ```
 
 ### Fields
@@ -255,6 +274,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Game(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -285,6 +308,7 @@ Return the entity name.
 
 ```go
 store := client.Store(nil)
+fmt.Println(store.GetName()) // "store"
 ```
 
 ### Fields
@@ -304,6 +328,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Store(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

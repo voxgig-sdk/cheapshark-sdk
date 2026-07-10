@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -887,14 +884,17 @@
           "url": "https://apidocs.cheapshark.com/"
         },
         "description": "CheapShark is a price comparison website for digital PC Games, tracking prices across multiple stores including Steam, GreenManGaming, and Fanatical. The API provides developers with access to CheapShark pricing data to integrate into their own applications or websites.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "CheapShark API Server",
             "url": "https://www.cheapshark.com/api/1.0"
           }
         ],
+        "summary": "CheapShark is a price comparison website for digital PC Games, tracking prices across multiple stores including Steam, GreenManGaming, and Fanatical.",
         "title": "CheapShark API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://cheapshark.com"
       },
       "option": {},
       "target": {
@@ -947,6 +947,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -997,6 +1000,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

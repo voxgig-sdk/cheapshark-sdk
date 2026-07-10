@@ -60,7 +60,7 @@ func main() {
     }
 
     // Create a alert.
-    created, err := client.Alert(nil).Create(map[string]any{"email": "example", "game_id": "example"}, nil)
+    created, err := client.Alert(nil).Create(map[string]any{"email": "example_email", "game_id": "example_game_id"}, nil)
     if err != nil {
         panic(err)
     }
@@ -359,8 +359,8 @@ Create an instance: `alert := client.Alert(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Remove(match, ctrl)` | Remove the matching entity. |
 
 #### Fields
@@ -387,6 +387,10 @@ fmt.Println(alerts) // the array of records
 ```go
 result, err := client.Alert(nil).Create(map[string]any{
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

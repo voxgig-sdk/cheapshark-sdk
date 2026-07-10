@@ -54,7 +54,7 @@ except Exception as err:
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.Alert().create({"email": "example", "game_id": "example"})
+created = client.Alert().create({"email": "example_email", "game_id": "example_game_id"})
 
 # Remove
 client.Alert().remove()
