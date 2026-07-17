@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Cheapshark SDK exists test
 
 local sdk = require("cheapshark_sdk")
 
