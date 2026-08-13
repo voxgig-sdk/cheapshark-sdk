@@ -37,7 +37,7 @@ class DealEntity extends CheapsharkEntityBase<Deal> {
 
 
 
-  async list(this: any, reqmatch?: DealListMatch, ctrl?: Control): Promise<Deal[]> {
+  async list(this: any, reqmatch?: DealListMatch, ctrl?: Control): Promise<DealEntity[]> {
 
     const utility = this._utility
 

@@ -3,22 +3,22 @@
     "alert": {
       "ALERT00": {
         "email": "s28",
-        "game_id": "GAME01",
-        "game_title": "s2a",
+        "gameID": "s29",
+        "gameTitle": "s2a",
         "price": 43,
         "id": "ALERT00"
       },
       "ALERT01": {
         "email": "s50",
-        "game_id": "GAME01",
-        "game_title": "s52",
+        "gameID": "s51",
+        "gameTitle": "s52",
         "price": 83,
         "id": "ALERT01"
       },
       "ALERT02": {
         "email": "s78",
-        "game_id": "GAME01",
-        "game_title": "s7a",
+        "gameID": "s79",
+        "gameTitle": "s7a",
         "price": 123,
         "id": "ALERT02"
       }
@@ -28,8 +28,8 @@
     "alert": {
       "alert_ref01": {
         "email": "sa0",
-        "game_id": "GAME01",
-        "game_title": "sa2",
+        "gameID": "sa1",
+        "gameTitle": "sa2",
         "price": 163
       }
     }

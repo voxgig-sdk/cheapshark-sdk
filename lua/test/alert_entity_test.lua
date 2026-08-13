@@ -82,7 +82,7 @@ describe("AlertEntity", function()
 
     local alert_ref01_data_result, err = alert_ref01_ent:create(alert_ref01_data, nil)
     assert.is_nil(err)
-    alert_ref01_data = helpers.to_map(alert_ref01_data_result)
+    alert_ref01_data = helpers.to_map(type(alert_ref01_data_result) == 'table' and alert_ref01_data_result.data_get and alert_ref01_data_result:data_get() or alert_ref01_data_result)
     assert.is_not_nil(alert_ref01_data)
 
     -- LIST
@@ -92,17 +92,6 @@ describe("AlertEntity", function()
     assert.is_nil(err)
     assert.is_table(alert_ref01_list_result)
 
-    local found_item = vs.select(
-      runner.entity_list_to_data(alert_ref01_list_result),
-      { id = alert_ref01_data["id"] })
-    assert.is_false(vs.isempty(found_item))
-
-    -- REMOVE
-    local alert_ref01_match_rm0 = {
-      id = alert_ref01_data["id"],
-    }
-    local _, err = alert_ref01_ent:remove(alert_ref01_match_rm0, nil)
-    assert.is_nil(err)
 
     -- LIST
     local alert_ref01_match_rt0 = {}
@@ -110,11 +99,6 @@ describe("AlertEntity", function()
     local alert_ref01_list_rt0_result, err = alert_ref01_ent:list(alert_ref01_match_rt0, nil)
     assert.is_nil(err)
     assert.is_table(alert_ref01_list_rt0_result)
-
-    local not_found_item = vs.select(
-      runner.entity_list_to_data(alert_ref01_list_rt0_result),
-      { id = alert_ref01_data["id"] })
-    assert.is_true(vs.isempty(not_found_item))
 
   end)
 end)

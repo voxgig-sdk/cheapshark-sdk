@@ -111,8 +111,8 @@ fmt.Println(alert.GetName()) // "alert"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `email` | `string` | No |  |
-| `game_id` | `string` | No |  |
-| `game_title` | `string` | No |  |
+| `gameID` | `string` | No |  |
+| `gameTitle` | `string` | No |  |
 | `price` | `float64` | No |  |
 
 ### Operations
@@ -189,23 +189,23 @@ fmt.Println(deal.GetName()) // "deal"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `deal_id` | `string` | No |  |
-| `deal_rating` | `string` | No |  |
-| `game_id` | `string` | No |  |
-| `internal_name` | `string` | No |  |
-| `is_on_sale` | `bool` | No |  |
-| `last_change` | `int` | No |  |
-| `metacritic_link` | `string` | No |  |
-| `metacritic_score` | `string` | No |  |
-| `normal_price` | `string` | No |  |
-| `release_date` | `int` | No |  |
-| `sale_price` | `string` | No |  |
-| `saving` | `string` | No |  |
-| `steam_app_id` | `string` | No |  |
-| `steam_rating_count` | `string` | No |  |
-| `steam_rating_percent` | `string` | No |  |
-| `steam_rating_text` | `string` | No |  |
-| `store_id` | `string` | No |  |
+| `dealID` | `string` | No |  |
+| `dealRating` | `string` | No |  |
+| `gameID` | `string` | No |  |
+| `internalName` | `string` | No |  |
+| `isOnSale` | `string` | No |  |
+| `lastChange` | `int` | No |  |
+| `metacriticLink` | `string` | No |  |
+| `metacriticScore` | `string` | No |  |
+| `normalPrice` | `string` | No |  |
+| `releaseDate` | `int` | No |  |
+| `salePrice` | `string` | No |  |
+| `savings` | `string` | No |  |
+| `steamAppID` | `string` | No |  |
+| `steamRatingCount` | `string` | No |  |
+| `steamRatingPercent` | `string` | No |  |
+| `steamRatingText` | `string` | No |  |
+| `storeID` | `string` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 
@@ -259,11 +259,11 @@ fmt.Println(game.GetName()) // "game"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cheapest` | `string` | No |  |
-| `cheapest_deal_id` | `string` | No |  |
+| `cheapestDealID` | `string` | No |  |
 | `external` | `string` | No |  |
-| `game_id` | `string` | No |  |
-| `internal_name` | `string` | No |  |
-| `steam_app_id` | `string` | No |  |
+| `gameID` | `string` | No |  |
+| `internalName` | `string` | No |  |
+| `steamAppID` | `string` | No |  |
 | `thumb` | `string` | No |  |
 
 ### Operations
@@ -315,10 +315,10 @@ fmt.Println(store.GetName()) // "store"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `image` | `map[string]any` | No |  |
-| `is_active` | `int` | No |  |
-| `store_id` | `string` | No |  |
-| `store_name` | `string` | No |  |
+| `images` | `map[string]any` | No |  |
+| `isActive` | `int` | No |  |
+| `storeID` | `string` | No |  |
+| `storeName` | `string` | No |  |
 
 ### Operations
 

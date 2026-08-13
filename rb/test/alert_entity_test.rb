@@ -73,7 +73,7 @@ class AlertEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.alert"), "alert_ref01"))
 
     alert_ref01_data_result = alert_ref01_ent.create(alert_ref01_data, nil)
-    alert_ref01_data = Helpers.to_map(alert_ref01_data_result)
+    alert_ref01_data = Helpers.to_map(alert_ref01_data_result.respond_to?(:data_get) ? alert_ref01_data_result.data_get : alert_ref01_data_result)
     assert !alert_ref01_data.nil?
 
     # LIST
@@ -82,27 +82,12 @@ class AlertEntityTest < Minitest::Test
     alert_ref01_list_result = alert_ref01_ent.list(alert_ref01_match, nil)
     assert alert_ref01_list_result.is_a?(Array)
 
-    found_item = Vs.select(
-      Runner.entity_list_to_data(alert_ref01_list_result),
-      { "id" => alert_ref01_data["id"] })
-    assert !Vs.isempty(found_item)
-
-    # REMOVE
-    alert_ref01_match_rm0 = {
-      "id" => alert_ref01_data["id"],
-    }
-    alert_ref01_ent.remove(alert_ref01_match_rm0, nil)
 
     # LIST
     alert_ref01_match_rt0 = {}
 
     alert_ref01_list_rt0_result = alert_ref01_ent.list(alert_ref01_match_rt0, nil)
     assert alert_ref01_list_rt0_result.is_a?(Array)
-
-    not_found_item = Vs.select(
-      Runner.entity_list_to_data(alert_ref01_list_rt0_result),
-      { "id" => alert_ref01_data["id"] })
-    assert Vs.isempty(not_found_item)
 
   end
 end

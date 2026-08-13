@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import CheapsharkSDK
-from core.error import CheapsharkError
-from core.result import CheapsharkResult
-from core.response import CheapsharkResponse
-from core.spec import CheapsharkSpec
-from feature.base_feature import CheapsharkBaseFeature
+from projectname_sdk.core.error import CheapsharkError
+from projectname_sdk.core.result import CheapsharkResult
+from projectname_sdk.core.response import CheapsharkResponse
+from projectname_sdk.core.spec import CheapsharkSpec
+from projectname_sdk.feature.base_feature import CheapsharkBaseFeature
 
 
 def _client():

@@ -37,7 +37,7 @@ class StoreEntity extends CheapsharkEntityBase<Store> {
 
 
 
-  async list(this: any, reqmatch?: StoreListMatch, ctrl?: Control): Promise<Store[]> {
+  async list(this: any, reqmatch?: StoreListMatch, ctrl?: Control): Promise<StoreEntity[]> {
 
     const utility = this._utility
 

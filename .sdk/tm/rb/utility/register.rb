@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ CheapsharkUtility.registrar = ->(u) {
   u.prepare_params = CheapsharkUtilities::PrepareParams
   u.prepare_path = CheapsharkUtilities::PreparePath
   u.prepare_query = CheapsharkUtilities::PrepareQuery
+  u.graphql_body = CheapsharkUtilities::GraphqlBody
+  u.graphql_errors = CheapsharkUtilities::GraphqlErrors
   u.result_basic = CheapsharkUtilities::ResultBasic
   u.result_body = CheapsharkUtilities::ResultBody
   u.result_headers = CheapsharkUtilities::ResultHeaders

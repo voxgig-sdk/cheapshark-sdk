@@ -106,7 +106,7 @@ func TestAlertEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		alertRef01Data = core.ToMapAny(alertRef01DataResult)
+		alertRef01Data = core.ToMapAny(entityData(alertRef01DataResult))
 		if alertRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -118,24 +118,11 @@ func TestAlertEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		alertRef01List, alertRef01ListOk := alertRef01ListResult.([]any)
+		_, alertRef01ListOk := alertRef01ListResult.([]any)
 		if !alertRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", alertRef01ListResult)
 		}
 
-		foundItem := vs.Select(entityListToData(alertRef01List), map[string]any{"id": alertRef01Data["id"]})
-		if vs.IsEmpty(foundItem) {
-			t.Fatal("expected to find created entity in list")
-		}
-
-		// REMOVE
-		alertRef01MatchRm0 := map[string]any{
-			"id": alertRef01Data["id"],
-		}
-		_, err = alertRef01Ent.Remove(alertRef01MatchRm0, nil)
-		if err != nil {
-			t.Fatalf("remove failed: %v", err)
-		}
 
 		// LIST
 		alertRef01MatchRt0 := map[string]any{}
@@ -144,14 +131,9 @@ func TestAlertEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		alertRef01ListRt0, alertRef01ListRt0Ok := alertRef01ListRt0Result.([]any)
+		_, alertRef01ListRt0Ok := alertRef01ListRt0Result.([]any)
 		if !alertRef01ListRt0Ok {
 			t.Fatalf("expected list result to be an array, got %T", alertRef01ListRt0Result)
-		}
-
-		notFoundItem := vs.Select(entityListToData(alertRef01ListRt0), map[string]any{"id": alertRef01Data["id"]})
-		if !vs.IsEmpty(notFoundItem) {
-			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

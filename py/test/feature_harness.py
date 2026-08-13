@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import CheapsharkControl
-from core.error import CheapsharkError
-from core.result import CheapsharkResult
-from core.spec import CheapsharkSpec
+from cheapshark_sdk.config import make_config
+from cheapshark_sdk.features import _make_feature
+from cheapshark_sdk.core.control import CheapsharkControl
+from cheapshark_sdk.core.error import CheapsharkError
+from cheapshark_sdk.core.result import CheapsharkResult
+from cheapshark_sdk.core.spec import CheapsharkSpec
 
 
 # True when this SDK was generated with the named feature.

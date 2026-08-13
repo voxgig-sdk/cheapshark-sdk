@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from cheapshark_sdk.utility.voxgig_struct import voxgig_struct as vs
 from cheapshark_sdk import CheapsharkSDK
-from core import helpers
+from cheapshark_sdk.core import helpers
 from test import runner
 
 

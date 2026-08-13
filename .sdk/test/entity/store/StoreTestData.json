@@ -2,32 +2,32 @@
   "existing": {
     "store": {
       "STORE00": {
-        "image": {},
-        "is_active": "s29",
-        "store_id": "STORE01",
-        "store_name": "s2b"
+        "images": {},
+        "isActive": "s29",
+        "storeID": "s2a",
+        "storeName": "s2b"
       },
       "STORE01": {
-        "image": {},
-        "is_active": "s51",
-        "store_id": "STORE01",
-        "store_name": "s53"
+        "images": {},
+        "isActive": "s51",
+        "storeID": "s52",
+        "storeName": "s53"
       },
       "STORE02": {
-        "image": {},
-        "is_active": "s79",
-        "store_id": "STORE01",
-        "store_name": "s7b"
+        "images": {},
+        "isActive": "s79",
+        "storeID": "s7a",
+        "storeName": "s7b"
       }
     }
   },
   "new": {
     "store": {
       "store_ref01": {
-        "image": {},
-        "is_active": "sa1",
-        "store_id": "STORE01",
-        "store_name": "sa3"
+        "images": {},
+        "isActive": "sa1",
+        "storeID": "sa2",
+        "storeName": "sa3"
       }
     }
   }

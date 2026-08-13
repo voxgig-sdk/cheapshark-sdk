@@ -3,29 +3,29 @@
     "game": {
       "GAME00": {
         "cheapest": "s46",
-        "cheapest_deal_id": "CHEAPEST_DEAL01",
+        "cheapestDealID": "s47",
         "external": "s48",
-        "game_id": "GAME01",
-        "internal_name": "s4a",
-        "steam_app_id": "STEAM_APP01",
+        "gameID": "s49",
+        "internalName": "s4a",
+        "steamAppID": "s4b",
         "thumb": "s4c"
       },
       "GAME01": {
         "cheapest": "s8c",
-        "cheapest_deal_id": "CHEAPEST_DEAL01",
+        "cheapestDealID": "s8d",
         "external": "s8e",
-        "game_id": "GAME01",
-        "internal_name": "s90",
-        "steam_app_id": "STEAM_APP01",
+        "gameID": "s8f",
+        "internalName": "s90",
+        "steamAppID": "s91",
         "thumb": "s92"
       },
       "GAME02": {
         "cheapest": "sd2",
-        "cheapest_deal_id": "CHEAPEST_DEAL01",
+        "cheapestDealID": "sd3",
         "external": "sd4",
-        "game_id": "GAME01",
-        "internal_name": "sd6",
-        "steam_app_id": "STEAM_APP01",
+        "gameID": "sd5",
+        "internalName": "sd6",
+        "steamAppID": "sd7",
         "thumb": "sd8"
       }
     }
@@ -34,11 +34,11 @@
     "game": {
       "game_ref01": {
         "cheapest": "s118",
-        "cheapest_deal_id": "CHEAPEST_DEAL01",
+        "cheapestDealID": "s119",
         "external": "s11a",
-        "game_id": "GAME01",
-        "internal_name": "s11c",
-        "steam_app_id": "STEAM_APP01",
+        "gameID": "s11b",
+        "internalName": "s11c",
+        "steamAppID": "s11d",
         "thumb": "s11e"
       }
     }

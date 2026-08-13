@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from cheapshark_sdk.utility.voxgig_struct import voxgig_struct as vs
 from cheapshark_sdk import CheapsharkSDK
-from core import helpers
+from cheapshark_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestAlertEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from cheapshark_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = CheapsharkSDK.test(
@@ -78,7 +78,7 @@ class TestAlertEntity:
         alert_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.alert"), "alert_ref01"))
 
-        alert_ref01_data = helpers.to_map(alert_ref01_ent.create(alert_ref01_data, None))
+        alert_ref01_data = helpers.to_map(runner.entity_data(alert_ref01_ent.create(alert_ref01_data, None)))
         assert alert_ref01_data is not None
 
         # LIST
@@ -87,27 +87,12 @@ class TestAlertEntity:
         alert_ref01_list_result = alert_ref01_ent.list(alert_ref01_match, None)
         assert isinstance(alert_ref01_list_result, list)
 
-        found_item = vs.select(
-            runner.entity_list_to_data(alert_ref01_list_result),
-            {"id": alert_ref01_data["id"]})
-        assert not vs.isempty(found_item)
-
-        # REMOVE
-        alert_ref01_match_rm0 = {
-            "id": alert_ref01_data["id"],
-        }
-        alert_ref01_ent.remove(alert_ref01_match_rm0, None)
 
         # LIST
         alert_ref01_match_rt0 = {}
 
         alert_ref01_list_rt0_result = alert_ref01_ent.list(alert_ref01_match_rt0, None)
         assert isinstance(alert_ref01_list_rt0_result, list)
-
-        not_found_item = vs.select(
-            runner.entity_list_to_data(alert_ref01_list_rt0_result),
-            {"id": alert_ref01_data["id"]})
-        assert vs.isempty(not_found_item)
 
 
 

@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ CheapsharkUtility::setRegistrar(function (CheapsharkUtility $u): void {
     $u->prepare_params = [CheapsharkPrepareParams::class, 'call'];
     $u->prepare_path = [CheapsharkPreparePath::class, 'call'];
     $u->prepare_query = [CheapsharkPrepareQuery::class, 'call'];
+    $u->graphql_body = [CheapsharkGraphql::class, 'body'];
+    $u->graphql_errors = [CheapsharkGraphql::class, 'errors'];
     $u->result_basic = [CheapsharkResultBasic::class, 'call'];
     $u->result_body = [CheapsharkResultBody::class, 'call'];
     $u->result_headers = [CheapsharkResultHeaders::class, 'call'];

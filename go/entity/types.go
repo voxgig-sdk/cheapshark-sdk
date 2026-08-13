@@ -6,82 +6,86 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/voxgig-sdk/cheapshark-sdk/go/core"
+)
 
 // Alert is the typed data model for the alert entity.
 type Alert struct {
 	Email *string `json:"email,omitempty"`
-	GameId *string `json:"game_id,omitempty"`
-	GameTitle *string `json:"game_title,omitempty"`
+	GameID *string `json:"gameID,omitempty"`
+	GameTitle *string `json:"gameTitle,omitempty"`
 	Price *float64 `json:"price,omitempty"`
 }
 
 // AlertListMatch is the typed request payload for Alert.ListTyped.
 type AlertListMatch struct {
 	Email *string `json:"email,omitempty"`
-	GameId *string `json:"game_id,omitempty"`
-	GameTitle *string `json:"game_title,omitempty"`
+	GameID *string `json:"gameID,omitempty"`
+	GameTitle *string `json:"gameTitle,omitempty"`
 	Price *float64 `json:"price,omitempty"`
 }
 
 // AlertCreateData is the typed request payload for Alert.CreateTyped.
 type AlertCreateData struct {
 	Email *string `json:"email,omitempty"`
-	GameId *string `json:"game_id,omitempty"`
-	GameTitle *string `json:"game_title,omitempty"`
+	GameID *string `json:"gameID,omitempty"`
+	GameTitle *string `json:"gameTitle,omitempty"`
 	Price *float64 `json:"price,omitempty"`
 }
 
 // AlertRemoveMatch is the typed request payload for Alert.RemoveTyped.
 type AlertRemoveMatch struct {
 	Email *string `json:"email,omitempty"`
-	GameId *string `json:"game_id,omitempty"`
-	GameTitle *string `json:"game_title,omitempty"`
+	GameID *string `json:"gameID,omitempty"`
+	GameTitle *string `json:"gameTitle,omitempty"`
 	Price *float64 `json:"price,omitempty"`
 }
 
 // Deal is the typed data model for the deal entity.
 type Deal struct {
-	DealId *string `json:"deal_id,omitempty"`
-	DealRating *string `json:"deal_rating,omitempty"`
-	GameId *string `json:"game_id,omitempty"`
-	InternalName *string `json:"internal_name,omitempty"`
-	IsOnSale *bool `json:"is_on_sale,omitempty"`
-	LastChange *int `json:"last_change,omitempty"`
-	MetacriticLink *string `json:"metacritic_link,omitempty"`
-	MetacriticScore *string `json:"metacritic_score,omitempty"`
-	NormalPrice *string `json:"normal_price,omitempty"`
-	ReleaseDate *int `json:"release_date,omitempty"`
-	SalePrice *string `json:"sale_price,omitempty"`
-	Saving *string `json:"saving,omitempty"`
-	SteamAppId *string `json:"steam_app_id,omitempty"`
-	SteamRatingCount *string `json:"steam_rating_count,omitempty"`
-	SteamRatingPercent *string `json:"steam_rating_percent,omitempty"`
-	SteamRatingText *string `json:"steam_rating_text,omitempty"`
-	StoreId *string `json:"store_id,omitempty"`
+	DealID *string `json:"dealID,omitempty"`
+	DealRating *string `json:"dealRating,omitempty"`
+	GameID *string `json:"gameID,omitempty"`
+	InternalName *string `json:"internalName,omitempty"`
+	IsOnSale *string `json:"isOnSale,omitempty"`
+	LastChange *int `json:"lastChange,omitempty"`
+	MetacriticLink *string `json:"metacriticLink,omitempty"`
+	MetacriticScore *string `json:"metacriticScore,omitempty"`
+	NormalPrice *string `json:"normalPrice,omitempty"`
+	ReleaseDate *int `json:"releaseDate,omitempty"`
+	SalePrice *string `json:"salePrice,omitempty"`
+	Savings *string `json:"savings,omitempty"`
+	SteamAppID *string `json:"steamAppID,omitempty"`
+	SteamRatingCount *string `json:"steamRatingCount,omitempty"`
+	SteamRatingPercent *string `json:"steamRatingPercent,omitempty"`
+	SteamRatingText *string `json:"steamRatingText,omitempty"`
+	StoreID *string `json:"storeID,omitempty"`
 	Thumb *string `json:"thumb,omitempty"`
 	Title *string `json:"title,omitempty"`
 }
 
 // DealListMatch is the typed request payload for Deal.ListTyped.
 type DealListMatch struct {
-	DealId *string `json:"deal_id,omitempty"`
-	DealRating *string `json:"deal_rating,omitempty"`
-	GameId *string `json:"game_id,omitempty"`
-	InternalName *string `json:"internal_name,omitempty"`
-	IsOnSale *bool `json:"is_on_sale,omitempty"`
-	LastChange *int `json:"last_change,omitempty"`
-	MetacriticLink *string `json:"metacritic_link,omitempty"`
-	MetacriticScore *string `json:"metacritic_score,omitempty"`
-	NormalPrice *string `json:"normal_price,omitempty"`
-	ReleaseDate *int `json:"release_date,omitempty"`
-	SalePrice *string `json:"sale_price,omitempty"`
-	Saving *string `json:"saving,omitempty"`
-	SteamAppId *string `json:"steam_app_id,omitempty"`
-	SteamRatingCount *string `json:"steam_rating_count,omitempty"`
-	SteamRatingPercent *string `json:"steam_rating_percent,omitempty"`
-	SteamRatingText *string `json:"steam_rating_text,omitempty"`
-	StoreId *string `json:"store_id,omitempty"`
+	DealID *string `json:"dealID,omitempty"`
+	DealRating *string `json:"dealRating,omitempty"`
+	GameID *string `json:"gameID,omitempty"`
+	InternalName *string `json:"internalName,omitempty"`
+	IsOnSale *string `json:"isOnSale,omitempty"`
+	LastChange *int `json:"lastChange,omitempty"`
+	MetacriticLink *string `json:"metacriticLink,omitempty"`
+	MetacriticScore *string `json:"metacriticScore,omitempty"`
+	NormalPrice *string `json:"normalPrice,omitempty"`
+	ReleaseDate *int `json:"releaseDate,omitempty"`
+	SalePrice *string `json:"salePrice,omitempty"`
+	Savings *string `json:"savings,omitempty"`
+	SteamAppID *string `json:"steamAppID,omitempty"`
+	SteamRatingCount *string `json:"steamRatingCount,omitempty"`
+	SteamRatingPercent *string `json:"steamRatingPercent,omitempty"`
+	SteamRatingText *string `json:"steamRatingText,omitempty"`
+	StoreID *string `json:"storeID,omitempty"`
 	Thumb *string `json:"thumb,omitempty"`
 	Title *string `json:"title,omitempty"`
 }
@@ -89,39 +93,39 @@ type DealListMatch struct {
 // Game is the typed data model for the game entity.
 type Game struct {
 	Cheapest *string `json:"cheapest,omitempty"`
-	CheapestDealId *string `json:"cheapest_deal_id,omitempty"`
+	CheapestDealID *string `json:"cheapestDealID,omitempty"`
 	External *string `json:"external,omitempty"`
-	GameId *string `json:"game_id,omitempty"`
-	InternalName *string `json:"internal_name,omitempty"`
-	SteamAppId *string `json:"steam_app_id,omitempty"`
+	GameID *string `json:"gameID,omitempty"`
+	InternalName *string `json:"internalName,omitempty"`
+	SteamAppID *string `json:"steamAppID,omitempty"`
 	Thumb *string `json:"thumb,omitempty"`
 }
 
 // GameListMatch is the typed request payload for Game.ListTyped.
 type GameListMatch struct {
 	Cheapest *string `json:"cheapest,omitempty"`
-	CheapestDealId *string `json:"cheapest_deal_id,omitempty"`
+	CheapestDealID *string `json:"cheapestDealID,omitempty"`
 	External *string `json:"external,omitempty"`
-	GameId *string `json:"game_id,omitempty"`
-	InternalName *string `json:"internal_name,omitempty"`
-	SteamAppId *string `json:"steam_app_id,omitempty"`
+	GameID *string `json:"gameID,omitempty"`
+	InternalName *string `json:"internalName,omitempty"`
+	SteamAppID *string `json:"steamAppID,omitempty"`
 	Thumb *string `json:"thumb,omitempty"`
 }
 
 // Store is the typed data model for the store entity.
 type Store struct {
-	Image *map[string]any `json:"image,omitempty"`
-	IsActive *int `json:"is_active,omitempty"`
-	StoreId *string `json:"store_id,omitempty"`
-	StoreName *string `json:"store_name,omitempty"`
+	Images *map[string]any `json:"images,omitempty"`
+	IsActive *int `json:"isActive,omitempty"`
+	StoreID *string `json:"storeID,omitempty"`
+	StoreName *string `json:"storeName,omitempty"`
 }
 
 // StoreListMatch is the typed request payload for Store.ListTyped.
 type StoreListMatch struct {
-	Image *map[string]any `json:"image,omitempty"`
-	IsActive *int `json:"is_active,omitempty"`
-	StoreId *string `json:"store_id,omitempty"`
-	StoreName *string `json:"store_name,omitempty"`
+	Images *map[string]any `json:"images,omitempty"`
+	IsActive *int `json:"isActive,omitempty"`
+	StoreID *string `json:"storeID,omitempty"`
+	StoreName *string `json:"storeName,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the
@@ -136,12 +140,26 @@ func asMap(v any) map[string]any {
 	return out
 }
 
-// typedFrom decodes a runtime value (a map[string]any produced by the op
-// pipeline) into a typed model T via a JSON round-trip. On any error it
-// returns the zero value of T; the op's own (value, error) tuple carries the
-// real error.
+// entityData unwraps an entity to its data map.
+//
+// Operations resolve to the ENTITY, not the raw data (see AGENTS.md), and an
+// entity's fields are UNEXPORTED — marshalling one directly yields `{}`, so
+// every typed accessor would silently hand back a zero-valued struct. The
+// typed boundary therefore takes the data hop first.
+func entityData(v any) any {
+	if ent, ok := v.(core.Entity); ok {
+		return ent.Data()
+	}
+	return v
+}
+
+// typedFrom decodes a runtime value (an entity, or the map[string]any the op
+// pipeline produced) into a typed model T via a JSON round-trip. On any error
+// it returns the zero value of T; the op's own (value, error) tuple carries
+// the real error.
 func typedFrom[T any](v any) T {
 	var out T
+	v = entityData(v)
 	if v == nil {
 		return out
 	}
@@ -153,12 +171,20 @@ func typedFrom[T any](v any) T {
 	return out
 }
 
-// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
-// slice []T via a JSON round-trip, for list ops.
+// typedSliceFrom decodes a runtime list value into a typed slice []T via a
+// JSON round-trip, for list ops. `list` resolves to a slice of ENTITY
+// instances, so each element takes the data hop.
 func typedSliceFrom[T any](v any) []T {
 	var out []T
 	if v == nil {
 		return out
+	}
+	if list, ok := v.([]any); ok {
+		unwrapped := make([]any, 0, len(list))
+		for _, item := range list {
+			unwrapped = append(unwrapped, entityData(item))
+		}
+		v = unwrapped
 	}
 	b, err := json.Marshal(v)
 	if err != nil {

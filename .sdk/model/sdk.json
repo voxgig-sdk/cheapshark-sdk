@@ -5,6 +5,10 @@
       "desc": ""
     },
     "kit": {
+      "author": {
+        "name": "",
+        "url": ""
+      },
       "config": {
         "docs_order": [
           "ts",
@@ -18,6 +22,7 @@
           "content-type": "application/json"
         }
       },
+      "contributor": {},
       "entity": {
         "alert": {
           "active": true,
@@ -33,13 +38,13 @@
             },
             {
               "active": true,
-              "name": "game_id",
+              "name": "gameID",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "game_title",
+              "name": "gameTitle",
               "req": false,
               "type": "`$STRING`"
             },
@@ -59,6 +64,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/alerts",
                   "parts": [
@@ -90,6 +96,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/alerts",
                   "parts": [
@@ -133,6 +140,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "DELETE",
                   "orig": "/alerts",
                   "parts": [
@@ -164,103 +172,103 @@
           "fields": [
             {
               "active": true,
-              "name": "deal_id",
+              "name": "dealID",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "deal_rating",
+              "name": "dealRating",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "game_id",
+              "name": "gameID",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "internal_name",
+              "name": "internalName",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "is_on_sale",
+              "name": "isOnSale",
               "req": false,
-              "type": "`$BOOLEAN`"
+              "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "last_change",
+              "name": "lastChange",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "metacritic_link",
+              "name": "metacriticLink",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "metacritic_score",
+              "name": "metacriticScore",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "normal_price",
+              "name": "normalPrice",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "release_date",
+              "name": "releaseDate",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "sale_price",
+              "name": "salePrice",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "saving",
+              "name": "savings",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "steam_app_id",
+              "name": "steamAppID",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "steam_rating_count",
+              "name": "steamRatingCount",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "steam_rating_percent",
+              "name": "steamRatingPercent",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "steam_rating_text",
+              "name": "steamRatingText",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "store_id",
+              "name": "storeID",
               "req": false,
               "type": "`$STRING`"
             },
@@ -421,6 +429,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/deals",
                   "parts": [
@@ -472,7 +481,7 @@
             },
             {
               "active": true,
-              "name": "cheapest_deal_id",
+              "name": "cheapestDealID",
               "req": false,
               "type": "`$STRING`"
             },
@@ -484,19 +493,19 @@
             },
             {
               "active": true,
-              "name": "game_id",
+              "name": "gameID",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "internal_name",
+              "name": "internalName",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "steam_app_id",
+              "name": "steamAppID",
               "req": false,
               "type": "`$STRING`"
             },
@@ -553,6 +562,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/games",
                   "parts": [
@@ -586,25 +596,25 @@
           "fields": [
             {
               "active": true,
-              "name": "image",
+              "name": "images",
               "req": false,
               "type": "`$OBJECT`"
             },
             {
               "active": true,
-              "name": "is_active",
+              "name": "isActive",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "store_id",
+              "name": "storeID",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "store_name",
+              "name": "storeName",
               "req": false,
               "type": "`$STRING`"
             }
@@ -618,6 +628,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/stores",
                   "parts": [
@@ -897,18 +908,41 @@
         "website": "https://cheapshark.com"
       },
       "option": {},
+      "repo": {
+        "host": "github.com",
+        "path": ""
+      },
       "target": {
         "go": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [
+              "test/feature_test.go"
+            ],
+            "trim": true
+          },
           "module": {
-            "name": "cheapshark"
+            "goversion": "",
+            "name": "cheapshark",
+            "package": "",
+            "path": ""
           },
           "name": "go",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -930,22 +964,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Golang"
         },
         "go-cli": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "cheapshark"
+            "goversion": "",
+            "name": "cheapshark",
+            "package": "",
+            "path": ""
           },
           "name": "go-cli",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -984,21 +1036,39 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go CLI"
         },
         "go-mcp": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "cheapshark"
+            "goversion": "",
+            "name": "cheapshark",
+            "package": "",
+            "path": ""
           },
           "name": "go-mcp",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -1037,12 +1107,17 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go MCP server"
         },
         "lua": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "--"
           },
@@ -1054,10 +1129,23 @@
             }
           },
           "ext": "lua",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "cheapshark"
+            "goversion": "",
+            "name": "cheapshark",
+            "package": "",
+            "path": ""
           },
           "name": "lua",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1079,22 +1167,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Lua"
         },
         "php": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "php",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "cheapshark"
+            "goversion": "",
+            "name": "cheapshark",
+            "package": "",
+            "path": ""
           },
           "name": "php",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1116,13 +1222,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "PHP"
         },
         "py": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -1134,10 +1245,23 @@
             }
           },
           "ext": "py",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "cheapshark"
+            "goversion": "",
+            "name": "cheapshark",
+            "package": "",
+            "path": ""
           },
           "name": "py",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1159,13 +1283,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Python"
         },
         "rb": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -1182,10 +1311,23 @@
             }
           },
           "ext": "rb",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "cheapshark"
+            "goversion": "",
+            "name": "cheapshark",
+            "package": "",
+            "path": ""
           },
           "name": "rb",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1207,13 +1349,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Ruby"
         },
         "ts": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
@@ -1236,10 +1383,23 @@
             }
           },
           "ext": "ts",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "cheapshark"
+            "goversion": "",
+            "name": "cheapshark",
+            "package": "",
+            "path": ""
           },
           "name": "ts",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1261,9 +1421,17 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "TypeScript"
+        }
+      },
+      "test": {
+        "live": {
+          "app": false,
+          "base": "",
+          "strict": false
         }
       }
     }

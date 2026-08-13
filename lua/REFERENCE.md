@@ -103,8 +103,8 @@ local alert = client:Alert(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `email` | `string` | No |  |
-| `game_id` | `string` | No |  |
-| `game_title` | `string` | No |  |
+| `gameID` | `string` | No |  |
+| `gameTitle` | `string` | No |  |
 | `price` | `number` | No |  |
 
 ### Operations
@@ -174,23 +174,23 @@ local deal = client:Deal(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `deal_id` | `string` | No |  |
-| `deal_rating` | `string` | No |  |
-| `game_id` | `string` | No |  |
-| `internal_name` | `string` | No |  |
-| `is_on_sale` | `boolean` | No |  |
-| `last_change` | `number` | No |  |
-| `metacritic_link` | `string` | No |  |
-| `metacritic_score` | `string` | No |  |
-| `normal_price` | `string` | No |  |
-| `release_date` | `number` | No |  |
-| `sale_price` | `string` | No |  |
-| `saving` | `string` | No |  |
-| `steam_app_id` | `string` | No |  |
-| `steam_rating_count` | `string` | No |  |
-| `steam_rating_percent` | `string` | No |  |
-| `steam_rating_text` | `string` | No |  |
-| `store_id` | `string` | No |  |
+| `dealID` | `string` | No |  |
+| `dealRating` | `string` | No |  |
+| `gameID` | `string` | No |  |
+| `internalName` | `string` | No |  |
+| `isOnSale` | `string` | No |  |
+| `lastChange` | `number` | No |  |
+| `metacriticLink` | `string` | No |  |
+| `metacriticScore` | `string` | No |  |
+| `normalPrice` | `string` | No |  |
+| `releaseDate` | `number` | No |  |
+| `salePrice` | `string` | No |  |
+| `savings` | `string` | No |  |
+| `steamAppID` | `string` | No |  |
+| `steamRatingCount` | `string` | No |  |
+| `steamRatingPercent` | `string` | No |  |
+| `steamRatingText` | `string` | No |  |
+| `storeID` | `string` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 
@@ -245,11 +245,11 @@ local game = client:Game(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cheapest` | `string` | No |  |
-| `cheapest_deal_id` | `string` | No |  |
+| `cheapestDealID` | `string` | No |  |
 | `external` | `string` | No |  |
-| `game_id` | `string` | No |  |
-| `internal_name` | `string` | No |  |
-| `steam_app_id` | `string` | No |  |
+| `gameID` | `string` | No |  |
+| `internalName` | `string` | No |  |
+| `steamAppID` | `string` | No |  |
 | `thumb` | `string` | No |  |
 
 ### Operations
@@ -302,10 +302,10 @@ local store = client:Store(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `image` | `table` | No |  |
-| `is_active` | `number` | No |  |
-| `store_id` | `string` | No |  |
-| `store_name` | `string` | No |  |
+| `images` | `table` | No |  |
+| `isActive` | `number` | No |  |
+| `storeID` | `string` | No |  |
+| `storeName` | `string` | No |  |
 
 ### Operations
 

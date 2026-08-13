@@ -11,7 +11,7 @@ main: kit: entity: game: {
       type: "`$STRING`"
     }
     {
-      name: "cheapest_deal_id"
+      name: "cheapestDealID"
       req: false
       type: "`$STRING`"
     }
@@ -21,17 +21,17 @@ main: kit: entity: game: {
       type: "`$STRING`"
     }
     {
-      name: "game_id"
+      name: "gameID"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "internal_name"
+      name: "internalName"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "steam_app_id"
+      name: "steamAppID"
       req: false
       type: "`$STRING`"
     }

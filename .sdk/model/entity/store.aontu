@@ -6,22 +6,22 @@ main: kit: entity: store: {
 
   fields: [
     {
-      name: "image"
+      name: "images"
       req: false
       type: "`$OBJECT`"
     }
     {
-      name: "is_active"
+      name: "isActive"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "store_id"
+      name: "storeID"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "store_name"
+      name: "storeName"
       req: false
       type: "`$STRING`"
     }

@@ -6,87 +6,87 @@ main: kit: entity: deal: {
 
   fields: [
     {
-      name: "deal_id"
+      name: "dealID"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "deal_rating"
+      name: "dealRating"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "game_id"
+      name: "gameID"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "internal_name"
+      name: "internalName"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "is_on_sale"
+      name: "isOnSale"
       req: false
-      type: "`$BOOLEAN`"
+      type: "`$STRING`"
     }
     {
-      name: "last_change"
+      name: "lastChange"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "metacritic_link"
+      name: "metacriticLink"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "metacritic_score"
+      name: "metacriticScore"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "normal_price"
+      name: "normalPrice"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "release_date"
+      name: "releaseDate"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "sale_price"
+      name: "salePrice"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "saving"
+      name: "savings"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "steam_app_id"
+      name: "steamAppID"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "steam_rating_count"
+      name: "steamRatingCount"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "steam_rating_percent"
+      name: "steamRatingPercent"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "steam_rating_text"
+      name: "steamRatingText"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "store_id"
+      name: "storeID"
       req: false
       type: "`$STRING`"
     }

@@ -53,8 +53,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
-created = client.Alert().create({"email": "example_email", "game_id": "example_game_id"})
+# Create — returns the ENTITY (call data_get() for the record)
+created = client.Alert().create({"email": "example_email", "gameID": "example_gameID"})
 
 # Remove
 client.Alert().remove()
@@ -134,7 +134,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = CheapsharkSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 alert = client.Alert().list()
 # alert contains the mock response record
 ```
@@ -235,7 +236,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -258,8 +259,8 @@ On error, `ok` is `False` and `err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `email` |  |
-| `game_id` |  |
-| `game_title` |  |
+| `gameID` |  |
+| `gameTitle` |  |
 | `price` |  |
 
 Operations: Create, List, Remove.
@@ -270,23 +271,23 @@ API path: `/alerts`
 
 | Field | Description |
 | --- | --- |
-| `deal_id` |  |
-| `deal_rating` |  |
-| `game_id` |  |
-| `internal_name` |  |
-| `is_on_sale` |  |
-| `last_change` |  |
-| `metacritic_link` |  |
-| `metacritic_score` |  |
-| `normal_price` |  |
-| `release_date` |  |
-| `sale_price` |  |
-| `saving` |  |
-| `steam_app_id` |  |
-| `steam_rating_count` |  |
-| `steam_rating_percent` |  |
-| `steam_rating_text` |  |
-| `store_id` |  |
+| `dealID` |  |
+| `dealRating` |  |
+| `gameID` |  |
+| `internalName` |  |
+| `isOnSale` |  |
+| `lastChange` |  |
+| `metacriticLink` |  |
+| `metacriticScore` |  |
+| `normalPrice` |  |
+| `releaseDate` |  |
+| `salePrice` |  |
+| `savings` |  |
+| `steamAppID` |  |
+| `steamRatingCount` |  |
+| `steamRatingPercent` |  |
+| `steamRatingText` |  |
+| `storeID` |  |
 | `thumb` |  |
 | `title` |  |
 
@@ -299,11 +300,11 @@ API path: `/deals`
 | Field | Description |
 | --- | --- |
 | `cheapest` |  |
-| `cheapest_deal_id` |  |
+| `cheapestDealID` |  |
 | `external` |  |
-| `game_id` |  |
-| `internal_name` |  |
-| `steam_app_id` |  |
+| `gameID` |  |
+| `internalName` |  |
+| `steamAppID` |  |
 | `thumb` |  |
 
 Operations: List.
@@ -314,10 +315,10 @@ API path: `/games`
 
 | Field | Description |
 | --- | --- |
-| `image` |  |
-| `is_active` |  |
-| `store_id` |  |
-| `store_name` |  |
+| `images` |  |
+| `isActive` |  |
+| `storeID` |  |
+| `storeName` |  |
 
 Operations: List.
 
@@ -345,8 +346,8 @@ Create an instance: `alert = client.Alert()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `email` | `str` |  |
-| `game_id` | `str` |  |
-| `game_title` | `str` |  |
+| `gameID` | `str` |  |
+| `gameTitle` | `str` |  |
 | `price` | `float` |  |
 
 #### Example: List
@@ -377,23 +378,23 @@ Create an instance: `deal = client.Deal()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `deal_id` | `str` |  |
-| `deal_rating` | `str` |  |
-| `game_id` | `str` |  |
-| `internal_name` | `str` |  |
-| `is_on_sale` | `bool` |  |
-| `last_change` | `int` |  |
-| `metacritic_link` | `str` |  |
-| `metacritic_score` | `str` |  |
-| `normal_price` | `str` |  |
-| `release_date` | `int` |  |
-| `sale_price` | `str` |  |
-| `saving` | `str` |  |
-| `steam_app_id` | `str` |  |
-| `steam_rating_count` | `str` |  |
-| `steam_rating_percent` | `str` |  |
-| `steam_rating_text` | `str` |  |
-| `store_id` | `str` |  |
+| `dealID` | `str` |  |
+| `dealRating` | `str` |  |
+| `gameID` | `str` |  |
+| `internalName` | `str` |  |
+| `isOnSale` | `str` |  |
+| `lastChange` | `int` |  |
+| `metacriticLink` | `str` |  |
+| `metacriticScore` | `str` |  |
+| `normalPrice` | `str` |  |
+| `releaseDate` | `int` |  |
+| `salePrice` | `str` |  |
+| `savings` | `str` |  |
+| `steamAppID` | `str` |  |
+| `steamRatingCount` | `str` |  |
+| `steamRatingPercent` | `str` |  |
+| `steamRatingText` | `str` |  |
+| `storeID` | `str` |  |
 | `thumb` | `str` |  |
 | `title` | `str` |  |
 
@@ -419,11 +420,11 @@ Create an instance: `game = client.Game()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `cheapest` | `str` |  |
-| `cheapest_deal_id` | `str` |  |
+| `cheapestDealID` | `str` |  |
 | `external` | `str` |  |
-| `game_id` | `str` |  |
-| `internal_name` | `str` |  |
-| `steam_app_id` | `str` |  |
+| `gameID` | `str` |  |
+| `internalName` | `str` |  |
+| `steamAppID` | `str` |  |
 | `thumb` | `str` |  |
 
 #### Example: List
@@ -447,10 +448,10 @@ Create an instance: `store = client.Store()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `image` | `dict` |  |
-| `is_active` | `int` |  |
-| `store_id` | `str` |  |
-| `store_name` | `str` |  |
+| `images` | `dict` |  |
+| `isActive` | `int` |  |
+| `storeID` | `str` |  |
+| `storeName` | `str` |  |
 
 #### Example: List
 

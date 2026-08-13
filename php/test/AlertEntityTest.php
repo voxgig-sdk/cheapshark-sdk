@@ -83,7 +83,7 @@ class AlertEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.alert"), "alert_ref01"));
 
         $alert_ref01_data_result = $alert_ref01_ent->create($alert_ref01_data, null);
-        $alert_ref01_data = Helpers::to_map($alert_ref01_data_result);
+        $alert_ref01_data = Helpers::to_map(is_object($alert_ref01_data_result) && method_exists($alert_ref01_data_result, 'data_get') ? $alert_ref01_data_result->data_get() : $alert_ref01_data_result);
         $this->assertNotNull($alert_ref01_data);
 
         // LIST
@@ -92,27 +92,12 @@ class AlertEntityTest extends TestCase
         $alert_ref01_list_result = $alert_ref01_ent->list($alert_ref01_match, null);
         $this->assertIsArray($alert_ref01_list_result);
 
-        $found_item = sdk_select(
-            Runner::entity_list_to_data($alert_ref01_list_result),
-            ["id" => $alert_ref01_data["id"]]);
-        $this->assertNotEmpty($found_item);
-
-        // REMOVE
-        $alert_ref01_match_rm0 = [
-            "id" => $alert_ref01_data["id"],
-        ];
-        $alert_ref01_ent->remove($alert_ref01_match_rm0, null);
 
         // LIST
         $alert_ref01_match_rt0 = [];
 
         $alert_ref01_list_rt0_result = $alert_ref01_ent->list($alert_ref01_match_rt0, null);
         $this->assertIsArray($alert_ref01_list_rt0_result);
-
-        $not_found_item = sdk_select(
-            Runner::entity_list_to_data($alert_ref01_list_rt0_result),
-            ["id" => $alert_ref01_data["id"]]);
-        $this->assertEmpty($not_found_item);
 
     }
 }

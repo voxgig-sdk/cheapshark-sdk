@@ -100,8 +100,8 @@ alert = client.Alert()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `email` | `str` | No |  |
-| `game_id` | `str` | No |  |
-| `game_title` | `str` | No |  |
+| `gameID` | `str` | No |  |
+| `gameTitle` | `str` | No |  |
 | `price` | `float` | No |  |
 
 ### Operations
@@ -172,23 +172,23 @@ deal = client.Deal()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `deal_id` | `str` | No |  |
-| `deal_rating` | `str` | No |  |
-| `game_id` | `str` | No |  |
-| `internal_name` | `str` | No |  |
-| `is_on_sale` | `bool` | No |  |
-| `last_change` | `int` | No |  |
-| `metacritic_link` | `str` | No |  |
-| `metacritic_score` | `str` | No |  |
-| `normal_price` | `str` | No |  |
-| `release_date` | `int` | No |  |
-| `sale_price` | `str` | No |  |
-| `saving` | `str` | No |  |
-| `steam_app_id` | `str` | No |  |
-| `steam_rating_count` | `str` | No |  |
-| `steam_rating_percent` | `str` | No |  |
-| `steam_rating_text` | `str` | No |  |
-| `store_id` | `str` | No |  |
+| `dealID` | `str` | No |  |
+| `dealRating` | `str` | No |  |
+| `gameID` | `str` | No |  |
+| `internalName` | `str` | No |  |
+| `isOnSale` | `str` | No |  |
+| `lastChange` | `int` | No |  |
+| `metacriticLink` | `str` | No |  |
+| `metacriticScore` | `str` | No |  |
+| `normalPrice` | `str` | No |  |
+| `releaseDate` | `int` | No |  |
+| `salePrice` | `str` | No |  |
+| `savings` | `str` | No |  |
+| `steamAppID` | `str` | No |  |
+| `steamRatingCount` | `str` | No |  |
+| `steamRatingPercent` | `str` | No |  |
+| `steamRatingText` | `str` | No |  |
+| `storeID` | `str` | No |  |
 | `thumb` | `str` | No |  |
 | `title` | `str` | No |  |
 
@@ -244,11 +244,11 @@ game = client.Game()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `cheapest` | `str` | No |  |
-| `cheapest_deal_id` | `str` | No |  |
+| `cheapestDealID` | `str` | No |  |
 | `external` | `str` | No |  |
-| `game_id` | `str` | No |  |
-| `internal_name` | `str` | No |  |
-| `steam_app_id` | `str` | No |  |
+| `gameID` | `str` | No |  |
+| `internalName` | `str` | No |  |
+| `steamAppID` | `str` | No |  |
 | `thumb` | `str` | No |  |
 
 ### Operations
@@ -302,10 +302,10 @@ store = client.Store()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `image` | `dict` | No |  |
-| `is_active` | `int` | No |  |
-| `store_id` | `str` | No |  |
-| `store_name` | `str` | No |  |
+| `images` | `dict` | No |  |
+| `isActive` | `int` | No |  |
+| `storeID` | `str` | No |  |
+| `storeName` | `str` | No |  |
 
 ### Operations
 

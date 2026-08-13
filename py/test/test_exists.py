@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Cheapshark SDK exists test
 
 import pytest
 from cheapshark_sdk import CheapsharkSDK

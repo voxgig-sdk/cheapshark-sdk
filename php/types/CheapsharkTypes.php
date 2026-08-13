@@ -16,8 +16,8 @@ declare(strict_types=1);
 class Alert
 {
     public ?string $email = null;
-    public ?string $game_id = null;
-    public ?string $game_title = null;
+    public ?string $gameID = null;
+    public ?string $gameTitle = null;
     public ?float $price = null;
 }
 
@@ -25,8 +25,8 @@ class Alert
 class AlertListMatch
 {
     public ?string $email = null;
-    public ?string $game_id = null;
-    public ?string $game_title = null;
+    public ?string $gameID = null;
+    public ?string $gameTitle = null;
     public ?float $price = null;
 }
 
@@ -34,8 +34,8 @@ class AlertListMatch
 class AlertCreateData
 {
     public ?string $email = null;
-    public ?string $game_id = null;
-    public ?string $game_title = null;
+    public ?string $gameID = null;
+    public ?string $gameTitle = null;
     public ?float $price = null;
 }
 
@@ -43,31 +43,31 @@ class AlertCreateData
 class AlertRemoveMatch
 {
     public ?string $email = null;
-    public ?string $game_id = null;
-    public ?string $game_title = null;
+    public ?string $gameID = null;
+    public ?string $gameTitle = null;
     public ?float $price = null;
 }
 
 /** Deal entity data model. */
 class Deal
 {
-    public ?string $deal_id = null;
-    public ?string $deal_rating = null;
-    public ?string $game_id = null;
-    public ?string $internal_name = null;
-    public ?bool $is_on_sale = null;
-    public ?int $last_change = null;
-    public ?string $metacritic_link = null;
-    public ?string $metacritic_score = null;
-    public ?string $normal_price = null;
-    public ?int $release_date = null;
-    public ?string $sale_price = null;
-    public ?string $saving = null;
-    public ?string $steam_app_id = null;
-    public ?string $steam_rating_count = null;
-    public ?string $steam_rating_percent = null;
-    public ?string $steam_rating_text = null;
-    public ?string $store_id = null;
+    public ?string $dealID = null;
+    public ?string $dealRating = null;
+    public ?string $gameID = null;
+    public ?string $internalName = null;
+    public ?string $isOnSale = null;
+    public ?int $lastChange = null;
+    public ?string $metacriticLink = null;
+    public ?string $metacriticScore = null;
+    public ?string $normalPrice = null;
+    public ?int $releaseDate = null;
+    public ?string $salePrice = null;
+    public ?string $savings = null;
+    public ?string $steamAppID = null;
+    public ?string $steamRatingCount = null;
+    public ?string $steamRatingPercent = null;
+    public ?string $steamRatingText = null;
+    public ?string $storeID = null;
     public ?string $thumb = null;
     public ?string $title = null;
 }
@@ -75,23 +75,23 @@ class Deal
 /** Request payload for Deal#list. */
 class DealListMatch
 {
-    public ?string $deal_id = null;
-    public ?string $deal_rating = null;
-    public ?string $game_id = null;
-    public ?string $internal_name = null;
-    public ?bool $is_on_sale = null;
-    public ?int $last_change = null;
-    public ?string $metacritic_link = null;
-    public ?string $metacritic_score = null;
-    public ?string $normal_price = null;
-    public ?int $release_date = null;
-    public ?string $sale_price = null;
-    public ?string $saving = null;
-    public ?string $steam_app_id = null;
-    public ?string $steam_rating_count = null;
-    public ?string $steam_rating_percent = null;
-    public ?string $steam_rating_text = null;
-    public ?string $store_id = null;
+    public ?string $dealID = null;
+    public ?string $dealRating = null;
+    public ?string $gameID = null;
+    public ?string $internalName = null;
+    public ?string $isOnSale = null;
+    public ?int $lastChange = null;
+    public ?string $metacriticLink = null;
+    public ?string $metacriticScore = null;
+    public ?string $normalPrice = null;
+    public ?int $releaseDate = null;
+    public ?string $salePrice = null;
+    public ?string $savings = null;
+    public ?string $steamAppID = null;
+    public ?string $steamRatingCount = null;
+    public ?string $steamRatingPercent = null;
+    public ?string $steamRatingText = null;
+    public ?string $storeID = null;
     public ?string $thumb = null;
     public ?string $title = null;
 }
@@ -100,11 +100,11 @@ class DealListMatch
 class Game
 {
     public ?string $cheapest = null;
-    public ?string $cheapest_deal_id = null;
+    public ?string $cheapestDealID = null;
     public ?string $external = null;
-    public ?string $game_id = null;
-    public ?string $internal_name = null;
-    public ?string $steam_app_id = null;
+    public ?string $gameID = null;
+    public ?string $internalName = null;
+    public ?string $steamAppID = null;
     public ?string $thumb = null;
 }
 
@@ -112,29 +112,29 @@ class Game
 class GameListMatch
 {
     public ?string $cheapest = null;
-    public ?string $cheapest_deal_id = null;
+    public ?string $cheapestDealID = null;
     public ?string $external = null;
-    public ?string $game_id = null;
-    public ?string $internal_name = null;
-    public ?string $steam_app_id = null;
+    public ?string $gameID = null;
+    public ?string $internalName = null;
+    public ?string $steamAppID = null;
     public ?string $thumb = null;
 }
 
 /** Store entity data model. */
 class Store
 {
-    public ?array $image = null;
-    public ?int $is_active = null;
-    public ?string $store_id = null;
-    public ?string $store_name = null;
+    public ?array $images = null;
+    public ?int $isActive = null;
+    public ?string $storeID = null;
+    public ?string $storeName = null;
 }
 
 /** Request payload for Store#list. */
 class StoreListMatch
 {
-    public ?array $image = null;
-    public ?int $is_active = null;
-    public ?string $store_id = null;
-    public ?string $store_name = null;
+    public ?array $images = null;
+    public ?int $isActive = null;
+    public ?string $storeID = null;
+    public ?string $storeName = null;
 }
 

@@ -8,99 +8,99 @@
 
 ---@class Alert
 ---@field email? string
----@field game_id? string
----@field game_title? string
+---@field gameID? string
+---@field gameTitle? string
 ---@field price? number
 
 ---@class AlertListMatch
 ---@field email? string
----@field game_id? string
----@field game_title? string
+---@field gameID? string
+---@field gameTitle? string
 ---@field price? number
 
 ---@class AlertCreateData
 ---@field email? string
----@field game_id? string
----@field game_title? string
+---@field gameID? string
+---@field gameTitle? string
 ---@field price? number
 
 ---@class AlertRemoveMatch
 ---@field email? string
----@field game_id? string
----@field game_title? string
+---@field gameID? string
+---@field gameTitle? string
 ---@field price? number
 
 ---@class Deal
----@field deal_id? string
----@field deal_rating? string
----@field game_id? string
----@field internal_name? string
----@field is_on_sale? boolean
----@field last_change? number
----@field metacritic_link? string
----@field metacritic_score? string
----@field normal_price? string
----@field release_date? number
----@field sale_price? string
----@field saving? string
----@field steam_app_id? string
----@field steam_rating_count? string
----@field steam_rating_percent? string
----@field steam_rating_text? string
----@field store_id? string
+---@field dealID? string
+---@field dealRating? string
+---@field gameID? string
+---@field internalName? string
+---@field isOnSale? string
+---@field lastChange? number
+---@field metacriticLink? string
+---@field metacriticScore? string
+---@field normalPrice? string
+---@field releaseDate? number
+---@field salePrice? string
+---@field savings? string
+---@field steamAppID? string
+---@field steamRatingCount? string
+---@field steamRatingPercent? string
+---@field steamRatingText? string
+---@field storeID? string
 ---@field thumb? string
 ---@field title? string
 
 ---@class DealListMatch
----@field deal_id? string
----@field deal_rating? string
----@field game_id? string
----@field internal_name? string
----@field is_on_sale? boolean
----@field last_change? number
----@field metacritic_link? string
----@field metacritic_score? string
----@field normal_price? string
----@field release_date? number
----@field sale_price? string
----@field saving? string
----@field steam_app_id? string
----@field steam_rating_count? string
----@field steam_rating_percent? string
----@field steam_rating_text? string
----@field store_id? string
+---@field dealID? string
+---@field dealRating? string
+---@field gameID? string
+---@field internalName? string
+---@field isOnSale? string
+---@field lastChange? number
+---@field metacriticLink? string
+---@field metacriticScore? string
+---@field normalPrice? string
+---@field releaseDate? number
+---@field salePrice? string
+---@field savings? string
+---@field steamAppID? string
+---@field steamRatingCount? string
+---@field steamRatingPercent? string
+---@field steamRatingText? string
+---@field storeID? string
 ---@field thumb? string
 ---@field title? string
 
 ---@class Game
 ---@field cheapest? string
----@field cheapest_deal_id? string
+---@field cheapestDealID? string
 ---@field external? string
----@field game_id? string
----@field internal_name? string
----@field steam_app_id? string
+---@field gameID? string
+---@field internalName? string
+---@field steamAppID? string
 ---@field thumb? string
 
 ---@class GameListMatch
 ---@field cheapest? string
----@field cheapest_deal_id? string
+---@field cheapestDealID? string
 ---@field external? string
----@field game_id? string
----@field internal_name? string
----@field steam_app_id? string
+---@field gameID? string
+---@field internalName? string
+---@field steamAppID? string
 ---@field thumb? string
 
 ---@class Store
----@field image? table
----@field is_active? number
----@field store_id? string
----@field store_name? string
+---@field images? table
+---@field isActive? number
+---@field storeID? string
+---@field storeName? string
 
 ---@class StoreListMatch
----@field image? table
----@field is_active? number
----@field store_id? string
----@field store_name? string
+---@field images? table
+---@field isActive? number
+---@field storeID? string
+---@field storeName? string
 
 local M = {}
 

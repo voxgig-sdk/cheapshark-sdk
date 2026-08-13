@@ -51,7 +51,7 @@ end
 
 ```lua
 -- Create
-local created, err = client:Alert():create({ email = "example_email", game_id = "example_game_id" })
+local created, err = client:Alert():create({ email = "example_email", gameID = "example_gameID" })
 if err then error(err) end
 
 -- Remove
@@ -235,9 +235,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local alert, err = client:Alert():load()
+    local alert, err = client:Alert():list()
     if err then error(err) end
-    -- alert is the loaded record
+    -- alert is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -249,8 +249,8 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | Field | Description |
 | --- | --- |
 | `email` |  |
-| `game_id` |  |
-| `game_title` |  |
+| `gameID` |  |
+| `gameTitle` |  |
 | `price` |  |
 
 Operations: Create, List, Remove.
@@ -261,23 +261,23 @@ API path: `/alerts`
 
 | Field | Description |
 | --- | --- |
-| `deal_id` |  |
-| `deal_rating` |  |
-| `game_id` |  |
-| `internal_name` |  |
-| `is_on_sale` |  |
-| `last_change` |  |
-| `metacritic_link` |  |
-| `metacritic_score` |  |
-| `normal_price` |  |
-| `release_date` |  |
-| `sale_price` |  |
-| `saving` |  |
-| `steam_app_id` |  |
-| `steam_rating_count` |  |
-| `steam_rating_percent` |  |
-| `steam_rating_text` |  |
-| `store_id` |  |
+| `dealID` |  |
+| `dealRating` |  |
+| `gameID` |  |
+| `internalName` |  |
+| `isOnSale` |  |
+| `lastChange` |  |
+| `metacriticLink` |  |
+| `metacriticScore` |  |
+| `normalPrice` |  |
+| `releaseDate` |  |
+| `salePrice` |  |
+| `savings` |  |
+| `steamAppID` |  |
+| `steamRatingCount` |  |
+| `steamRatingPercent` |  |
+| `steamRatingText` |  |
+| `storeID` |  |
 | `thumb` |  |
 | `title` |  |
 
@@ -290,11 +290,11 @@ API path: `/deals`
 | Field | Description |
 | --- | --- |
 | `cheapest` |  |
-| `cheapest_deal_id` |  |
+| `cheapestDealID` |  |
 | `external` |  |
-| `game_id` |  |
-| `internal_name` |  |
-| `steam_app_id` |  |
+| `gameID` |  |
+| `internalName` |  |
+| `steamAppID` |  |
 | `thumb` |  |
 
 Operations: List.
@@ -305,10 +305,10 @@ API path: `/games`
 
 | Field | Description |
 | --- | --- |
-| `image` |  |
-| `is_active` |  |
-| `store_id` |  |
-| `store_name` |  |
+| `images` |  |
+| `isActive` |  |
+| `storeID` |  |
+| `storeName` |  |
 
 Operations: List.
 
@@ -336,8 +336,8 @@ Create an instance: `local alert = client:Alert(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `email` | `string` |  |
-| `game_id` | `string` |  |
-| `game_title` | `string` |  |
+| `gameID` | `string` |  |
+| `gameTitle` | `string` |  |
 | `price` | `number` |  |
 
 #### Example: List
@@ -368,23 +368,23 @@ Create an instance: `local deal = client:Deal(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `deal_id` | `string` |  |
-| `deal_rating` | `string` |  |
-| `game_id` | `string` |  |
-| `internal_name` | `string` |  |
-| `is_on_sale` | `boolean` |  |
-| `last_change` | `number` |  |
-| `metacritic_link` | `string` |  |
-| `metacritic_score` | `string` |  |
-| `normal_price` | `string` |  |
-| `release_date` | `number` |  |
-| `sale_price` | `string` |  |
-| `saving` | `string` |  |
-| `steam_app_id` | `string` |  |
-| `steam_rating_count` | `string` |  |
-| `steam_rating_percent` | `string` |  |
-| `steam_rating_text` | `string` |  |
-| `store_id` | `string` |  |
+| `dealID` | `string` |  |
+| `dealRating` | `string` |  |
+| `gameID` | `string` |  |
+| `internalName` | `string` |  |
+| `isOnSale` | `string` |  |
+| `lastChange` | `number` |  |
+| `metacriticLink` | `string` |  |
+| `metacriticScore` | `string` |  |
+| `normalPrice` | `string` |  |
+| `releaseDate` | `number` |  |
+| `salePrice` | `string` |  |
+| `savings` | `string` |  |
+| `steamAppID` | `string` |  |
+| `steamRatingCount` | `string` |  |
+| `steamRatingPercent` | `string` |  |
+| `steamRatingText` | `string` |  |
+| `storeID` | `string` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 
@@ -410,11 +410,11 @@ Create an instance: `local game = client:Game(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `cheapest` | `string` |  |
-| `cheapest_deal_id` | `string` |  |
+| `cheapestDealID` | `string` |  |
 | `external` | `string` |  |
-| `game_id` | `string` |  |
-| `internal_name` | `string` |  |
-| `steam_app_id` | `string` |  |
+| `gameID` | `string` |  |
+| `internalName` | `string` |  |
+| `steamAppID` | `string` |  |
 | `thumb` | `string` |  |
 
 #### Example: List
@@ -438,10 +438,10 @@ Create an instance: `local store = client:Store(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `image` | `table` |  |
-| `is_active` | `number` |  |
-| `store_id` | `string` |  |
-| `store_name` | `string` |  |
+| `images` | `table` |  |
+| `isActive` | `number` |  |
+| `storeID` | `string` |  |
+| `storeName` | `string` |  |
 
 #### Example: List
 

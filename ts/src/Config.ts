@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Cheapshark',
   }
 
 
@@ -72,14 +72,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "game_id",
+          "name": "gameID",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "game_title",
+          "name": "gameTitle",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
@@ -101,6 +101,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/alerts",
               "parts": [
@@ -134,6 +135,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/alerts",
               "parts": [
@@ -179,6 +181,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "DELETE",
               "orig": "/alerts",
               "parts": [
@@ -208,119 +211,119 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "deal_id",
+          "name": "dealID",
           "req": false,
           "type": "`$STRING`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "deal_rating",
+          "name": "dealRating",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "game_id",
+          "name": "gameID",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "internal_name",
+          "name": "internalName",
           "req": false,
           "type": "`$STRING`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "is_on_sale",
+          "name": "isOnSale",
           "req": false,
-          "type": "`$BOOLEAN`",
+          "type": "`$STRING`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "last_change",
+          "name": "lastChange",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "metacritic_link",
+          "name": "metacriticLink",
           "req": false,
           "type": "`$STRING`",
           "index$": 6
         },
         {
           "active": true,
-          "name": "metacritic_score",
+          "name": "metacriticScore",
           "req": false,
           "type": "`$STRING`",
           "index$": 7
         },
         {
           "active": true,
-          "name": "normal_price",
+          "name": "normalPrice",
           "req": false,
           "type": "`$STRING`",
           "index$": 8
         },
         {
           "active": true,
-          "name": "release_date",
+          "name": "releaseDate",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 9
         },
         {
           "active": true,
-          "name": "sale_price",
+          "name": "salePrice",
           "req": false,
           "type": "`$STRING`",
           "index$": 10
         },
         {
           "active": true,
-          "name": "saving",
+          "name": "savings",
           "req": false,
           "type": "`$STRING`",
           "index$": 11
         },
         {
           "active": true,
-          "name": "steam_app_id",
+          "name": "steamAppID",
           "req": false,
           "type": "`$STRING`",
           "index$": 12
         },
         {
           "active": true,
-          "name": "steam_rating_count",
+          "name": "steamRatingCount",
           "req": false,
           "type": "`$STRING`",
           "index$": 13
         },
         {
           "active": true,
-          "name": "steam_rating_percent",
+          "name": "steamRatingPercent",
           "req": false,
           "type": "`$STRING`",
           "index$": 14
         },
         {
           "active": true,
-          "name": "steam_rating_text",
+          "name": "steamRatingText",
           "req": false,
           "type": "`$STRING`",
           "index$": 15
         },
         {
           "active": true,
-          "name": "store_id",
+          "name": "storeID",
           "req": false,
           "type": "`$STRING`",
           "index$": 16
@@ -484,6 +487,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/deals",
               "parts": [
@@ -534,7 +538,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "cheapest_deal_id",
+          "name": "cheapestDealID",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
@@ -548,21 +552,21 @@ class Config {
         },
         {
           "active": true,
-          "name": "game_id",
+          "name": "gameID",
           "req": false,
           "type": "`$STRING`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "internal_name",
+          "name": "internalName",
           "req": false,
           "type": "`$STRING`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "steam_app_id",
+          "name": "steamAppID",
           "req": false,
           "type": "`$STRING`",
           "index$": 5
@@ -621,6 +625,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/games",
               "parts": [
@@ -652,28 +657,28 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "image",
+          "name": "images",
           "req": false,
           "type": "`$OBJECT`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "is_active",
+          "name": "isActive",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "store_id",
+          "name": "storeID",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "store_name",
+          "name": "storeName",
           "req": false,
           "type": "`$STRING`",
           "index$": 3
@@ -688,6 +693,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/stores",
               "parts": [

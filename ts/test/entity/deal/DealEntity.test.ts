@@ -63,7 +63,7 @@ describe('DealEntity', async () => {
     const deal_ref01_ent = client.Deal()
     const deal_ref01_match: any = {}
 
-    const deal_ref01_list = await deal_ref01_ent.list(deal_ref01_match)
+    const deal_ref01_list = (await deal_ref01_ent.list(deal_ref01_match)).map((e: any) => e.data())
 
 
   })

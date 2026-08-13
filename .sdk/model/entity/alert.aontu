@@ -11,12 +11,12 @@ main: kit: entity: alert: {
       type: "`$STRING`"
     }
     {
-      name: "game_id"
+      name: "gameID"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "game_title"
+      name: "gameTitle"
       req: false
       type: "`$STRING`"
     }

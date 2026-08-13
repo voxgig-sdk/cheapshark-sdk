@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = CheapsharkSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = CheapsharkSDK.test({
+  entity: {
+    alert: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const alerts = await client.Alert().list()
-// alerts is an array of bare Alert records populated with mock data
+// alerts is an array of Alert entities, populated with mock data
+// — call alerts[0].data() for the record itself
 console.log(alerts)
 ```
 
@@ -110,7 +119,7 @@ import { CheapsharkSDK } from '@voxgig-sdk/cheapshark'
 
 const client = new CheapsharkSDK()
 
-// List all alerts (returns Alert[])
+// List all alerts (returns AlertEntity[] — .data() for the record)
 const alerts = await client.Alert().list()
 for (const alert of alerts) {
   console.log(alert)
@@ -346,6 +355,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://apidocs.cheapshark.com/](https://apidocs.cheapshark.com/)
 
