@@ -33,7 +33,7 @@ class DealEntityTest < Minitest::Test
     assert_equal 3, seen.length
 
     # Inbound: streaming active -> yields each item from the feature.
-    cfg = CheapsharkConfig.make_config
+    cfg = CheapsharkConfig.shared_config
     if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("streaming")
       sdk = CheapsharkSDK.test(seed, { "feature" => { "streaming" => { "active" => true } } })
       got = []

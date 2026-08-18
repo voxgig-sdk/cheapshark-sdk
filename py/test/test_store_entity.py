@@ -42,8 +42,8 @@ class TestStoreEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from cheapshark_sdk.config import make_config
-        cfg = make_config()
+        from cheapshark_sdk.config import shared_config
+        cfg = shared_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = CheapsharkSDK.test(
                 seed, {"feature": {"streaming": {"active": True}}})

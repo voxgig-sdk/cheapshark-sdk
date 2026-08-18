@@ -28,7 +28,7 @@ class CheapsharkSDK
     utility = CheapsharkUtility.new
     @_utility = utility
 
-    config = CheapsharkConfig.make_config
+    config = CheapsharkConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

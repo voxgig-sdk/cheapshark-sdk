@@ -23,8 +23,8 @@ class CheapsharkSDK:
         utility = CheapsharkUtility()
         self._utility = utility
 
-        from cheapshark_sdk.config import make_config
-        config = make_config()
+        from cheapshark_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,

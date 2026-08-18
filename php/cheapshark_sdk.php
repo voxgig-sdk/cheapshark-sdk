@@ -40,7 +40,7 @@ class CheapsharkSDK
         $utility = new CheapsharkUtility();
         $this->_utility = $utility;
 
-        $config = CheapsharkConfig::make_config();
+        $config = CheapsharkConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
