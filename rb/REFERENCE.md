@@ -105,10 +105,10 @@ alert = client.Alert
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `email` | `String` | No |  |
-| `gameID` | `String` | No |  |
-| `gameTitle` | `String` | No |  |
-| `price` | `Float` | No |  |
+| `email` | `String` | No | Email address for the alert |
+| `gameID` | `String` | No | Game identifier |
+| `gameTitle` | `String` | No | Title of the game |
+| `price` | `Float` | No | Target price for the alert |
 
 ### Operations
 
@@ -177,25 +177,25 @@ deal = client.Deal
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dealID` | `String` | No |  |
-| `dealRating` | `String` | No |  |
-| `gameID` | `String` | No |  |
-| `internalName` | `String` | No |  |
-| `isOnSale` | `String` | No |  |
-| `lastChange` | `Integer` | No |  |
-| `metacriticLink` | `String` | No |  |
-| `metacriticScore` | `String` | No |  |
-| `normalPrice` | `String` | No |  |
-| `releaseDate` | `Integer` | No |  |
-| `salePrice` | `String` | No |  |
-| `savings` | `String` | No |  |
-| `steamAppID` | `String` | No |  |
-| `steamRatingCount` | `String` | No |  |
-| `steamRatingPercent` | `String` | No |  |
-| `steamRatingText` | `String` | No |  |
-| `storeID` | `String` | No |  |
-| `thumb` | `String` | No |  |
-| `title` | `String` | No |  |
+| `dealID` | `String` | No | Unique identifier for the deal |
+| `dealRating` | `String` | No | Rating of the deal |
+| `gameID` | `String` | No | Game identifier |
+| `internalName` | `String` | No | Internal name of the game |
+| `isOnSale` | `String` | No | Whether the game is on sale (0 or 1) |
+| `lastChange` | `Integer` | No | Unix timestamp of last price change |
+| `metacriticLink` | `String` | No | Link to Metacritic page |
+| `metacriticScore` | `String` | No | Metacritic score |
+| `normalPrice` | `String` | No | Regular price |
+| `releaseDate` | `Integer` | No | Unix timestamp of release date |
+| `salePrice` | `String` | No | Current sale price |
+| `savings` | `String` | No | Percentage savings |
+| `steamAppID` | `String` | No | Steam App ID |
+| `steamRatingCount` | `String` | No | Number of Steam ratings |
+| `steamRatingPercent` | `String` | No | Steam rating percentage |
+| `steamRatingText` | `String` | No | Steam rating description |
+| `storeID` | `String` | No | Store identifier |
+| `thumb` | `String` | No | Thumbnail image URL |
+| `title` | `String` | No | Title of the game |
 
 ### Operations
 
@@ -247,13 +247,13 @@ game = client.Game
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cheapest` | `String` | No |  |
-| `cheapestDealID` | `String` | No |  |
-| `external` | `String` | No |  |
-| `gameID` | `String` | No |  |
-| `internalName` | `String` | No |  |
-| `steamAppID` | `String` | No |  |
-| `thumb` | `String` | No |  |
+| `cheapest` | `String` | No | Lowest price found |
+| `cheapestDealID` | `String` | No | Deal ID for the cheapest price |
+| `external` | `String` | No | External game title |
+| `gameID` | `String` | No | Unique game identifier |
+| `internalName` | `String` | No | Internal game name |
+| `steamAppID` | `String` | No | Steam App ID |
+| `thumb` | `String` | No | Thumbnail image URL |
 
 ### Operations
 
@@ -306,9 +306,9 @@ store = client.Store
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `images` | `Hash` | No |  |
-| `isActive` | `Integer` | No |  |
-| `storeID` | `String` | No |  |
-| `storeName` | `String` | No |  |
+| `isActive` | `Integer` | No | Whether the store is active (0 or 1) |
+| `storeID` | `String` | No | Unique store identifier |
+| `storeName` | `String` | No | Name of the store |
 
 ### Operations
 

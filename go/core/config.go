@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "Cheapshark",
+			"slug": "cheapshark",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -36,18 +39,22 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "email",
+						"short": "Email address for the alert",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "gameID",
+						"short": "Game identifier",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "gameTitle",
+						"short": "Title of the game",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "price",
+						"short": "Target price for the alert",
 						"type": "`$NUMBER`",
 					},
 				},
@@ -158,78 +165,97 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "dealID",
+						"short": "Unique identifier for the deal",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "dealRating",
+						"short": "Rating of the deal",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "gameID",
+						"short": "Game identifier",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "internalName",
+						"short": "Internal name of the game",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "isOnSale",
+						"short": "Whether the game is on sale (0 or 1)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "lastChange",
+						"short": "Unix timestamp of last price change",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "metacriticLink",
+						"short": "Link to Metacritic page",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "metacriticScore",
+						"short": "Metacritic score",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "normalPrice",
+						"short": "Regular price",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "releaseDate",
+						"short": "Unix timestamp of release date",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "salePrice",
+						"short": "Current sale price",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "savings",
+						"short": "Percentage savings",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "steamAppID",
+						"short": "Steam App ID",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "steamRatingCount",
+						"short": "Number of Steam ratings",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "steamRatingPercent",
+						"short": "Steam rating percentage",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "steamRatingText",
+						"short": "Steam rating description",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "storeID",
+						"short": "Store identifier",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "thumb",
+						"short": "Thumbnail image URL",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "title",
+						"short": "Title of the game",
 						"type": "`$STRING`",
 					},
 				},
@@ -386,30 +412,37 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "cheapest",
+						"short": "Lowest price found",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "cheapestDealID",
+						"short": "Deal ID for the cheapest price",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "external",
+						"short": "External game title",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "gameID",
+						"short": "Unique game identifier",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "internalName",
+						"short": "Internal game name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "steamAppID",
+						"short": "Steam App ID",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "thumb",
+						"short": "Thumbnail image URL",
 						"type": "`$STRING`",
 					},
 				},
@@ -484,14 +517,17 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "isActive",
+						"short": "Whether the store is active (0 or 1)",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "storeID",
+						"short": "Unique store identifier",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "storeName",
+						"short": "Name of the store",
 						"type": "`$STRING`",
 					},
 				},

@@ -110,10 +110,10 @@ fmt.Println(alert.GetName()) // "alert"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `email` | `string` | No |  |
-| `gameID` | `string` | No |  |
-| `gameTitle` | `string` | No |  |
-| `price` | `float64` | No |  |
+| `email` | `string` | No | Email address for the alert |
+| `gameID` | `string` | No | Game identifier |
+| `gameTitle` | `string` | No | Title of the game |
+| `price` | `float64` | No | Target price for the alert |
 
 ### Operations
 
@@ -189,25 +189,25 @@ fmt.Println(deal.GetName()) // "deal"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dealID` | `string` | No |  |
-| `dealRating` | `string` | No |  |
-| `gameID` | `string` | No |  |
-| `internalName` | `string` | No |  |
-| `isOnSale` | `string` | No |  |
-| `lastChange` | `int` | No |  |
-| `metacriticLink` | `string` | No |  |
-| `metacriticScore` | `string` | No |  |
-| `normalPrice` | `string` | No |  |
-| `releaseDate` | `int` | No |  |
-| `salePrice` | `string` | No |  |
-| `savings` | `string` | No |  |
-| `steamAppID` | `string` | No |  |
-| `steamRatingCount` | `string` | No |  |
-| `steamRatingPercent` | `string` | No |  |
-| `steamRatingText` | `string` | No |  |
-| `storeID` | `string` | No |  |
-| `thumb` | `string` | No |  |
-| `title` | `string` | No |  |
+| `dealID` | `string` | No | Unique identifier for the deal |
+| `dealRating` | `string` | No | Rating of the deal |
+| `gameID` | `string` | No | Game identifier |
+| `internalName` | `string` | No | Internal name of the game |
+| `isOnSale` | `string` | No | Whether the game is on sale (0 or 1) |
+| `lastChange` | `int` | No | Unix timestamp of last price change |
+| `metacriticLink` | `string` | No | Link to Metacritic page |
+| `metacriticScore` | `string` | No | Metacritic score |
+| `normalPrice` | `string` | No | Regular price |
+| `releaseDate` | `int` | No | Unix timestamp of release date |
+| `salePrice` | `string` | No | Current sale price |
+| `savings` | `string` | No | Percentage savings |
+| `steamAppID` | `string` | No | Steam App ID |
+| `steamRatingCount` | `string` | No | Number of Steam ratings |
+| `steamRatingPercent` | `string` | No | Steam rating percentage |
+| `steamRatingText` | `string` | No | Steam rating description |
+| `storeID` | `string` | No | Store identifier |
+| `thumb` | `string` | No | Thumbnail image URL |
+| `title` | `string` | No | Title of the game |
 
 ### Operations
 
@@ -258,13 +258,13 @@ fmt.Println(game.GetName()) // "game"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cheapest` | `string` | No |  |
-| `cheapestDealID` | `string` | No |  |
-| `external` | `string` | No |  |
-| `gameID` | `string` | No |  |
-| `internalName` | `string` | No |  |
-| `steamAppID` | `string` | No |  |
-| `thumb` | `string` | No |  |
+| `cheapest` | `string` | No | Lowest price found |
+| `cheapestDealID` | `string` | No | Deal ID for the cheapest price |
+| `external` | `string` | No | External game title |
+| `gameID` | `string` | No | Unique game identifier |
+| `internalName` | `string` | No | Internal game name |
+| `steamAppID` | `string` | No | Steam App ID |
+| `thumb` | `string` | No | Thumbnail image URL |
 
 ### Operations
 
@@ -316,9 +316,9 @@ fmt.Println(store.GetName()) // "store"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `images` | `map[string]any` | No |  |
-| `isActive` | `int` | No |  |
-| `storeID` | `string` | No |  |
-| `storeName` | `string` | No |  |
+| `isActive` | `int` | No | Whether the store is active (0 or 1) |
+| `storeID` | `string` | No | Unique store identifier |
+| `storeName` | `string` | No | Name of the store |
 
 ### Operations
 

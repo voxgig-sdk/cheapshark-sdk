@@ -252,10 +252,10 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `email` |  |
-| `gameID` |  |
-| `gameTitle` |  |
-| `price` |  |
+| `email` | Email address for the alert |
+| `gameID` | Game identifier |
+| `gameTitle` | Title of the game |
+| `price` | Target price for the alert |
 
 Operations: Create, List, Remove.
 
@@ -265,25 +265,25 @@ API path: `/alerts`
 
 | Field | Description |
 | --- | --- |
-| `dealID` |  |
-| `dealRating` |  |
-| `gameID` |  |
-| `internalName` |  |
-| `isOnSale` |  |
-| `lastChange` |  |
-| `metacriticLink` |  |
-| `metacriticScore` |  |
-| `normalPrice` |  |
-| `releaseDate` |  |
-| `salePrice` |  |
-| `savings` |  |
-| `steamAppID` |  |
-| `steamRatingCount` |  |
-| `steamRatingPercent` |  |
-| `steamRatingText` |  |
-| `storeID` |  |
-| `thumb` |  |
-| `title` |  |
+| `dealID` | Unique identifier for the deal |
+| `dealRating` | Rating of the deal |
+| `gameID` | Game identifier |
+| `internalName` | Internal name of the game |
+| `isOnSale` | Whether the game is on sale (0 or 1) |
+| `lastChange` | Unix timestamp of last price change |
+| `metacriticLink` | Link to Metacritic page |
+| `metacriticScore` | Metacritic score |
+| `normalPrice` | Regular price |
+| `releaseDate` | Unix timestamp of release date |
+| `salePrice` | Current sale price |
+| `savings` | Percentage savings |
+| `steamAppID` | Steam App ID |
+| `steamRatingCount` | Number of Steam ratings |
+| `steamRatingPercent` | Steam rating percentage |
+| `steamRatingText` | Steam rating description |
+| `storeID` | Store identifier |
+| `thumb` | Thumbnail image URL |
+| `title` | Title of the game |
 
 Operations: List.
 
@@ -293,13 +293,13 @@ API path: `/deals`
 
 | Field | Description |
 | --- | --- |
-| `cheapest` |  |
-| `cheapestDealID` |  |
-| `external` |  |
-| `gameID` |  |
-| `internalName` |  |
-| `steamAppID` |  |
-| `thumb` |  |
+| `cheapest` | Lowest price found |
+| `cheapestDealID` | Deal ID for the cheapest price |
+| `external` | External game title |
+| `gameID` | Unique game identifier |
+| `internalName` | Internal game name |
+| `steamAppID` | Steam App ID |
+| `thumb` | Thumbnail image URL |
 
 Operations: List.
 
@@ -310,9 +310,9 @@ API path: `/games`
 | Field | Description |
 | --- | --- |
 | `images` |  |
-| `isActive` |  |
-| `storeID` |  |
-| `storeName` |  |
+| `isActive` | Whether the store is active (0 or 1) |
+| `storeID` | Unique store identifier |
+| `storeName` | Name of the store |
 
 Operations: List.
 
@@ -339,10 +339,10 @@ Create an instance: `alert = client.Alert`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `email` | `String` |  |
-| `gameID` | `String` |  |
-| `gameTitle` | `String` |  |
-| `price` | `Float` |  |
+| `email` | `String` | Email address for the alert |
+| `gameID` | `String` | Game identifier |
+| `gameTitle` | `String` | Title of the game |
+| `price` | `Float` | Target price for the alert |
 
 #### Example: List
 
@@ -373,25 +373,25 @@ Create an instance: `deal = client.Deal`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `dealID` | `String` |  |
-| `dealRating` | `String` |  |
-| `gameID` | `String` |  |
-| `internalName` | `String` |  |
-| `isOnSale` | `String` |  |
-| `lastChange` | `Integer` |  |
-| `metacriticLink` | `String` |  |
-| `metacriticScore` | `String` |  |
-| `normalPrice` | `String` |  |
-| `releaseDate` | `Integer` |  |
-| `salePrice` | `String` |  |
-| `savings` | `String` |  |
-| `steamAppID` | `String` |  |
-| `steamRatingCount` | `String` |  |
-| `steamRatingPercent` | `String` |  |
-| `steamRatingText` | `String` |  |
-| `storeID` | `String` |  |
-| `thumb` | `String` |  |
-| `title` | `String` |  |
+| `dealID` | `String` | Unique identifier for the deal |
+| `dealRating` | `String` | Rating of the deal |
+| `gameID` | `String` | Game identifier |
+| `internalName` | `String` | Internal name of the game |
+| `isOnSale` | `String` | Whether the game is on sale (0 or 1) |
+| `lastChange` | `Integer` | Unix timestamp of last price change |
+| `metacriticLink` | `String` | Link to Metacritic page |
+| `metacriticScore` | `String` | Metacritic score |
+| `normalPrice` | `String` | Regular price |
+| `releaseDate` | `Integer` | Unix timestamp of release date |
+| `salePrice` | `String` | Current sale price |
+| `savings` | `String` | Percentage savings |
+| `steamAppID` | `String` | Steam App ID |
+| `steamRatingCount` | `String` | Number of Steam ratings |
+| `steamRatingPercent` | `String` | Steam rating percentage |
+| `steamRatingText` | `String` | Steam rating description |
+| `storeID` | `String` | Store identifier |
+| `thumb` | `String` | Thumbnail image URL |
+| `title` | `String` | Title of the game |
 
 #### Example: List
 
@@ -415,13 +415,13 @@ Create an instance: `game = client.Game`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cheapest` | `String` |  |
-| `cheapestDealID` | `String` |  |
-| `external` | `String` |  |
-| `gameID` | `String` |  |
-| `internalName` | `String` |  |
-| `steamAppID` | `String` |  |
-| `thumb` | `String` |  |
+| `cheapest` | `String` | Lowest price found |
+| `cheapestDealID` | `String` | Deal ID for the cheapest price |
+| `external` | `String` | External game title |
+| `gameID` | `String` | Unique game identifier |
+| `internalName` | `String` | Internal game name |
+| `steamAppID` | `String` | Steam App ID |
+| `thumb` | `String` | Thumbnail image URL |
 
 #### Example: List
 
@@ -446,9 +446,9 @@ Create an instance: `store = client.Store`
 | Field | Type | Description |
 | --- | --- | --- |
 | `images` | `Hash` |  |
-| `isActive` | `Integer` |  |
-| `storeID` | `String` |  |
-| `storeName` | `String` |  |
+| `isActive` | `Integer` | Whether the store is active (0 or 1) |
+| `storeID` | `String` | Unique store identifier |
+| `storeName` | `String` | Name of the store |
 
 #### Example: List
 

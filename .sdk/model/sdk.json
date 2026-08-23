@@ -36,24 +36,28 @@
               "active": true,
               "name": "email",
               "req": false,
+              "short": "Email address for the alert",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "gameID",
               "req": false,
+              "short": "Game identifier",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "gameTitle",
               "req": false,
+              "short": "Title of the game",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "price",
               "req": false,
+              "short": "Target price for the alert",
               "type": "`$NUMBER`"
             }
           ],
@@ -176,114 +180,133 @@
               "active": true,
               "name": "dealID",
               "req": false,
+              "short": "Unique identifier for the deal",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "dealRating",
               "req": false,
+              "short": "Rating of the deal",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "gameID",
               "req": false,
+              "short": "Game identifier",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "internalName",
               "req": false,
+              "short": "Internal name of the game",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "isOnSale",
               "req": false,
+              "short": "Whether the game is on sale (0 or 1)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "lastChange",
               "req": false,
+              "short": "Unix timestamp of last price change",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "metacriticLink",
               "req": false,
+              "short": "Link to Metacritic page",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "metacriticScore",
               "req": false,
+              "short": "Metacritic score",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "normalPrice",
               "req": false,
+              "short": "Regular price",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "releaseDate",
               "req": false,
+              "short": "Unix timestamp of release date",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "salePrice",
               "req": false,
+              "short": "Current sale price",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "savings",
               "req": false,
+              "short": "Percentage savings",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "steamAppID",
               "req": false,
+              "short": "Steam App ID",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "steamRatingCount",
               "req": false,
+              "short": "Number of Steam ratings",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "steamRatingPercent",
               "req": false,
+              "short": "Steam rating percentage",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "steamRatingText",
               "req": false,
+              "short": "Steam rating description",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "storeID",
               "req": false,
+              "short": "Store identifier",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "thumb",
               "req": false,
+              "short": "Thumbnail image URL",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "title",
               "req": false,
+              "short": "Title of the game",
               "type": "`$STRING`"
             }
           ],
@@ -479,42 +502,49 @@
               "active": true,
               "name": "cheapest",
               "req": false,
+              "short": "Lowest price found",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "cheapestDealID",
               "req": false,
+              "short": "Deal ID for the cheapest price",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "external",
               "req": false,
+              "short": "External game title",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "gameID",
               "req": false,
+              "short": "Unique game identifier",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "internalName",
               "req": false,
+              "short": "Internal game name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "steamAppID",
               "req": false,
+              "short": "Steam App ID",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "thumb",
               "req": false,
+              "short": "Thumbnail image URL",
               "type": "`$STRING`"
             }
           ],
@@ -606,18 +636,21 @@
               "active": true,
               "name": "isActive",
               "req": false,
+              "short": "Whether the store is active (0 or 1)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "storeID",
               "req": false,
+              "short": "Unique store identifier",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "storeName",
               "req": false,
+              "short": "Name of the store",
               "type": "`$STRING`"
             }
           ],

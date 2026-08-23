@@ -1,0 +1,55 @@
+# Entity: store
+
+main: kit: entity: store: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "images"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "isActive"
+      req: false
+      short: "Whether the store is active (0 or 1)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "storeID"
+      req: false
+      short: "Unique store identifier"
+      type: "`$STRING`"
+    }
+    {
+      name: "storeName"
+      req: false
+      short: "Name of the store"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "store"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/stores"
+          parts: [
+            "stores"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

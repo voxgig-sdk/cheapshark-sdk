@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'Cheapshark',
+        slug: "cheapshark",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -65,18 +76,22 @@ class Config {
       "fields": [
         {
           "name": "email",
+          "short": "Email address for the alert",
           "type": "`$STRING`"
         },
         {
           "name": "gameID",
+          "short": "Game identifier",
           "type": "`$STRING`"
         },
         {
           "name": "gameTitle",
+          "short": "Title of the game",
           "type": "`$STRING`"
         },
         {
           "name": "price",
+          "short": "Target price for the alert",
           "type": "`$NUMBER`"
         }
       ],
@@ -187,78 +202,97 @@ class Config {
       "fields": [
         {
           "name": "dealID",
+          "short": "Unique identifier for the deal",
           "type": "`$STRING`"
         },
         {
           "name": "dealRating",
+          "short": "Rating of the deal",
           "type": "`$STRING`"
         },
         {
           "name": "gameID",
+          "short": "Game identifier",
           "type": "`$STRING`"
         },
         {
           "name": "internalName",
+          "short": "Internal name of the game",
           "type": "`$STRING`"
         },
         {
           "name": "isOnSale",
+          "short": "Whether the game is on sale (0 or 1)",
           "type": "`$STRING`"
         },
         {
           "name": "lastChange",
+          "short": "Unix timestamp of last price change",
           "type": "`$INTEGER`"
         },
         {
           "name": "metacriticLink",
+          "short": "Link to Metacritic page",
           "type": "`$STRING`"
         },
         {
           "name": "metacriticScore",
+          "short": "Metacritic score",
           "type": "`$STRING`"
         },
         {
           "name": "normalPrice",
+          "short": "Regular price",
           "type": "`$STRING`"
         },
         {
           "name": "releaseDate",
+          "short": "Unix timestamp of release date",
           "type": "`$INTEGER`"
         },
         {
           "name": "salePrice",
+          "short": "Current sale price",
           "type": "`$STRING`"
         },
         {
           "name": "savings",
+          "short": "Percentage savings",
           "type": "`$STRING`"
         },
         {
           "name": "steamAppID",
+          "short": "Steam App ID",
           "type": "`$STRING`"
         },
         {
           "name": "steamRatingCount",
+          "short": "Number of Steam ratings",
           "type": "`$STRING`"
         },
         {
           "name": "steamRatingPercent",
+          "short": "Steam rating percentage",
           "type": "`$STRING`"
         },
         {
           "name": "steamRatingText",
+          "short": "Steam rating description",
           "type": "`$STRING`"
         },
         {
           "name": "storeID",
+          "short": "Store identifier",
           "type": "`$STRING`"
         },
         {
           "name": "thumb",
+          "short": "Thumbnail image URL",
           "type": "`$STRING`"
         },
         {
           "name": "title",
+          "short": "Title of the game",
           "type": "`$STRING`"
         }
       ],
@@ -415,30 +449,37 @@ class Config {
       "fields": [
         {
           "name": "cheapest",
+          "short": "Lowest price found",
           "type": "`$STRING`"
         },
         {
           "name": "cheapestDealID",
+          "short": "Deal ID for the cheapest price",
           "type": "`$STRING`"
         },
         {
           "name": "external",
+          "short": "External game title",
           "type": "`$STRING`"
         },
         {
           "name": "gameID",
+          "short": "Unique game identifier",
           "type": "`$STRING`"
         },
         {
           "name": "internalName",
+          "short": "Internal game name",
           "type": "`$STRING`"
         },
         {
           "name": "steamAppID",
+          "short": "Steam App ID",
           "type": "`$STRING`"
         },
         {
           "name": "thumb",
+          "short": "Thumbnail image URL",
           "type": "`$STRING`"
         }
       ],
@@ -513,14 +554,17 @@ class Config {
         },
         {
           "name": "isActive",
+          "short": "Whether the store is active (0 or 1)",
           "type": "`$INTEGER`"
         },
         {
           "name": "storeID",
+          "short": "Unique store identifier",
           "type": "`$STRING`"
         },
         {
           "name": "storeName",
+          "short": "Name of the store",
           "type": "`$STRING`"
         }
       ],
