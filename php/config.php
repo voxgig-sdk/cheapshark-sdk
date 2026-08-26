@@ -42,6 +42,7 @@ class CheapsharkConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
