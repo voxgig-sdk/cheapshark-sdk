@@ -23,11 +23,8 @@ class Alert(TypedDict, total=False):
     price: float
 
 
-class AlertListMatch(TypedDict, total=False):
+class AlertListMatch(TypedDict):
     email: str
-    gameID: str
-    gameTitle: str
-    price: float
 
 
 class AlertCreateData(TypedDict, total=False):
@@ -37,11 +34,9 @@ class AlertCreateData(TypedDict, total=False):
     price: float
 
 
-class AlertRemoveMatch(TypedDict, total=False):
+class AlertRemoveMatch(TypedDict):
     email: str
-    gameID: str
-    gameTitle: str
-    price: float
+    game_id: str
 
 
 class Deal(TypedDict, total=False):
@@ -67,25 +62,22 @@ class Deal(TypedDict, total=False):
 
 
 class DealListMatch(TypedDict, total=False):
-    dealID: str
-    dealRating: str
-    gameID: str
-    internalName: str
-    isOnSale: str
-    lastChange: int
-    metacriticLink: str
-    metacriticScore: str
-    normalPrice: str
-    releaseDate: int
-    salePrice: str
-    savings: str
-    steamAppID: str
-    steamRatingCount: str
-    steamRatingPercent: str
-    steamRatingText: str
-    storeID: str
-    thumb: str
+    aaa: int
+    desc: int
+    exact: int
+    lower_price: float
+    metacritic: int
+    on_sale: int
+    output: str
+    page_number: int
+    page_size: int
+    sort_by: str
+    steam_app_id: str
+    steam_rating: int
+    steamwork: int
+    store_id: int
     title: str
+    upper_price: float
 
 
 class Game(TypedDict, total=False):
@@ -99,13 +91,10 @@ class Game(TypedDict, total=False):
 
 
 class GameListMatch(TypedDict, total=False):
-    cheapest: str
-    cheapestDealID: str
-    external: str
-    gameID: str
-    internalName: str
-    steamAppID: str
-    thumb: str
+    exact: int
+    limit: int
+    steam_app_id: str
+    title: str
 
 
 class Store(TypedDict, total=False):

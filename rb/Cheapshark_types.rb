@@ -32,21 +32,9 @@ Alert = Struct.new(
 # Request payload for Alert#list.
 #
 # @!attribute [rw] email
-#   @return [String, nil]
-#
-# @!attribute [rw] gameID
-#   @return [String, nil]
-#
-# @!attribute [rw] gameTitle
-#   @return [String, nil]
-#
-# @!attribute [rw] price
-#   @return [Float, nil]
+#   @return [String]
 AlertListMatch = Struct.new(
   :email,
-  :gameID,
-  :gameTitle,
-  :price,
   keyword_init: true
 )
 
@@ -74,21 +62,13 @@ AlertCreateData = Struct.new(
 # Request payload for Alert#remove.
 #
 # @!attribute [rw] email
-#   @return [String, nil]
+#   @return [String]
 #
-# @!attribute [rw] gameID
-#   @return [String, nil]
-#
-# @!attribute [rw] gameTitle
-#   @return [String, nil]
-#
-# @!attribute [rw] price
-#   @return [Float, nil]
+# @!attribute [rw] game_id
+#   @return [String]
 AlertRemoveMatch = Struct.new(
   :email,
-  :gameID,
-  :gameTitle,
-  :price,
+  :game_id,
   keyword_init: true
 )
 
@@ -175,82 +155,70 @@ Deal = Struct.new(
 
 # Request payload for Deal#list.
 #
-# @!attribute [rw] dealID
-#   @return [String, nil]
-#
-# @!attribute [rw] dealRating
-#   @return [String, nil]
-#
-# @!attribute [rw] gameID
-#   @return [String, nil]
-#
-# @!attribute [rw] internalName
-#   @return [String, nil]
-#
-# @!attribute [rw] isOnSale
-#   @return [String, nil]
-#
-# @!attribute [rw] lastChange
+# @!attribute [rw] aaa
 #   @return [Integer, nil]
 #
-# @!attribute [rw] metacriticLink
-#   @return [String, nil]
-#
-# @!attribute [rw] metacriticScore
-#   @return [String, nil]
-#
-# @!attribute [rw] normalPrice
-#   @return [String, nil]
-#
-# @!attribute [rw] releaseDate
+# @!attribute [rw] desc
 #   @return [Integer, nil]
 #
-# @!attribute [rw] salePrice
+# @!attribute [rw] exact
+#   @return [Integer, nil]
+#
+# @!attribute [rw] lower_price
+#   @return [Float, nil]
+#
+# @!attribute [rw] metacritic
+#   @return [Integer, nil]
+#
+# @!attribute [rw] on_sale
+#   @return [Integer, nil]
+#
+# @!attribute [rw] output
 #   @return [String, nil]
 #
-# @!attribute [rw] savings
+# @!attribute [rw] page_number
+#   @return [Integer, nil]
+#
+# @!attribute [rw] page_size
+#   @return [Integer, nil]
+#
+# @!attribute [rw] sort_by
 #   @return [String, nil]
 #
-# @!attribute [rw] steamAppID
+# @!attribute [rw] steam_app_id
 #   @return [String, nil]
 #
-# @!attribute [rw] steamRatingCount
-#   @return [String, nil]
+# @!attribute [rw] steam_rating
+#   @return [Integer, nil]
 #
-# @!attribute [rw] steamRatingPercent
-#   @return [String, nil]
+# @!attribute [rw] steamwork
+#   @return [Integer, nil]
 #
-# @!attribute [rw] steamRatingText
-#   @return [String, nil]
-#
-# @!attribute [rw] storeID
-#   @return [String, nil]
-#
-# @!attribute [rw] thumb
-#   @return [String, nil]
+# @!attribute [rw] store_id
+#   @return [Integer, nil]
 #
 # @!attribute [rw] title
 #   @return [String, nil]
+#
+# @!attribute [rw] upper_price
+#   @return [Float, nil]
 DealListMatch = Struct.new(
-  :dealID,
-  :dealRating,
-  :gameID,
-  :internalName,
-  :isOnSale,
-  :lastChange,
-  :metacriticLink,
-  :metacriticScore,
-  :normalPrice,
-  :releaseDate,
-  :salePrice,
-  :savings,
-  :steamAppID,
-  :steamRatingCount,
-  :steamRatingPercent,
-  :steamRatingText,
-  :storeID,
-  :thumb,
+  :aaa,
+  :desc,
+  :exact,
+  :lower_price,
+  :metacritic,
+  :on_sale,
+  :output,
+  :page_number,
+  :page_size,
+  :sort_by,
+  :steam_app_id,
+  :steam_rating,
+  :steamwork,
+  :store_id,
   :title,
+  :upper_price,
   keyword_init: true
 )
 
@@ -289,34 +257,22 @@ Game = Struct.new(
 
 # Request payload for Game#list.
 #
-# @!attribute [rw] cheapest
+# @!attribute [rw] exact
+#   @return [Integer, nil]
+#
+# @!attribute [rw] limit
+#   @return [Integer, nil]
+#
+# @!attribute [rw] steam_app_id
 #   @return [String, nil]
 #
-# @!attribute [rw] cheapestDealID
-#   @return [String, nil]
-#
-# @!attribute [rw] external
-#   @return [String, nil]
-#
-# @!attribute [rw] gameID
-#   @return [String, nil]
-#
-# @!attribute [rw] internalName
-#   @return [String, nil]
-#
-# @!attribute [rw] steamAppID
-#   @return [String, nil]
-#
-# @!attribute [rw] thumb
+# @!attribute [rw] title
 #   @return [String, nil]
 GameListMatch = Struct.new(
-  :cheapest,
-  :cheapestDealID,
-  :external,
-  :gameID,
-  :internalName,
-  :steamAppID,
-  :thumb,
+  :exact,
+  :limit,
+  :steam_app_id,
+  :title,
   keyword_init: true
 )
 

@@ -43,7 +43,7 @@ error — iterate it directly.
 
 ```python
 try:
-    alerts = client.Alert().list()
+    alerts = client.Alert().list({"email": "example"})
     for alert in alerts:
         print(alert)
 except Exception as err:
@@ -57,7 +57,7 @@ except Exception as err:
 created = client.Alert().create({"email": "example_email", "gameID": "example_gameID"})
 
 # Remove
-client.Alert().remove()
+client.Alert().remove({"email": "example_email", "game_id": "example_game_id"})
 ```
 
 
@@ -353,7 +353,7 @@ Create an instance: `alert = client.Alert()`
 #### Example: List
 
 ```python
-alerts = client.Alert().list()
+alerts = client.Alert().list({"email": "example"})
 ```
 
 #### Example: Create
@@ -458,6 +458,29 @@ Create an instance: `store = client.Store()`
 ```python
 stores = client.Store().list()
 ```
+
+## Features
+
+This SDK ships 1 optional features. Each is **inactive until you
+switch it on**, so an SDK you have not configured behaves exactly as if none of
+them existed — no retries, no cache, no logging, no measurable overhead.
+
+Activate a feature by name in the client options, alongside the options shown
+above:
+
+| Feature | What it does |
+|---|---|
+| [`test`](#test) | In-memory mock transport for testing without a live server |
+
+### test
+
+In-memory mock transport for testing without a live server.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+
+Set `feature.test.active` to enable it, then override any of the options above.
 
 
 ## Advanced

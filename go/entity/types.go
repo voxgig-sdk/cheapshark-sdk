@@ -22,10 +22,7 @@ type Alert struct {
 
 // AlertListMatch is the typed request payload for Alert.ListTyped.
 type AlertListMatch struct {
-	Email *string `json:"email,omitempty"`
-	GameID *string `json:"gameID,omitempty"`
-	GameTitle *string `json:"gameTitle,omitempty"`
-	Price *float64 `json:"price,omitempty"`
+	Email string `json:"email"`
 }
 
 // AlertCreateData is the typed request payload for Alert.CreateTyped.
@@ -38,10 +35,8 @@ type AlertCreateData struct {
 
 // AlertRemoveMatch is the typed request payload for Alert.RemoveTyped.
 type AlertRemoveMatch struct {
-	Email *string `json:"email,omitempty"`
-	GameID *string `json:"gameID,omitempty"`
-	GameTitle *string `json:"gameTitle,omitempty"`
-	Price *float64 `json:"price,omitempty"`
+	Email string `json:"email"`
+	GameId string `json:"game_id"`
 }
 
 // Deal is the typed data model for the deal entity.
@@ -69,25 +64,22 @@ type Deal struct {
 
 // DealListMatch is the typed request payload for Deal.ListTyped.
 type DealListMatch struct {
-	DealID *string `json:"dealID,omitempty"`
-	DealRating *string `json:"dealRating,omitempty"`
-	GameID *string `json:"gameID,omitempty"`
-	InternalName *string `json:"internalName,omitempty"`
-	IsOnSale *string `json:"isOnSale,omitempty"`
-	LastChange *int `json:"lastChange,omitempty"`
-	MetacriticLink *string `json:"metacriticLink,omitempty"`
-	MetacriticScore *string `json:"metacriticScore,omitempty"`
-	NormalPrice *string `json:"normalPrice,omitempty"`
-	ReleaseDate *int `json:"releaseDate,omitempty"`
-	SalePrice *string `json:"salePrice,omitempty"`
-	Savings *string `json:"savings,omitempty"`
-	SteamAppID *string `json:"steamAppID,omitempty"`
-	SteamRatingCount *string `json:"steamRatingCount,omitempty"`
-	SteamRatingPercent *string `json:"steamRatingPercent,omitempty"`
-	SteamRatingText *string `json:"steamRatingText,omitempty"`
-	StoreID *string `json:"storeID,omitempty"`
-	Thumb *string `json:"thumb,omitempty"`
+	Aaa *int `json:"aaa,omitempty"`
+	Desc *int `json:"desc,omitempty"`
+	Exact *int `json:"exact,omitempty"`
+	LowerPrice *float64 `json:"lower_price,omitempty"`
+	Metacritic *int `json:"metacritic,omitempty"`
+	OnSale *int `json:"on_sale,omitempty"`
+	Output *string `json:"output,omitempty"`
+	PageNumber *int `json:"page_number,omitempty"`
+	PageSize *int `json:"page_size,omitempty"`
+	SortBy *string `json:"sort_by,omitempty"`
+	SteamAppId *string `json:"steam_app_id,omitempty"`
+	SteamRating *int `json:"steam_rating,omitempty"`
+	Steamwork *int `json:"steamwork,omitempty"`
+	StoreId *int `json:"store_id,omitempty"`
 	Title *string `json:"title,omitempty"`
+	UpperPrice *float64 `json:"upper_price,omitempty"`
 }
 
 // Game is the typed data model for the game entity.
@@ -103,13 +95,10 @@ type Game struct {
 
 // GameListMatch is the typed request payload for Game.ListTyped.
 type GameListMatch struct {
-	Cheapest *string `json:"cheapest,omitempty"`
-	CheapestDealID *string `json:"cheapestDealID,omitempty"`
-	External *string `json:"external,omitempty"`
-	GameID *string `json:"gameID,omitempty"`
-	InternalName *string `json:"internalName,omitempty"`
-	SteamAppID *string `json:"steamAppID,omitempty"`
-	Thumb *string `json:"thumb,omitempty"`
+	Exact *int `json:"exact,omitempty"`
+	Limit *int `json:"limit,omitempty"`
+	SteamAppId *string `json:"steam_app_id,omitempty"`
+	Title *string `json:"title,omitempty"`
 }
 
 // Store is the typed data model for the store entity.

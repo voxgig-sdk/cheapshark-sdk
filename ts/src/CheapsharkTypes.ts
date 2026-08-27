@@ -13,10 +13,7 @@ export interface Alert {
 }
 
 export interface AlertListMatch {
-  email?: string
-  gameID?: string
-  gameTitle?: string
-  price?: number
+  email: string
 }
 
 export interface AlertCreateData {
@@ -27,10 +24,8 @@ export interface AlertCreateData {
 }
 
 export interface AlertRemoveMatch {
-  email?: string
-  gameID?: string
-  gameTitle?: string
-  price?: number
+  email: string
+  game_id: string
 }
 
 export interface Deal {
@@ -56,25 +51,22 @@ export interface Deal {
 }
 
 export interface DealListMatch {
-  dealID?: string
-  dealRating?: string
-  gameID?: string
-  internalName?: string
-  isOnSale?: string
-  lastChange?: number
-  metacriticLink?: string
-  metacriticScore?: string
-  normalPrice?: string
-  releaseDate?: number
-  salePrice?: string
-  savings?: string
-  steamAppID?: string
-  steamRatingCount?: string
-  steamRatingPercent?: string
-  steamRatingText?: string
-  storeID?: string
-  thumb?: string
+  aaa?: number
+  desc?: number
+  exact?: number
+  lower_price?: number
+  metacritic?: number
+  on_sale?: number
+  output?: string
+  page_number?: number
+  page_size?: number
+  sort_by?: string
+  steam_app_id?: string
+  steam_rating?: number
+  steamwork?: number
+  store_id?: number
   title?: string
+  upper_price?: number
 }
 
 export interface Game {
@@ -88,13 +80,10 @@ export interface Game {
 }
 
 export interface GameListMatch {
-  cheapest?: string
-  cheapestDealID?: string
-  external?: string
-  gameID?: string
-  internalName?: string
-  steamAppID?: string
-  thumb?: string
+  exact?: number
+  limit?: number
+  steam_app_id?: string
+  title?: string
 }
 
 export interface Store {
