@@ -47,6 +47,7 @@ module CheapsharkConfig
         "alert" => {
           "fields" => [
             {
+              "format" => "email",
               "name" => "email",
               "short" => "Email address for the alert",
               "type" => "`$STRING`",
@@ -62,6 +63,7 @@ module CheapsharkConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "float",
               "name" => "price",
               "short" => "Target price for the alert",
               "type" => "`$NUMBER`",
@@ -78,14 +80,19 @@ module CheapsharkConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/alerts",
-                  "parts" => [
-                    "alerts",
+                  "segments" => [
+                    {
+                      "lit" => "alerts",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "alerts",
+                  ],
                 },
               ],
             },
@@ -108,8 +115,10 @@ module CheapsharkConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/alerts",
-                  "parts" => [
-                    "alerts",
+                  "segments" => [
+                    {
+                      "lit" => "alerts",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -120,6 +129,9 @@ module CheapsharkConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "alerts",
+                  ],
                 },
               ],
             },
@@ -149,8 +161,10 @@ module CheapsharkConfig
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/alerts",
-                  "parts" => [
-                    "alerts",
+                  "segments" => [
+                    {
+                      "lit" => "alerts",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -162,6 +176,9 @@ module CheapsharkConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "alerts",
+                  ],
                 },
               ],
             },
@@ -382,8 +399,10 @@ module CheapsharkConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/deals",
-                  "parts" => [
-                    "deals",
+                  "segments" => [
+                    {
+                      "lit" => "deals",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -409,6 +428,9 @@ module CheapsharkConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "deals",
+                  ],
                 },
               ],
             },
@@ -495,8 +517,10 @@ module CheapsharkConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/games",
-                  "parts" => [
-                    "games",
+                  "segments" => [
+                    {
+                      "lit" => "games",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -510,6 +534,9 @@ module CheapsharkConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "games",
+                  ],
                 },
               ],
             },
@@ -551,14 +578,19 @@ module CheapsharkConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/stores",
-                  "parts" => [
-                    "stores",
+                  "segments" => [
+                    {
+                      "lit" => "stores",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "stores",
+                  ],
                 },
               ],
             },

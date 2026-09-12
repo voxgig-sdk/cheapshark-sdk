@@ -39,6 +39,7 @@ func MakeConfig() map[string]any {
 			"alert": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"format": "email",
 						"name": "email",
 						"short": "Email address for the alert",
 						"type": "`$STRING`",
@@ -54,6 +55,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "float",
 						"name": "price",
 						"short": "Target price for the alert",
 						"type": "`$NUMBER`",
@@ -70,13 +72,18 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/alerts",
-								"parts": []any{
-									"alerts",
+								"segments": []any{
+									map[string]any{
+										"lit": "alerts",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"alerts",
 								},
 							},
 						},
@@ -100,8 +107,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/alerts",
-								"parts": []any{
-									"alerts",
+								"segments": []any{
+									map[string]any{
+										"lit": "alerts",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -111,6 +120,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"alerts",
 								},
 							},
 						},
@@ -141,8 +153,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/alerts",
-								"parts": []any{
-									"alerts",
+								"segments": []any{
+									map[string]any{
+										"lit": "alerts",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -153,6 +167,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"alerts",
 								},
 							},
 						},
@@ -374,8 +391,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/deals",
-								"parts": []any{
-									"deals",
+								"segments": []any{
+									map[string]any{
+										"lit": "deals",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -400,6 +419,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"deals",
 								},
 							},
 						},
@@ -487,8 +509,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/games",
-								"parts": []any{
-									"games",
+								"segments": []any{
+									map[string]any{
+										"lit": "games",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -501,6 +525,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"games",
 								},
 							},
 						},
@@ -543,13 +570,18 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/stores",
-								"parts": []any{
-									"stores",
+								"segments": []any{
+									map[string]any{
+										"lit": "stores",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"stores",
 								},
 							},
 						},
@@ -561,6 +593,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

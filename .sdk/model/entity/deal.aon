@@ -249,8 +249,10 @@ main: kit: entity: deal: {
           }
           method: "GET"
           orig: "/deals"
-          parts: [
-            "deals"
+          segments: [
+            {
+              lit: "deals"
+            }
           ]
           select: {
             exist: [

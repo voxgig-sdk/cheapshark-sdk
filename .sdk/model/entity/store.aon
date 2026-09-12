@@ -38,8 +38,10 @@ main: kit: entity: store: {
         {
           method: "GET"
           orig: "/stores"
-          parts: [
-            "stores"
+          segments: [
+            {
+              lit: "stores"
+            }
           ]
           transform: {
             req: "`reqdata`"

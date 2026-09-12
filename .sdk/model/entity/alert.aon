@@ -6,6 +6,7 @@ main: kit: entity: alert: {
 
   fields: [
     {
+      format: "email"
       name: "email"
       req: false
       short: "Email address for the alert"
@@ -24,6 +25,7 @@ main: kit: entity: alert: {
       type: "`$STRING`"
     }
     {
+      format: "float"
       name: "price"
       req: false
       short: "Target price for the alert"
@@ -39,8 +41,10 @@ main: kit: entity: alert: {
         {
           method: "POST"
           orig: "/alerts"
-          parts: [
-            "alerts"
+          segments: [
+            {
+              lit: "alerts"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -66,8 +70,10 @@ main: kit: entity: alert: {
           }
           method: "GET"
           orig: "/alerts"
-          parts: [
-            "alerts"
+          segments: [
+            {
+              lit: "alerts"
+            }
           ]
           select: {
             exist: [
@@ -105,8 +111,10 @@ main: kit: entity: alert: {
           }
           method: "DELETE"
           orig: "/alerts"
-          parts: [
-            "alerts"
+          segments: [
+            {
+              lit: "alerts"
+            }
           ]
           select: {
             exist: [

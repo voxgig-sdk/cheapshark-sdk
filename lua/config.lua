@@ -35,6 +35,7 @@ local function make_config()
       ["alert"] = {
         ["fields"] = {
           {
+            ["format"] = "email",
             ["name"] = "email",
             ["short"] = "Email address for the alert",
             ["type"] = "`$STRING`",
@@ -50,6 +51,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "float",
             ["name"] = "price",
             ["short"] = "Target price for the alert",
             ["type"] = "`$NUMBER`",
@@ -66,13 +68,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/alerts",
-                ["parts"] = {
-                  "alerts",
+                ["segments"] = {
+                  {
+                    ["lit"] = "alerts",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "alerts",
                 },
               },
             },
@@ -96,8 +103,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/alerts",
-                ["parts"] = {
-                  "alerts",
+                ["segments"] = {
+                  {
+                    ["lit"] = "alerts",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -107,6 +116,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "alerts",
                 },
               },
             },
@@ -137,8 +149,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/alerts",
-                ["parts"] = {
-                  "alerts",
+                ["segments"] = {
+                  {
+                    ["lit"] = "alerts",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -149,6 +163,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "alerts",
                 },
               },
             },
@@ -370,8 +387,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/deals",
-                ["parts"] = {
-                  "deals",
+                ["segments"] = {
+                  {
+                    ["lit"] = "deals",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -396,6 +415,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "deals",
                 },
               },
             },
@@ -483,8 +505,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/games",
-                ["parts"] = {
-                  "games",
+                ["segments"] = {
+                  {
+                    ["lit"] = "games",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -497,6 +521,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "games",
                 },
               },
             },
@@ -539,13 +566,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/stores",
-                ["parts"] = {
-                  "stores",
+                ["segments"] = {
+                  {
+                    ["lit"] = "stores",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "stores",
                 },
               },
             },

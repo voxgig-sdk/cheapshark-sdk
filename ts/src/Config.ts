@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -76,6 +87,7 @@ class Config {
     "alert": {
       "fields": [
         {
+          "format": "email",
           "name": "email",
           "short": "Email address for the alert",
           "type": "`$STRING`"
@@ -91,6 +103,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "float",
           "name": "price",
           "short": "Target price for the alert",
           "type": "`$NUMBER`"
@@ -107,14 +120,19 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/alerts",
-              "parts": [
-                "alerts"
+              "segments": [
+                {
+                  "lit": "alerts"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "alerts"
+              ]
             }
           ]
         },
@@ -137,8 +155,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/alerts",
-              "parts": [
-                "alerts"
+              "segments": [
+                {
+                  "lit": "alerts"
+                }
               ],
               "select": {
                 "exist": [
@@ -148,7 +168,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "alerts"
+              ]
             }
           ]
         },
@@ -178,8 +201,10 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/alerts",
-              "parts": [
-                "alerts"
+              "segments": [
+                {
+                  "lit": "alerts"
+                }
               ],
               "select": {
                 "exist": [
@@ -190,7 +215,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "alerts"
+              ]
             }
           ]
         }
@@ -411,8 +439,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/deals",
-              "parts": [
-                "deals"
+              "segments": [
+                {
+                  "lit": "deals"
+                }
               ],
               "select": {
                 "exist": [
@@ -437,7 +467,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "deals"
+              ]
             }
           ]
         }
@@ -524,8 +557,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/games",
-              "parts": [
-                "games"
+              "segments": [
+                {
+                  "lit": "games"
+                }
               ],
               "select": {
                 "exist": [
@@ -538,7 +573,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "games"
+              ]
             }
           ]
         }
@@ -580,14 +618,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/stores",
-              "parts": [
-                "stores"
+              "segments": [
+                {
+                  "lit": "stores"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "stores"
+              ]
             }
           ]
         }
@@ -603,6 +646,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 
