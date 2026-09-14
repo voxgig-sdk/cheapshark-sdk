@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { CheapsharkSDK } from '@voxgig-sdk/cheapshark'
+import { CheapsharkSDK } from '@voxgig-sdk/cheapshark-sdk'
 
 const client = new CheapsharkSDK()
 ```
@@ -594,7 +594,7 @@ cheapshark/
 Import the SDK from the package root:
 
 ```ts
-import { CheapsharkSDK } from '@voxgig-sdk/cheapshark'
+import { CheapsharkSDK } from '@voxgig-sdk/cheapshark-sdk'
 ```
 
 ### Entity state

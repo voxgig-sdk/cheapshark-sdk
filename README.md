@@ -105,7 +105,7 @@ local results, err = client:Alert():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
+| TypeScript | `@voxgig-sdk/cheapshark-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
 | Python | `voxgig-sdk-cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
 | PHP | `voxgig-sdk/cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/cheapshark-sdk/go` | `go get github.com/voxgig-sdk/cheapshark-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Alert():list()
 ### TypeScript
 
 ```ts
-import { CheapsharkSDK } from '@voxgig-sdk/cheapshark'
+import { CheapsharkSDK } from '@voxgig-sdk/cheapshark-sdk'
 
 const client = new CheapsharkSDK()
 
