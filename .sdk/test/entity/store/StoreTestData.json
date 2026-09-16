@@ -3,19 +3,19 @@
     "store": {
       "STORE00": {
         "images": {},
-        "isActive": "s29",
+        "isActive": 41,
         "storeID": "s2a",
         "storeName": "s2b"
       },
       "STORE01": {
         "images": {},
-        "isActive": "s51",
+        "isActive": 81,
         "storeID": "s52",
         "storeName": "s53"
       },
       "STORE02": {
         "images": {},
-        "isActive": "s79",
+        "isActive": 121,
         "storeID": "s7a",
         "storeName": "s7b"
       }
@@ -25,9 +25,66 @@
     "store": {
       "store_ref01": {
         "images": {},
-        "isActive": "sa1",
+        "isActive": 161,
         "storeID": "sa2",
         "storeName": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "GET /stores": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getStores",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "images": {
+                        "properties": {
+                          "banner": {
+                            "description": "Banner image URL",
+                            "type": "string"
+                          },
+                          "icon": {
+                            "description": "Icon image URL",
+                            "type": "string"
+                          },
+                          "logo": {
+                            "description": "Logo image URL",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "isActive": {
+                        "description": "Whether the store is active (0 or 1)",
+                        "type": "integer"
+                      },
+                      "storeID": {
+                        "description": "Unique store identifier",
+                        "type": "string"
+                      },
+                      "storeName": {
+                        "description": "Name of the store",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with list of stores"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

@@ -4,7 +4,10 @@ declare(strict_types=1);
 // Cheapshark SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class CheapsharkFeatures
@@ -14,8 +17,14 @@ class CheapsharkFeatures
         switch ($name) {
             case "base":
                 return new CheapsharkBaseFeature();
+            case "ratelimit":
+                return new CheapsharkRatelimitFeature();
+            case "retry":
+                return new CheapsharkRetryFeature();
             case "test":
                 return new CheapsharkTestFeature();
+            case "timeout":
+                return new CheapsharkTimeoutFeature();
             default:
                 return new CheapsharkBaseFeature();
         }
@@ -31,7 +40,10 @@ class CheapsharkFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

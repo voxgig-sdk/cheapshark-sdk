@@ -33,5 +33,150 @@
         "price": 163
       }
     }
+  },
+  "requests": {
+    "POST /alerts": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "setAlert",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "description": "Email address for the alert",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "gameID": {
+                    "description": "Game ID to set alert for",
+                    "type": "string"
+                  },
+                  "price": {
+                    "description": "Target price for the alert",
+                    "format": "float",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "email",
+                  "gameID",
+                  "price"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Alert successfully set"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /alerts": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getAlerts",
+        "parameters": [
+          {
+            "description": "Email address to retrieve alerts for",
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "format": "email",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "email": {
+                        "description": "Email address for the alert",
+                        "format": "email",
+                        "type": "string"
+                      },
+                      "gameID": {
+                        "description": "Game identifier",
+                        "type": "string"
+                      },
+                      "gameTitle": {
+                        "description": "Title of the game",
+                        "type": "string"
+                      },
+                      "price": {
+                        "description": "Target price for the alert",
+                        "format": "float",
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with list of alerts"
+          },
+          "400": {
+            "description": "Bad request - invalid email"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "DELETE /alerts": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "deleteAlert",
+        "parameters": [
+          {
+            "description": "Email address associated with the alert",
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "format": "email",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Game ID of the alert to delete",
+            "in": "query",
+            "name": "gameID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "description": "Alert successfully deleted"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

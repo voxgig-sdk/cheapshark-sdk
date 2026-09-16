@@ -36,6 +36,12 @@ main: kit: entity: store: {
       name: "list"
       points: [
         {
+          contract: {
+            id: "GET /stores"
+            json: "{\"operationId\":\"getStores\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"images\":{\"properties\":{\"banner\":{\"description\":\"Banner image URL\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon image URL\",\"type\":\"string\"},\"logo\":{\"description\":\"Logo image URL\",\"type\":\"string\"}},\"type\":\"object\"},\"isActive\":{\"description\":\"Whether the store is active (0 or 1)\",\"type\":\"integer\"},\"storeID\":{\"description\":\"Unique store identifier\",\"type\":\"string\"},\"storeName\":{\"description\":\"Name of the store\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with list of stores\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/stores"
           segments: [

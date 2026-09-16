@@ -42,5 +42,107 @@
         "thumb": "s11e"
       }
     }
+  },
+  "requests": {
+    "GET /games": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "searchGames",
+        "parameters": [
+          {
+            "description": "Game title to search for",
+            "in": "query",
+            "name": "title",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Steam App ID to search for",
+            "in": "query",
+            "name": "steamAppID",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results (default: 60)",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 60,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Exact match for title search (0 = fuzzy, 1 = exact)",
+            "in": "query",
+            "name": "exact",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "enum": [
+                0,
+                1
+              ],
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "cheapest": {
+                        "description": "Lowest price found",
+                        "type": "string"
+                      },
+                      "cheapestDealID": {
+                        "description": "Deal ID for the cheapest price",
+                        "type": "string"
+                      },
+                      "external": {
+                        "description": "External game title",
+                        "type": "string"
+                      },
+                      "gameID": {
+                        "description": "Unique game identifier",
+                        "type": "string"
+                      },
+                      "internalName": {
+                        "description": "Internal game name",
+                        "type": "string"
+                      },
+                      "steamAppID": {
+                        "description": "Steam App ID",
+                        "type": "string"
+                      },
+                      "thumb": {
+                        "description": "Thumbnail image URL",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with list of games"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

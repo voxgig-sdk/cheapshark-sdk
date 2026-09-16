@@ -7,11 +7,11 @@
         "gameID": "sc0",
         "internalName": "sc1",
         "isOnSale": "sc2",
-        "lastChange": "sc3",
+        "lastChange": 195,
         "metacriticLink": "sc4",
         "metacriticScore": "sc5",
         "normalPrice": "sc6",
-        "releaseDate": "sc7",
+        "releaseDate": 199,
         "salePrice": "sc8",
         "savings": "sc9",
         "steamAppID": "sca",
@@ -28,11 +28,11 @@
         "gameID": "s17e",
         "internalName": "s17f",
         "isOnSale": "s180",
-        "lastChange": "s181",
+        "lastChange": 385,
         "metacriticLink": "s182",
         "metacriticScore": "s183",
         "normalPrice": "s184",
-        "releaseDate": "s185",
+        "releaseDate": 389,
         "salePrice": "s186",
         "savings": "s187",
         "steamAppID": "s188",
@@ -49,11 +49,11 @@
         "gameID": "s23c",
         "internalName": "s23d",
         "isOnSale": "s23e",
-        "lastChange": "s23f",
+        "lastChange": 575,
         "metacriticLink": "s240",
         "metacriticScore": "s241",
         "normalPrice": "s242",
-        "releaseDate": "s243",
+        "releaseDate": 579,
         "salePrice": "s244",
         "savings": "s245",
         "steamAppID": "s246",
@@ -74,11 +74,11 @@
         "gameID": "s2fa",
         "internalName": "s2fb",
         "isOnSale": "s2fc",
-        "lastChange": "s2fd",
+        "lastChange": 765,
         "metacriticLink": "s2fe",
         "metacriticScore": "s2ff",
         "normalPrice": "s300",
-        "releaseDate": "s301",
+        "releaseDate": 769,
         "salePrice": "s302",
         "savings": "s303",
         "steamAppID": "s304",
@@ -88,6 +88,304 @@
         "storeID": "s308",
         "thumb": "s309",
         "title": "s30a"
+      }
+    }
+  },
+  "requests": {
+    "GET /deals": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getDeals",
+        "parameters": [
+          {
+            "description": "Filter deals by store ID",
+            "in": "query",
+            "name": "storeID",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Page number for pagination (default: 0)",
+            "in": "query",
+            "name": "pageNumber",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of deals per page (default: 60, max: 60)",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "default": 60,
+              "maximum": 60,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Sort deals by criteria",
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "schema": {
+              "enum": [
+                "Deal Rating",
+                "Title",
+                "Savings",
+                "Price",
+                "Metacritic",
+                "Reviews",
+                "Release",
+                "Store",
+                "recent"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort in descending order (0 = ascending, 1 = descending)",
+            "in": "query",
+            "name": "desc",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "enum": [
+                0,
+                1
+              ],
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Minimum price for deals",
+            "in": "query",
+            "name": "lowerPrice",
+            "required": false,
+            "schema": {
+              "format": "float",
+              "type": "number"
+            }
+          },
+          {
+            "description": "Maximum price for deals",
+            "in": "query",
+            "name": "upperPrice",
+            "required": false,
+            "schema": {
+              "format": "float",
+              "type": "number"
+            }
+          },
+          {
+            "description": "Minimum Metacritic score",
+            "in": "query",
+            "name": "metacritic",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Minimum Steam rating (0-100)",
+            "in": "query",
+            "name": "steamRating",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter by Steam App ID",
+            "in": "query",
+            "name": "steamAppID",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Search for deals by game title",
+            "in": "query",
+            "name": "title",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Exact match for title search (0 = fuzzy, 1 = exact)",
+            "in": "query",
+            "name": "exact",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "enum": [
+                0,
+                1
+              ],
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter for AAA titles (0 = all, 1 = AAA only)",
+            "in": "query",
+            "name": "AAA",
+            "required": false,
+            "schema": {
+              "enum": [
+                0,
+                1
+              ],
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter for Steamworks games (0 = all, 1 = Steamworks only)",
+            "in": "query",
+            "name": "steamworks",
+            "required": false,
+            "schema": {
+              "enum": [
+                0,
+                1
+              ],
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter for games on sale (0 = all, 1 = on sale only)",
+            "in": "query",
+            "name": "onSale",
+            "required": false,
+            "schema": {
+              "enum": [
+                0,
+                1
+              ],
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Output format (default: json)",
+            "in": "query",
+            "name": "output",
+            "required": false,
+            "schema": {
+              "enum": [
+                "json",
+                "rss"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "dealID": {
+                        "description": "Unique identifier for the deal",
+                        "type": "string"
+                      },
+                      "dealRating": {
+                        "description": "Rating of the deal",
+                        "type": "string"
+                      },
+                      "gameID": {
+                        "description": "Game identifier",
+                        "type": "string"
+                      },
+                      "internalName": {
+                        "description": "Internal name of the game",
+                        "type": "string"
+                      },
+                      "isOnSale": {
+                        "description": "Whether the game is on sale (0 or 1)",
+                        "type": "string"
+                      },
+                      "lastChange": {
+                        "description": "Unix timestamp of last price change",
+                        "type": "integer"
+                      },
+                      "metacriticLink": {
+                        "description": "Link to Metacritic page",
+                        "type": "string"
+                      },
+                      "metacriticScore": {
+                        "description": "Metacritic score",
+                        "type": "string"
+                      },
+                      "normalPrice": {
+                        "description": "Regular price",
+                        "type": "string"
+                      },
+                      "releaseDate": {
+                        "description": "Unix timestamp of release date",
+                        "type": "integer"
+                      },
+                      "salePrice": {
+                        "description": "Current sale price",
+                        "type": "string"
+                      },
+                      "savings": {
+                        "description": "Percentage savings",
+                        "type": "string"
+                      },
+                      "steamAppID": {
+                        "description": "Steam App ID",
+                        "type": "string"
+                      },
+                      "steamRatingCount": {
+                        "description": "Number of Steam ratings",
+                        "type": "string"
+                      },
+                      "steamRatingPercent": {
+                        "description": "Steam rating percentage",
+                        "type": "string"
+                      },
+                      "steamRatingText": {
+                        "description": "Steam rating description",
+                        "type": "string"
+                      },
+                      "storeID": {
+                        "description": "Store identifier",
+                        "type": "string"
+                      },
+                      "thumb": {
+                        "description": "Thumbnail image URL",
+                        "type": "string"
+                      },
+                      "title": {
+                        "description": "Title of the game",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with list of deals"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

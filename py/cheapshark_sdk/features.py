@@ -1,12 +1,18 @@
 # Cheapshark SDK feature factory
 
 from cheapshark_sdk.feature.base_feature import CheapsharkBaseFeature
+from cheapshark_sdk.feature.ratelimit_feature import CheapsharkRatelimitFeature
+from cheapshark_sdk.feature.retry_feature import CheapsharkRetryFeature
 from cheapshark_sdk.feature.test_feature import CheapsharkTestFeature
+from cheapshark_sdk.feature.timeout_feature import CheapsharkTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: CheapsharkBaseFeature(),
+    "ratelimit": lambda: CheapsharkRatelimitFeature(),
+    "retry": lambda: CheapsharkRetryFeature(),
     "test": lambda: CheapsharkTestFeature(),
+    "timeout": lambda: CheapsharkTimeoutFeature(),
 }
 
 
