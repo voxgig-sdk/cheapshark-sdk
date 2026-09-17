@@ -105,12 +105,12 @@ local results, err = client:Alert():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/cheapshark-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
-| Python | `voxgig-sdk-cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
-| PHP | `voxgig-sdk/cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
+| TypeScript | `@voxgig-sdk/cheapshark-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/tags) |
+| Python | `voxgig-sdk-cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/tags) |
+| PHP | `voxgig-sdk/cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/cheapshark-sdk/go` | `go get github.com/voxgig-sdk/cheapshark-sdk/go@latest` |
-| Ruby | `voxgig-sdk-cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
-| Lua | `voxgig-sdk-cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/releases) |
+| Ruby | `voxgig-sdk-cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/tags) |
+| Lua | `voxgig-sdk-cheapshark` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cheapshark-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/cheapshark-sdk/go-cli` | `go install github.com/voxgig-sdk/cheapshark-sdk/go-cli/cmd/cheapshark@latest` |
 | Go MCP server | `github.com/voxgig-sdk/cheapshark-sdk/go-mcp` | `go get github.com/voxgig-sdk/cheapshark-sdk/go-mcp@latest` |
 

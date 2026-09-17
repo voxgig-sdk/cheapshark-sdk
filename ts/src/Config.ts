@@ -127,18 +127,18 @@ class Config {
 
     entity: {
       
-      alert: {
-      },
-
-      deal: {
-      },
-
-      game: {
-      },
-
-      store: {
-      },
-
+        alert: {
+        },
+  
+        deal: {
+        },
+  
+        game: {
+        },
+  
+        store: {
+        },
+  
     }
   }
 
