@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StoreEntity = void 0;
 const CheapsharkEntityBase_1 = require("../CheapsharkEntityBase");
-// TODO: needs Entity superclass
 class StoreEntity extends CheapsharkEntityBase_1.CheapsharkEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

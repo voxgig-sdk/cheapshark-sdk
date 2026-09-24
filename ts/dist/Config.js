@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -116,26 +109,30 @@ class Config {
         "alert": {
             "fields": [
                 {
-                    "format": "email",
                     "name": "email",
+                    "title": "Email",
+                    "type": "`$STRING`",
                     "short": "Email address for the alert",
-                    "type": "`$STRING`"
+                    "format": "email"
                 },
                 {
                     "name": "gameID",
-                    "short": "Game identifier",
-                    "type": "`$STRING`"
+                    "title": "Game Id",
+                    "type": "`$STRING`",
+                    "short": "Game identifier"
                 },
                 {
                     "name": "gameTitle",
-                    "short": "Title of the game",
-                    "type": "`$STRING`"
+                    "title": "Game Title",
+                    "type": "`$STRING`",
+                    "short": "Title of the game"
                 },
                 {
-                    "format": "float",
                     "name": "price",
+                    "title": "Price",
+                    "type": "`$NUMBER`",
                     "short": "Target price for the alert",
-                    "type": "`$NUMBER`"
+                    "format": "float"
                 }
             ],
             "name": "alert",
@@ -145,7 +142,6 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "args": {},
                             "kind": "http",
                             "method": "POST",
                             "orig": "/alerts",
@@ -154,14 +150,16 @@ class Config {
                                     "lit": "alerts"
                                 }
                             ],
-                            "select": {},
+                            "parts": [
+                                "alerts"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "alerts"
-                            ]
+                            "args": {},
+                            "select": {}
                         }
                     ]
                 },
@@ -170,17 +168,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "email",
-                                        "orig": "email",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/alerts",
@@ -189,18 +176,30 @@ class Config {
                                     "lit": "alerts"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "email"
-                                ]
-                            },
+                            "parts": [
+                                "alerts"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "alerts"
-                            ]
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "email",
+                                        "orig": "email",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "email"
+                                ]
+                            }
                         }
                     ]
                 },
@@ -209,24 +208,6 @@ class Config {
                     "name": "remove",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "email",
-                                        "orig": "email",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "game_id",
-                                        "orig": "game_id",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "DELETE",
                             "orig": "/alerts",
@@ -235,19 +216,38 @@ class Config {
                                     "lit": "alerts"
                                 }
                             ],
+                            "parts": [
+                                "alerts"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "email",
+                                        "orig": "email",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "game_id",
+                                        "orig": "game_id",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "email",
                                     "game_id"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "alerts"
-                            ]
+                            }
                         }
                     ]
                 }
@@ -260,98 +260,117 @@ class Config {
             "fields": [
                 {
                     "name": "dealID",
-                    "short": "Unique identifier for the deal",
-                    "type": "`$STRING`"
+                    "title": "Deal Id",
+                    "type": "`$STRING`",
+                    "short": "Unique identifier for the deal"
                 },
                 {
                     "name": "dealRating",
-                    "short": "Rating of the deal",
-                    "type": "`$STRING`"
+                    "title": "Deal Rating",
+                    "type": "`$STRING`",
+                    "short": "Rating of the deal"
                 },
                 {
                     "name": "gameID",
-                    "short": "Game identifier",
-                    "type": "`$STRING`"
+                    "title": "Game Id",
+                    "type": "`$STRING`",
+                    "short": "Game identifier"
                 },
                 {
                     "name": "internalName",
-                    "short": "Internal name of the game",
-                    "type": "`$STRING`"
+                    "title": "Internal Name",
+                    "type": "`$STRING`",
+                    "short": "Internal name of the game"
                 },
                 {
                     "name": "isOnSale",
-                    "short": "Whether the game is on sale (0 or 1)",
-                    "type": "`$STRING`"
+                    "title": "Is On Sale",
+                    "type": "`$STRING`",
+                    "short": "Whether the game is on sale (0 or 1)"
                 },
                 {
                     "name": "lastChange",
-                    "short": "Unix timestamp of last price change",
-                    "type": "`$INTEGER`"
+                    "title": "Last Change",
+                    "type": "`$INTEGER`",
+                    "short": "Unix timestamp of last price change"
                 },
                 {
                     "name": "metacriticLink",
-                    "short": "Link to Metacritic page",
-                    "type": "`$STRING`"
+                    "title": "Metacritic Link",
+                    "type": "`$STRING`",
+                    "short": "Link to Metacritic page"
                 },
                 {
                     "name": "metacriticScore",
-                    "short": "Metacritic score",
-                    "type": "`$STRING`"
+                    "title": "Metacritic Score",
+                    "type": "`$STRING`",
+                    "short": "Metacritic score"
                 },
                 {
                     "name": "normalPrice",
-                    "short": "Regular price",
-                    "type": "`$STRING`"
+                    "title": "Normal Price",
+                    "type": "`$STRING`",
+                    "short": "Regular price"
                 },
                 {
                     "name": "releaseDate",
-                    "short": "Unix timestamp of release date",
-                    "type": "`$INTEGER`"
+                    "title": "Release Date",
+                    "type": "`$INTEGER`",
+                    "short": "Unix timestamp of release date"
                 },
                 {
                     "name": "salePrice",
-                    "short": "Current sale price",
-                    "type": "`$STRING`"
+                    "title": "Sale Price",
+                    "type": "`$STRING`",
+                    "short": "Current sale price"
                 },
                 {
                     "name": "savings",
-                    "short": "Percentage savings",
-                    "type": "`$STRING`"
+                    "title": "Savings",
+                    "type": "`$STRING`",
+                    "short": "Percentage savings"
                 },
                 {
                     "name": "steamAppID",
-                    "short": "Steam App ID",
-                    "type": "`$STRING`"
+                    "title": "Steam App Id",
+                    "type": "`$STRING`",
+                    "short": "Steam App ID"
                 },
                 {
                     "name": "steamRatingCount",
-                    "short": "Number of Steam ratings",
-                    "type": "`$STRING`"
+                    "title": "Steam Rating Count",
+                    "type": "`$STRING`",
+                    "short": "Number of Steam ratings"
                 },
                 {
                     "name": "steamRatingPercent",
-                    "short": "Steam rating percentage",
-                    "type": "`$STRING`"
+                    "title": "Steam Rating Percent",
+                    "type": "`$STRING`",
+                    "short": "Steam rating percentage"
                 },
                 {
                     "name": "steamRatingText",
-                    "short": "Steam rating description",
-                    "type": "`$STRING`"
+                    "title": "Steam Rating Text",
+                    "type": "`$STRING`",
+                    "short": "Steam rating description"
                 },
                 {
                     "name": "storeID",
-                    "short": "Store identifier",
-                    "type": "`$STRING`"
+                    "title": "Store Id",
+                    "type": "`$STRING`",
+                    "short": "Store identifier"
                 },
                 {
                     "name": "thumb",
-                    "short": "Thumbnail image URL",
-                    "type": "`$STRING`"
+                    "title": "Thumb",
+                    "type": "`$STRING`",
+                    "short": "Thumbnail image URL"
                 },
                 {
                     "name": "title",
-                    "short": "Title of the game",
-                    "type": "`$STRING`"
+                    "title": "Title",
+                    "type": "`$STRING`",
+                    "short": "Title of the game"
                 }
             ],
             "name": "deal",
@@ -361,110 +380,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "aaa",
-                                        "orig": "aaa",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "desc",
-                                        "orig": "desc",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "exact",
-                                        "orig": "exact",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "lower_price",
-                                        "orig": "lower_price",
-                                        "type": "`$NUMBER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "metacritic",
-                                        "orig": "metacritic",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "on_sale",
-                                        "orig": "on_sale",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "output",
-                                        "orig": "output",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "page_number",
-                                        "orig": "page_number",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 60,
-                                        "kind": "query",
-                                        "name": "page_size",
-                                        "orig": "page_size",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "sort_by",
-                                        "orig": "sort_by",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "steam_app_id",
-                                        "orig": "steam_app_id",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "steam_rating",
-                                        "orig": "steam_rating",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "steamwork",
-                                        "orig": "steamwork",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "store_id",
-                                        "orig": "store_id",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "title",
-                                        "orig": "title",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "upper_price",
-                                        "orig": "upper_price",
-                                        "type": "`$NUMBER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/deals",
@@ -473,6 +388,118 @@ class Config {
                                     "lit": "deals"
                                 }
                             ],
+                            "parts": [
+                                "deals"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "aaa",
+                                        "orig": "aaa",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "desc",
+                                        "orig": "desc",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "exact",
+                                        "orig": "exact",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "lower_price",
+                                        "orig": "lower_price",
+                                        "type": "`$NUMBER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "metacritic",
+                                        "orig": "metacritic",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "on_sale",
+                                        "orig": "on_sale",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "output",
+                                        "orig": "output",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "page_number",
+                                        "orig": "page_number",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "page_size",
+                                        "orig": "page_size",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 60
+                                    },
+                                    {
+                                        "name": "sort_by",
+                                        "orig": "sort_by",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "steam_app_id",
+                                        "orig": "steam_app_id",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "steam_rating",
+                                        "orig": "steam_rating",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "steamwork",
+                                        "orig": "steamwork",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "store_id",
+                                        "orig": "store_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "title",
+                                        "orig": "title",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "upper_price",
+                                        "orig": "upper_price",
+                                        "type": "`$NUMBER`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "aaa",
@@ -492,14 +519,7 @@ class Config {
                                     "title",
                                     "upper_price"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "deals"
-                            ]
+                            }
                         }
                     ]
                 }
@@ -512,38 +532,45 @@ class Config {
             "fields": [
                 {
                     "name": "cheapest",
-                    "short": "Lowest price found",
-                    "type": "`$STRING`"
+                    "title": "Cheapest",
+                    "type": "`$STRING`",
+                    "short": "Lowest price found"
                 },
                 {
                     "name": "cheapestDealID",
-                    "short": "Deal ID for the cheapest price",
-                    "type": "`$STRING`"
+                    "title": "Cheapest Deal Id",
+                    "type": "`$STRING`",
+                    "short": "Deal ID for the cheapest price"
                 },
                 {
                     "name": "external",
-                    "short": "External game title",
-                    "type": "`$STRING`"
+                    "title": "External",
+                    "type": "`$STRING`",
+                    "short": "External game title"
                 },
                 {
                     "name": "gameID",
-                    "short": "Unique game identifier",
-                    "type": "`$STRING`"
+                    "title": "Game Id",
+                    "type": "`$STRING`",
+                    "short": "Unique game identifier"
                 },
                 {
                     "name": "internalName",
-                    "short": "Internal game name",
-                    "type": "`$STRING`"
+                    "title": "Internal Name",
+                    "type": "`$STRING`",
+                    "short": "Internal game name"
                 },
                 {
                     "name": "steamAppID",
-                    "short": "Steam App ID",
-                    "type": "`$STRING`"
+                    "title": "Steam App Id",
+                    "type": "`$STRING`",
+                    "short": "Steam App ID"
                 },
                 {
                     "name": "thumb",
-                    "short": "Thumbnail image URL",
-                    "type": "`$STRING`"
+                    "title": "Thumb",
+                    "type": "`$STRING`",
+                    "short": "Thumbnail image URL"
                 }
             ],
             "name": "game",
@@ -553,36 +580,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "exact",
-                                        "orig": "exact",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 60,
-                                        "kind": "query",
-                                        "name": "limit",
-                                        "orig": "limit",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "steam_app_id",
-                                        "orig": "steam_app_id",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "title",
-                                        "orig": "title",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/games",
@@ -591,6 +588,44 @@ class Config {
                                     "lit": "games"
                                 }
                             ],
+                            "parts": [
+                                "games"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "exact",
+                                        "orig": "exact",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "limit",
+                                        "orig": "limit",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 60
+                                    },
+                                    {
+                                        "name": "steam_app_id",
+                                        "orig": "steam_app_id",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "title",
+                                        "orig": "title",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "exact",
@@ -598,14 +633,7 @@ class Config {
                                     "steam_app_id",
                                     "title"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "games"
-                            ]
+                            }
                         }
                     ]
                 }
@@ -618,22 +646,26 @@ class Config {
             "fields": [
                 {
                     "name": "images",
+                    "title": "Images",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "isActive",
-                    "short": "Whether the store is active (0 or 1)",
-                    "type": "`$INTEGER`"
+                    "title": "Is Active",
+                    "type": "`$INTEGER`",
+                    "short": "Whether the store is active (0 or 1)"
                 },
                 {
                     "name": "storeID",
-                    "short": "Unique store identifier",
-                    "type": "`$STRING`"
+                    "title": "Store Id",
+                    "type": "`$STRING`",
+                    "short": "Unique store identifier"
                 },
                 {
                     "name": "storeName",
-                    "short": "Name of the store",
-                    "type": "`$STRING`"
+                    "title": "Store Name",
+                    "type": "`$STRING`",
+                    "short": "Name of the store"
                 }
             ],
             "name": "store",
@@ -643,7 +675,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {},
                             "kind": "http",
                             "method": "GET",
                             "orig": "/stores",
@@ -652,14 +683,16 @@ class Config {
                                     "lit": "stores"
                                 }
                             ],
-                            "select": {},
+                            "parts": [
+                                "stores"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "stores"
-                            ]
+                            "args": {},
+                            "select": {}
                         }
                     ]
                 }

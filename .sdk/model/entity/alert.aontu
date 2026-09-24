@@ -1,0 +1,155 @@
+# Entity: alert
+
+main: kit: entity: alert: {
+
+  alias: field: {}
+
+  fields: {
+    email: {
+      fo: "email"
+      h: "Email"
+      n: "email"
+      r: false
+      sh: "Email address for the alert"
+      t: "`$STRING`"
+    }
+    gameID: {
+      h: "Game Id"
+      n: "gameID"
+      r: false
+      sh: "Game identifier"
+      t: "`$STRING`"
+    }
+    gameTitle: {
+      h: "Game Title"
+      n: "gameTitle"
+      r: false
+      sh: "Title of the game"
+      t: "`$STRING`"
+    }
+    price: {
+      fo: "float"
+      h: "Price"
+      n: "price"
+      r: false
+      sh: "Target price for the alert"
+      t: "`$NUMBER`"
+    }
+  }
+
+  name: "alert"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /alerts"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/alerts"
+          s: [
+            {
+              lit: "alerts"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /alerts"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "email"
+                or: "email"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/alerts"
+          q: {
+            exist: [
+              "email"
+            ]
+          }
+          s: [
+            {
+              lit: "alerts"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /alerts"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "email"
+                or: "email"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "game_id"
+                or: "game_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/alerts"
+          q: {
+            exist: [
+              "email"
+              "game_id"
+            ]
+          }
+          s: [
+            {
+              lit: "alerts"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

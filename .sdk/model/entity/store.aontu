@@ -1,0 +1,66 @@
+# Entity: store
+
+main: kit: entity: store: {
+
+  alias: field: {}
+
+  fields: {
+    images: {
+      h: "Images"
+      n: "images"
+      r: false
+      t: "`$OBJECT`"
+    }
+    isActive: {
+      h: "Is Active"
+      n: "isActive"
+      r: false
+      sh: "Whether the store is active (0 or 1)"
+      t: "`$INTEGER`"
+    }
+    storeID: {
+      h: "Store Id"
+      n: "storeID"
+      r: false
+      sh: "Unique store identifier"
+      t: "`$STRING`"
+    }
+    storeName: {
+      h: "Store Name"
+      n: "storeName"
+      r: false
+      sh: "Name of the store"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "store"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /stores"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/stores"
+          s: [
+            {
+              lit: "stores"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -19,7 +19,6 @@ import type {
   GameListMatch,
 } from '../CheapsharkTypes'
 
-// TODO: needs Entity superclass
 class GameEntity extends CheapsharkEntityBase<Game> {
 
   constructor(client: CheapsharkSDK, entopts: any) {

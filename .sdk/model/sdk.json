@@ -24,44 +24,114 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "alert": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "format": "email",
-              "name": "email",
-              "req": false,
-              "short": "Email address for the alert",
-              "type": "`$STRING`"
+          "fields": {
+            "email": {
+              "a": true,
+              "fo": "email",
+              "h": "Email",
+              "n": "email",
+              "r": false,
+              "sh": "Email address for the alert",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "gameID",
-              "req": false,
-              "short": "Game identifier",
-              "type": "`$STRING`"
+            "gameID": {
+              "a": true,
+              "h": "Game Id",
+              "n": "gameID",
+              "r": false,
+              "sh": "Game identifier",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "gameTitle",
-              "req": false,
-              "short": "Title of the game",
-              "type": "`$STRING`"
+            "gameTitle": {
+              "a": true,
+              "h": "Game Title",
+              "n": "gameTitle",
+              "r": false,
+              "sh": "Title of the game",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "format": "float",
-              "name": "price",
-              "req": false,
-              "short": "Target price for the alert",
-              "type": "`$NUMBER`"
+            "price": {
+              "a": true,
+              "fo": "float",
+              "h": "Price",
+              "n": "price",
+              "r": false,
+              "sh": "Target price for the alert",
+              "t": "`$NUMBER`"
             }
-          ],
+          },
           "name": "alert",
           "op": {
             "create": {
@@ -69,24 +139,24 @@
               "name": "create",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "POST /alerts",
-                    "json": "{\"operationId\":\"setAlert\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/x-www-form-urlencoded\":{\"schema\":{\"properties\":{\"email\":{\"description\":\"Email address for the alert\",\"format\":\"email\",\"type\":\"string\"},\"gameID\":{\"description\":\"Game ID to set alert for\",\"type\":\"string\"},\"price\":{\"description\":\"Target price for the alert\",\"format\":\"float\",\"type\":\"number\"}},\"required\":[\"email\",\"gameID\",\"price\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"description\":\"Alert successfully set\"},\"400\":{\"description\":\"Bad request - invalid parameters\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "POST",
-                  "orig": "/alerts",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/alerts",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "alerts"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -98,39 +168,39 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /alerts",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "query": [
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "email",
-                        "orig": "email",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "email",
+                        "or": "email",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /alerts",
-                    "json": "{\"operationId\":\"getAlerts\",\"parameters\":[{\"description\":\"Email address to retrieve alerts for\",\"in\":\"query\",\"name\":\"email\",\"required\":true,\"schema\":{\"format\":\"email\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"email\":{\"description\":\"Email address for the alert\",\"format\":\"email\",\"type\":\"string\"},\"gameID\":{\"description\":\"Game identifier\",\"type\":\"string\"},\"gameTitle\":{\"description\":\"Title of the game\",\"type\":\"string\"},\"price\":{\"description\":\"Target price for the alert\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with list of alerts\"},\"400\":{\"description\":\"Bad request - invalid email\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
-                  },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/alerts",
-                  "segments": [
-                    {
-                      "lit": "alerts"
-                    }
-                  ],
-                  "select": {
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/alerts",
+                  "q": {
                     "exist": [
                       "email"
                     ]
                   },
-                  "transform": {
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "alerts"
+                    }
+                  ],
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -142,48 +212,48 @@
               "name": "remove",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "DELETE /alerts",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "query": [
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "email",
-                        "orig": "email",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "email",
+                        "or": "email",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "game_id",
-                        "orig": "game_id",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "game_id",
+                        "or": "game_id",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "DELETE /alerts",
-                    "json": "{\"operationId\":\"deleteAlert\",\"parameters\":[{\"description\":\"Email address associated with the alert\",\"in\":\"query\",\"name\":\"email\",\"required\":true,\"schema\":{\"format\":\"email\",\"type\":\"string\"}},{\"description\":\"Game ID of the alert to delete\",\"in\":\"query\",\"name\":\"gameID\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"description\":\"Alert successfully deleted\"},\"400\":{\"description\":\"Bad request - invalid parameters\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
-                  },
-                  "kind": "http",
-                  "method": "DELETE",
-                  "orig": "/alerts",
-                  "segments": [
-                    {
-                      "lit": "alerts"
-                    }
-                  ],
-                  "select": {
+                  "k": "http",
+                  "m": "DELETE",
+                  "o": "/alerts",
+                  "q": {
                     "exist": [
                       "email",
                       "game_id"
                     ]
                   },
-                  "transform": {
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "alerts"
+                    }
+                  ],
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -200,141 +270,160 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "dealID",
-              "req": false,
-              "short": "Unique identifier for the deal",
-              "type": "`$STRING`"
+          "fields": {
+            "dealID": {
+              "a": true,
+              "h": "Deal Id",
+              "n": "dealID",
+              "r": false,
+              "sh": "Unique identifier for the deal",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "dealRating",
-              "req": false,
-              "short": "Rating of the deal",
-              "type": "`$STRING`"
+            "dealRating": {
+              "a": true,
+              "h": "Deal Rating",
+              "n": "dealRating",
+              "r": false,
+              "sh": "Rating of the deal",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "gameID",
-              "req": false,
-              "short": "Game identifier",
-              "type": "`$STRING`"
+            "gameID": {
+              "a": true,
+              "h": "Game Id",
+              "n": "gameID",
+              "r": false,
+              "sh": "Game identifier",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "internalName",
-              "req": false,
-              "short": "Internal name of the game",
-              "type": "`$STRING`"
+            "internalName": {
+              "a": true,
+              "h": "Internal Name",
+              "n": "internalName",
+              "r": false,
+              "sh": "Internal name of the game",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "isOnSale",
-              "req": false,
-              "short": "Whether the game is on sale (0 or 1)",
-              "type": "`$STRING`"
+            "isOnSale": {
+              "a": true,
+              "h": "Is On Sale",
+              "n": "isOnSale",
+              "r": false,
+              "sh": "Whether the game is on sale (0 or 1)",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "lastChange",
-              "req": false,
-              "short": "Unix timestamp of last price change",
-              "type": "`$INTEGER`"
+            "lastChange": {
+              "a": true,
+              "h": "Last Change",
+              "n": "lastChange",
+              "r": false,
+              "sh": "Unix timestamp of last price change",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "metacriticLink",
-              "req": false,
-              "short": "Link to Metacritic page",
-              "type": "`$STRING`"
+            "metacriticLink": {
+              "a": true,
+              "h": "Metacritic Link",
+              "n": "metacriticLink",
+              "r": false,
+              "sh": "Link to Metacritic page",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "metacriticScore",
-              "req": false,
-              "short": "Metacritic score",
-              "type": "`$STRING`"
+            "metacriticScore": {
+              "a": true,
+              "h": "Metacritic Score",
+              "n": "metacriticScore",
+              "r": false,
+              "sh": "Metacritic score",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "normalPrice",
-              "req": false,
-              "short": "Regular price",
-              "type": "`$STRING`"
+            "normalPrice": {
+              "a": true,
+              "h": "Normal Price",
+              "n": "normalPrice",
+              "r": false,
+              "sh": "Regular price",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "releaseDate",
-              "req": false,
-              "short": "Unix timestamp of release date",
-              "type": "`$INTEGER`"
+            "releaseDate": {
+              "a": true,
+              "h": "Release Date",
+              "n": "releaseDate",
+              "r": false,
+              "sh": "Unix timestamp of release date",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "salePrice",
-              "req": false,
-              "short": "Current sale price",
-              "type": "`$STRING`"
+            "salePrice": {
+              "a": true,
+              "h": "Sale Price",
+              "n": "salePrice",
+              "r": false,
+              "sh": "Current sale price",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "savings",
-              "req": false,
-              "short": "Percentage savings",
-              "type": "`$STRING`"
+            "savings": {
+              "a": true,
+              "h": "Savings",
+              "n": "savings",
+              "r": false,
+              "sh": "Percentage savings",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "steamAppID",
-              "req": false,
-              "short": "Steam App ID",
-              "type": "`$STRING`"
+            "steamAppID": {
+              "a": true,
+              "h": "Steam App Id",
+              "n": "steamAppID",
+              "r": false,
+              "sh": "Steam App ID",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "steamRatingCount",
-              "req": false,
-              "short": "Number of Steam ratings",
-              "type": "`$STRING`"
+            "steamRatingCount": {
+              "a": true,
+              "h": "Steam Rating Count",
+              "n": "steamRatingCount",
+              "r": false,
+              "sh": "Number of Steam ratings",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "steamRatingPercent",
-              "req": false,
-              "short": "Steam rating percentage",
-              "type": "`$STRING`"
+            "steamRatingPercent": {
+              "a": true,
+              "h": "Steam Rating Percent",
+              "n": "steamRatingPercent",
+              "r": false,
+              "sh": "Steam rating percentage",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "steamRatingText",
-              "req": false,
-              "short": "Steam rating description",
-              "type": "`$STRING`"
+            "steamRatingText": {
+              "a": true,
+              "h": "Steam Rating Text",
+              "n": "steamRatingText",
+              "r": false,
+              "sh": "Steam rating description",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "storeID",
-              "req": false,
-              "short": "Store identifier",
-              "type": "`$STRING`"
+            "storeID": {
+              "a": true,
+              "h": "Store Id",
+              "n": "storeID",
+              "r": false,
+              "sh": "Store identifier",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "thumb",
-              "req": false,
-              "short": "Thumbnail image URL",
-              "type": "`$STRING`"
+            "thumb": {
+              "a": true,
+              "h": "Thumb",
+              "n": "thumb",
+              "r": false,
+              "sh": "Thumbnail image URL",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "title",
-              "req": false,
-              "short": "Title of the game",
-              "type": "`$STRING`"
+            "title": {
+              "a": true,
+              "h": "Title",
+              "n": "title",
+              "r": false,
+              "sh": "Title of the game",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "deal",
           "op": {
             "list": {
@@ -342,158 +431,152 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /deals",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "query": [
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "aaa",
-                        "orig": "aaa",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "query",
+                        "n": "aaa",
+                        "or": "aaa",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "example": 0,
-                        "kind": "query",
-                        "name": "desc",
-                        "orig": "desc",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 0,
+                        "k": "query",
+                        "n": "desc",
+                        "or": "desc",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "example": 0,
-                        "kind": "query",
-                        "name": "exact",
-                        "orig": "exact",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 0,
+                        "k": "query",
+                        "n": "exact",
+                        "or": "exact",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "lower_price",
-                        "orig": "lower_price",
-                        "reqd": false,
-                        "type": "`$NUMBER`"
+                        "a": true,
+                        "k": "query",
+                        "n": "lower_price",
+                        "or": "lower_price",
+                        "r": false,
+                        "t": "`$NUMBER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "metacritic",
-                        "orig": "metacritic",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "query",
+                        "n": "metacritic",
+                        "or": "metacritic",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "on_sale",
-                        "orig": "on_sale",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "query",
+                        "n": "on_sale",
+                        "or": "on_sale",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "output",
-                        "orig": "output",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "output",
+                        "or": "output",
+                        "r": false,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "example": 0,
-                        "kind": "query",
-                        "name": "page_number",
-                        "orig": "page_number",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 0,
+                        "k": "query",
+                        "n": "page_number",
+                        "or": "page_number",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "example": 60,
-                        "kind": "query",
-                        "name": "page_size",
-                        "orig": "page_size",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 60,
+                        "k": "query",
+                        "n": "page_size",
+                        "or": "page_size",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "sort_by",
-                        "orig": "sort_by",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "sort_by",
+                        "or": "sort_by",
+                        "r": false,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "steam_app_id",
-                        "orig": "steam_app_id",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "steam_app_id",
+                        "or": "steam_app_id",
+                        "r": false,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "steam_rating",
-                        "orig": "steam_rating",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "query",
+                        "n": "steam_rating",
+                        "or": "steam_rating",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "steamwork",
-                        "orig": "steamwork",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "query",
+                        "n": "steamwork",
+                        "or": "steamwork",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "store_id",
-                        "orig": "store_id",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "query",
+                        "n": "store_id",
+                        "or": "store_id",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "title",
-                        "orig": "title",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "title",
+                        "or": "title",
+                        "r": false,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "upper_price",
-                        "orig": "upper_price",
-                        "reqd": false,
-                        "type": "`$NUMBER`"
+                        "a": true,
+                        "k": "query",
+                        "n": "upper_price",
+                        "or": "upper_price",
+                        "r": false,
+                        "t": "`$NUMBER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /deals",
-                    "json": "{\"operationId\":\"getDeals\",\"parameters\":[{\"description\":\"Filter deals by store ID\",\"in\":\"query\",\"name\":\"storeID\",\"required\":false,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Page number for pagination (default: 0)\",\"in\":\"query\",\"name\":\"pageNumber\",\"required\":false,\"schema\":{\"default\":0,\"type\":\"integer\"}},{\"description\":\"Number of deals per page (default: 60, max: 60)\",\"in\":\"query\",\"name\":\"pageSize\",\"required\":false,\"schema\":{\"default\":60,\"maximum\":60,\"type\":\"integer\"}},{\"description\":\"Sort deals by criteria\",\"in\":\"query\",\"name\":\"sortBy\",\"required\":false,\"schema\":{\"enum\":[\"Deal Rating\",\"Title\",\"Savings\",\"Price\",\"Metacritic\",\"Reviews\",\"Release\",\"Store\",\"recent\"],\"type\":\"string\"}},{\"description\":\"Sort in descending order (0 = ascending, 1 = descending)\",\"in\":\"query\",\"name\":\"desc\",\"required\":false,\"schema\":{\"default\":0,\"enum\":[0,1],\"type\":\"integer\"}},{\"description\":\"Minimum price for deals\",\"in\":\"query\",\"name\":\"lowerPrice\",\"required\":false,\"schema\":{\"format\":\"float\",\"type\":\"number\"}},{\"description\":\"Maximum price for deals\",\"in\":\"query\",\"name\":\"upperPrice\",\"required\":false,\"schema\":{\"format\":\"float\",\"type\":\"number\"}},{\"description\":\"Minimum Metacritic score\",\"in\":\"query\",\"name\":\"metacritic\",\"required\":false,\"schema\":{\"maximum\":100,\"minimum\":0,\"type\":\"integer\"}},{\"description\":\"Minimum Steam rating (0-100)\",\"in\":\"query\",\"name\":\"steamRating\",\"required\":false,\"schema\":{\"maximum\":100,\"minimum\":0,\"type\":\"integer\"}},{\"description\":\"Filter by Steam App ID\",\"in\":\"query\",\"name\":\"steamAppID\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Search for deals by game title\",\"in\":\"query\",\"name\":\"title\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Exact match for title search (0 = fuzzy, 1 = exact)\",\"in\":\"query\",\"name\":\"exact\",\"required\":false,\"schema\":{\"default\":0,\"enum\":[0,1],\"type\":\"integer\"}},{\"description\":\"Filter for AAA titles (0 = all, 1 = AAA only)\",\"in\":\"query\",\"name\":\"AAA\",\"required\":false,\"schema\":{\"enum\":[0,1],\"type\":\"integer\"}},{\"description\":\"Filter for Steamworks games (0 = all, 1 = Steamworks only)\",\"in\":\"query\",\"name\":\"steamworks\",\"required\":false,\"schema\":{\"enum\":[0,1],\"type\":\"integer\"}},{\"description\":\"Filter for games on sale (0 = all, 1 = on sale only)\",\"in\":\"query\",\"name\":\"onSale\",\"required\":false,\"schema\":{\"enum\":[0,1],\"type\":\"integer\"}},{\"description\":\"Output format (default: json)\",\"in\":\"query\",\"name\":\"output\",\"required\":false,\"schema\":{\"enum\":[\"json\",\"rss\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"dealID\":{\"description\":\"Unique identifier for the deal\",\"type\":\"string\"},\"dealRating\":{\"description\":\"Rating of the deal\",\"type\":\"string\"},\"gameID\":{\"description\":\"Game identifier\",\"type\":\"string\"},\"internalName\":{\"description\":\"Internal name of the game\",\"type\":\"string\"},\"isOnSale\":{\"description\":\"Whether the game is on sale (0 or 1)\",\"type\":\"string\"},\"lastChange\":{\"description\":\"Unix timestamp of last price change\",\"type\":\"integer\"},\"metacriticLink\":{\"description\":\"Link to Metacritic page\",\"type\":\"string\"},\"metacriticScore\":{\"description\":\"Metacritic score\",\"type\":\"string\"},\"normalPrice\":{\"description\":\"Regular price\",\"type\":\"string\"},\"releaseDate\":{\"description\":\"Unix timestamp of release date\",\"type\":\"integer\"},\"salePrice\":{\"description\":\"Current sale price\",\"type\":\"string\"},\"savings\":{\"description\":\"Percentage savings\",\"type\":\"string\"},\"steamAppID\":{\"description\":\"Steam App ID\",\"type\":\"string\"},\"steamRatingCount\":{\"description\":\"Number of Steam ratings\",\"type\":\"string\"},\"steamRatingPercent\":{\"description\":\"Steam rating percentage\",\"type\":\"string\"},\"steamRatingText\":{\"description\":\"Steam rating description\",\"type\":\"string\"},\"storeID\":{\"description\":\"Store identifier\",\"type\":\"string\"},\"thumb\":{\"description\":\"Thumbnail image URL\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the game\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with list of deals\"},\"400\":{\"description\":\"Bad request - invalid parameters\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
-                  },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/deals",
-                  "segments": [
-                    {
-                      "lit": "deals"
-                    }
-                  ],
-                  "select": {
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/deals",
+                  "q": {
                     "exist": [
                       "aaa",
                       "desc",
@@ -513,7 +596,13 @@
                       "upper_price"
                     ]
                   },
-                  "transform": {
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "deals"
+                    }
+                  ],
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -530,57 +619,64 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "cheapest",
-              "req": false,
-              "short": "Lowest price found",
-              "type": "`$STRING`"
+          "fields": {
+            "cheapest": {
+              "a": true,
+              "h": "Cheapest",
+              "n": "cheapest",
+              "r": false,
+              "sh": "Lowest price found",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "cheapestDealID",
-              "req": false,
-              "short": "Deal ID for the cheapest price",
-              "type": "`$STRING`"
+            "cheapestDealID": {
+              "a": true,
+              "h": "Cheapest Deal Id",
+              "n": "cheapestDealID",
+              "r": false,
+              "sh": "Deal ID for the cheapest price",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "external",
-              "req": false,
-              "short": "External game title",
-              "type": "`$STRING`"
+            "external": {
+              "a": true,
+              "h": "External",
+              "n": "external",
+              "r": false,
+              "sh": "External game title",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "gameID",
-              "req": false,
-              "short": "Unique game identifier",
-              "type": "`$STRING`"
+            "gameID": {
+              "a": true,
+              "h": "Game Id",
+              "n": "gameID",
+              "r": false,
+              "sh": "Unique game identifier",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "internalName",
-              "req": false,
-              "short": "Internal game name",
-              "type": "`$STRING`"
+            "internalName": {
+              "a": true,
+              "h": "Internal Name",
+              "n": "internalName",
+              "r": false,
+              "sh": "Internal game name",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "steamAppID",
-              "req": false,
-              "short": "Steam App ID",
-              "type": "`$STRING`"
+            "steamAppID": {
+              "a": true,
+              "h": "Steam App Id",
+              "n": "steamAppID",
+              "r": false,
+              "sh": "Steam App ID",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "thumb",
-              "req": false,
-              "short": "Thumbnail image URL",
-              "type": "`$STRING`"
+            "thumb": {
+              "a": true,
+              "h": "Thumb",
+              "n": "thumb",
+              "r": false,
+              "sh": "Thumbnail image URL",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "game",
           "op": {
             "list": {
@@ -588,60 +684,54 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /games",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "query": [
                       {
-                        "active": true,
-                        "example": 0,
-                        "kind": "query",
-                        "name": "exact",
-                        "orig": "exact",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 0,
+                        "k": "query",
+                        "n": "exact",
+                        "or": "exact",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "example": 60,
-                        "kind": "query",
-                        "name": "limit",
-                        "orig": "limit",
-                        "reqd": false,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 60,
+                        "k": "query",
+                        "n": "limit",
+                        "or": "limit",
+                        "r": false,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "steam_app_id",
-                        "orig": "steam_app_id",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "steam_app_id",
+                        "or": "steam_app_id",
+                        "r": false,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "title",
-                        "orig": "title",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "title",
+                        "or": "title",
+                        "r": false,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /games",
-                    "json": "{\"operationId\":\"searchGames\",\"parameters\":[{\"description\":\"Game title to search for\",\"in\":\"query\",\"name\":\"title\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Steam App ID to search for\",\"in\":\"query\",\"name\":\"steamAppID\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Maximum number of results (default: 60)\",\"in\":\"query\",\"name\":\"limit\",\"required\":false,\"schema\":{\"default\":60,\"type\":\"integer\"}},{\"description\":\"Exact match for title search (0 = fuzzy, 1 = exact)\",\"in\":\"query\",\"name\":\"exact\",\"required\":false,\"schema\":{\"default\":0,\"enum\":[0,1],\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"cheapest\":{\"description\":\"Lowest price found\",\"type\":\"string\"},\"cheapestDealID\":{\"description\":\"Deal ID for the cheapest price\",\"type\":\"string\"},\"external\":{\"description\":\"External game title\",\"type\":\"string\"},\"gameID\":{\"description\":\"Unique game identifier\",\"type\":\"string\"},\"internalName\":{\"description\":\"Internal game name\",\"type\":\"string\"},\"steamAppID\":{\"description\":\"Steam App ID\",\"type\":\"string\"},\"thumb\":{\"description\":\"Thumbnail image URL\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with list of games\"},\"400\":{\"description\":\"Bad request - invalid parameters\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
-                  },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/games",
-                  "segments": [
-                    {
-                      "lit": "games"
-                    }
-                  ],
-                  "select": {
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/games",
+                  "q": {
                     "exist": [
                       "exact",
                       "limit",
@@ -649,7 +739,13 @@
                       "title"
                     ]
                   },
-                  "transform": {
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "games"
+                    }
+                  ],
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -666,35 +762,39 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "images",
-              "req": false,
-              "type": "`$OBJECT`"
+          "fields": {
+            "images": {
+              "a": true,
+              "h": "Images",
+              "n": "images",
+              "r": false,
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "name": "isActive",
-              "req": false,
-              "short": "Whether the store is active (0 or 1)",
-              "type": "`$INTEGER`"
+            "isActive": {
+              "a": true,
+              "h": "Is Active",
+              "n": "isActive",
+              "r": false,
+              "sh": "Whether the store is active (0 or 1)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "storeID",
-              "req": false,
-              "short": "Unique store identifier",
-              "type": "`$STRING`"
+            "storeID": {
+              "a": true,
+              "h": "Store Id",
+              "n": "storeID",
+              "r": false,
+              "sh": "Unique store identifier",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "storeName",
-              "req": false,
-              "short": "Name of the store",
-              "type": "`$STRING`"
+            "storeName": {
+              "a": true,
+              "h": "Store Name",
+              "n": "storeName",
+              "r": false,
+              "sh": "Name of the store",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "store",
           "op": {
             "list": {
@@ -702,24 +802,24 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /stores",
-                    "json": "{\"operationId\":\"getStores\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"images\":{\"properties\":{\"banner\":{\"description\":\"Banner image URL\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon image URL\",\"type\":\"string\"},\"logo\":{\"description\":\"Logo image URL\",\"type\":\"string\"}},\"type\":\"object\"},\"isActive\":{\"description\":\"Whether the store is active (0 or 1)\",\"type\":\"integer\"},\"storeID\":{\"description\":\"Unique store identifier\",\"type\":\"string\"},\"storeName\":{\"description\":\"Name of the store\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with list of stores\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/stores",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/stores",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "stores"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -1148,24 +1248,24 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "alert_ref01"
               },
-              "match": {},
-              "op": "create",
-              "spec": [],
-              "valid": []
+              "m": {},
+              "o": "create",
+              "s": [],
+              "v": []
             },
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -1175,27 +1275,27 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "alert_ref01",
                 "suffix": "_rm0"
               },
-              "match": {},
-              "op": "remove",
-              "spec": [],
-              "valid": []
+              "m": {},
+              "o": "remove",
+              "s": [],
+              "v": []
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "suffix": "_rt0"
               },
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemNotExists",
                   "def": {
@@ -1215,13 +1315,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -1241,13 +1341,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -1267,13 +1367,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {

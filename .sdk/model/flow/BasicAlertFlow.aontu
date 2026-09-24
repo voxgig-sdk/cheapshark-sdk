@@ -1,0 +1,55 @@
+# BasicAlertFlow
+
+main: kit: flow: BasicAlertFlow:
+{
+  entity: "alert",
+  kind: "basic",
+  name: "BasicAlertFlow",
+  step: [
+    {
+      i: {
+        ref: "alert_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "alert_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "alert_ref01",
+        suffix: "_rm0"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "alert_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicAlertFlow"
+}

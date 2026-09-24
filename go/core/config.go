@@ -93,26 +93,30 @@ func MakeConfig() map[string]any {
 			"alert": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"format": "email",
 						"name": "email",
-						"short": "Email address for the alert",
+						"title": "Email",
 						"type": "`$STRING`",
+						"short": "Email address for the alert",
+						"format": "email",
 					},
 					map[string]any{
 						"name": "gameID",
-						"short": "Game identifier",
+						"title": "Game Id",
 						"type": "`$STRING`",
+						"short": "Game identifier",
 					},
 					map[string]any{
 						"name": "gameTitle",
-						"short": "Title of the game",
+						"title": "Game Title",
 						"type": "`$STRING`",
+						"short": "Title of the game",
 					},
 					map[string]any{
-						"format": "float",
 						"name": "price",
-						"short": "Target price for the alert",
+						"title": "Price",
 						"type": "`$NUMBER`",
+						"short": "Target price for the alert",
+						"format": "float",
 					},
 				},
 				"name": "alert",
@@ -122,7 +126,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/alerts",
@@ -131,14 +134,16 @@ func MakeConfig() map[string]any {
 										"lit": "alerts",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"alerts",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"alerts",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -147,17 +152,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "email",
-											"orig": "email",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/alerts",
@@ -166,17 +160,29 @@ func MakeConfig() map[string]any {
 										"lit": "alerts",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"email",
-									},
+								"parts": []any{
+									"alerts",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"alerts",
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "email",
+											"orig": "email",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"email",
+									},
 								},
 							},
 						},
@@ -186,24 +192,6 @@ func MakeConfig() map[string]any {
 						"name": "remove",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "email",
-											"orig": "email",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "game_id",
-											"orig": "game_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/alerts",
@@ -212,18 +200,37 @@ func MakeConfig() map[string]any {
 										"lit": "alerts",
 									},
 								},
+								"parts": []any{
+									"alerts",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "email",
+											"orig": "email",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "game_id",
+											"orig": "game_id",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"email",
 										"game_id",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"alerts",
 								},
 							},
 						},
@@ -237,98 +244,117 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "dealID",
-						"short": "Unique identifier for the deal",
+						"title": "Deal Id",
 						"type": "`$STRING`",
+						"short": "Unique identifier for the deal",
 					},
 					map[string]any{
 						"name": "dealRating",
-						"short": "Rating of the deal",
+						"title": "Deal Rating",
 						"type": "`$STRING`",
+						"short": "Rating of the deal",
 					},
 					map[string]any{
 						"name": "gameID",
-						"short": "Game identifier",
+						"title": "Game Id",
 						"type": "`$STRING`",
+						"short": "Game identifier",
 					},
 					map[string]any{
 						"name": "internalName",
-						"short": "Internal name of the game",
+						"title": "Internal Name",
 						"type": "`$STRING`",
+						"short": "Internal name of the game",
 					},
 					map[string]any{
 						"name": "isOnSale",
-						"short": "Whether the game is on sale (0 or 1)",
+						"title": "Is On Sale",
 						"type": "`$STRING`",
+						"short": "Whether the game is on sale (0 or 1)",
 					},
 					map[string]any{
 						"name": "lastChange",
-						"short": "Unix timestamp of last price change",
+						"title": "Last Change",
 						"type": "`$INTEGER`",
+						"short": "Unix timestamp of last price change",
 					},
 					map[string]any{
 						"name": "metacriticLink",
-						"short": "Link to Metacritic page",
+						"title": "Metacritic Link",
 						"type": "`$STRING`",
+						"short": "Link to Metacritic page",
 					},
 					map[string]any{
 						"name": "metacriticScore",
-						"short": "Metacritic score",
+						"title": "Metacritic Score",
 						"type": "`$STRING`",
+						"short": "Metacritic score",
 					},
 					map[string]any{
 						"name": "normalPrice",
-						"short": "Regular price",
+						"title": "Normal Price",
 						"type": "`$STRING`",
+						"short": "Regular price",
 					},
 					map[string]any{
 						"name": "releaseDate",
-						"short": "Unix timestamp of release date",
+						"title": "Release Date",
 						"type": "`$INTEGER`",
+						"short": "Unix timestamp of release date",
 					},
 					map[string]any{
 						"name": "salePrice",
-						"short": "Current sale price",
+						"title": "Sale Price",
 						"type": "`$STRING`",
+						"short": "Current sale price",
 					},
 					map[string]any{
 						"name": "savings",
-						"short": "Percentage savings",
+						"title": "Savings",
 						"type": "`$STRING`",
+						"short": "Percentage savings",
 					},
 					map[string]any{
 						"name": "steamAppID",
-						"short": "Steam App ID",
+						"title": "Steam App Id",
 						"type": "`$STRING`",
+						"short": "Steam App ID",
 					},
 					map[string]any{
 						"name": "steamRatingCount",
-						"short": "Number of Steam ratings",
+						"title": "Steam Rating Count",
 						"type": "`$STRING`",
+						"short": "Number of Steam ratings",
 					},
 					map[string]any{
 						"name": "steamRatingPercent",
-						"short": "Steam rating percentage",
+						"title": "Steam Rating Percent",
 						"type": "`$STRING`",
+						"short": "Steam rating percentage",
 					},
 					map[string]any{
 						"name": "steamRatingText",
-						"short": "Steam rating description",
+						"title": "Steam Rating Text",
 						"type": "`$STRING`",
+						"short": "Steam rating description",
 					},
 					map[string]any{
 						"name": "storeID",
-						"short": "Store identifier",
+						"title": "Store Id",
 						"type": "`$STRING`",
+						"short": "Store identifier",
 					},
 					map[string]any{
 						"name": "thumb",
-						"short": "Thumbnail image URL",
+						"title": "Thumb",
 						"type": "`$STRING`",
+						"short": "Thumbnail image URL",
 					},
 					map[string]any{
 						"name": "title",
-						"short": "Title of the game",
+						"title": "Title",
 						"type": "`$STRING`",
+						"short": "Title of the game",
 					},
 				},
 				"name": "deal",
@@ -338,116 +364,124 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "aaa",
-											"orig": "aaa",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 0,
-											"kind": "query",
-											"name": "desc",
-											"orig": "desc",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 0,
-											"kind": "query",
-											"name": "exact",
-											"orig": "exact",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "lower_price",
-											"orig": "lower_price",
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "metacritic",
-											"orig": "metacritic",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "on_sale",
-											"orig": "on_sale",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "output",
-											"orig": "output",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 0,
-											"kind": "query",
-											"name": "page_number",
-											"orig": "page_number",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 60,
-											"kind": "query",
-											"name": "page_size",
-											"orig": "page_size",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "sort_by",
-											"orig": "sort_by",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "steam_app_id",
-											"orig": "steam_app_id",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "steam_rating",
-											"orig": "steam_rating",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "steamwork",
-											"orig": "steamwork",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "store_id",
-											"orig": "store_id",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "title",
-											"orig": "title",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "upper_price",
-											"orig": "upper_price",
-											"type": "`$NUMBER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/deals",
 								"segments": []any{
 									map[string]any{
 										"lit": "deals",
+									},
+								},
+								"parts": []any{
+									"deals",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "aaa",
+											"orig": "aaa",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "desc",
+											"orig": "desc",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 0,
+										},
+										map[string]any{
+											"name": "exact",
+											"orig": "exact",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 0,
+										},
+										map[string]any{
+											"name": "lower_price",
+											"orig": "lower_price",
+											"type": "`$NUMBER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "metacritic",
+											"orig": "metacritic",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "on_sale",
+											"orig": "on_sale",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "output",
+											"orig": "output",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "page_number",
+											"orig": "page_number",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 0,
+										},
+										map[string]any{
+											"name": "page_size",
+											"orig": "page_size",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 60,
+										},
+										map[string]any{
+											"name": "sort_by",
+											"orig": "sort_by",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "steam_app_id",
+											"orig": "steam_app_id",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "steam_rating",
+											"orig": "steam_rating",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "steamwork",
+											"orig": "steamwork",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "store_id",
+											"orig": "store_id",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "title",
+											"orig": "title",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "upper_price",
+											"orig": "upper_price",
+											"type": "`$NUMBER`",
+											"kind": "query",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -470,13 +504,6 @@ func MakeConfig() map[string]any {
 										"upper_price",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"deals",
-								},
 							},
 						},
 					},
@@ -489,38 +516,45 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "cheapest",
-						"short": "Lowest price found",
+						"title": "Cheapest",
 						"type": "`$STRING`",
+						"short": "Lowest price found",
 					},
 					map[string]any{
 						"name": "cheapestDealID",
-						"short": "Deal ID for the cheapest price",
+						"title": "Cheapest Deal Id",
 						"type": "`$STRING`",
+						"short": "Deal ID for the cheapest price",
 					},
 					map[string]any{
 						"name": "external",
-						"short": "External game title",
+						"title": "External",
 						"type": "`$STRING`",
+						"short": "External game title",
 					},
 					map[string]any{
 						"name": "gameID",
-						"short": "Unique game identifier",
+						"title": "Game Id",
 						"type": "`$STRING`",
+						"short": "Unique game identifier",
 					},
 					map[string]any{
 						"name": "internalName",
-						"short": "Internal game name",
+						"title": "Internal Name",
 						"type": "`$STRING`",
+						"short": "Internal game name",
 					},
 					map[string]any{
 						"name": "steamAppID",
-						"short": "Steam App ID",
+						"title": "Steam App Id",
 						"type": "`$STRING`",
+						"short": "Steam App ID",
 					},
 					map[string]any{
 						"name": "thumb",
-						"short": "Thumbnail image URL",
+						"title": "Thumb",
 						"type": "`$STRING`",
+						"short": "Thumbnail image URL",
 					},
 				},
 				"name": "game",
@@ -530,42 +564,50 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": 0,
-											"kind": "query",
-											"name": "exact",
-											"orig": "exact",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 60,
-											"kind": "query",
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "steam_app_id",
-											"orig": "steam_app_id",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "title",
-											"orig": "title",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/games",
 								"segments": []any{
 									map[string]any{
 										"lit": "games",
+									},
+								},
+								"parts": []any{
+									"games",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "exact",
+											"orig": "exact",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 0,
+										},
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 60,
+										},
+										map[string]any{
+											"name": "steam_app_id",
+											"orig": "steam_app_id",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "title",
+											"orig": "title",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -575,13 +617,6 @@ func MakeConfig() map[string]any {
 										"steam_app_id",
 										"title",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"games",
 								},
 							},
 						},
@@ -595,22 +630,26 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "images",
+						"title": "Images",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "isActive",
-						"short": "Whether the store is active (0 or 1)",
+						"title": "Is Active",
 						"type": "`$INTEGER`",
+						"short": "Whether the store is active (0 or 1)",
 					},
 					map[string]any{
 						"name": "storeID",
-						"short": "Unique store identifier",
+						"title": "Store Id",
 						"type": "`$STRING`",
+						"short": "Unique store identifier",
 					},
 					map[string]any{
 						"name": "storeName",
-						"short": "Name of the store",
+						"title": "Store Name",
 						"type": "`$STRING`",
+						"short": "Name of the store",
 					},
 				},
 				"name": "store",
@@ -620,7 +659,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/stores",
@@ -629,14 +667,16 @@ func MakeConfig() map[string]any {
 										"lit": "stores",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"stores",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"stores",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},

@@ -19,7 +19,6 @@ import type {
   DealListMatch,
 } from '../CheapsharkTypes'
 
-// TODO: needs Entity superclass
 class DealEntity extends CheapsharkEntityBase<Deal> {
 
   constructor(client: CheapsharkSDK, entopts: any) {

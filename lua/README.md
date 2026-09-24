@@ -43,7 +43,7 @@ local alerts, err = client:Alert():list()
 if err then error(err) end
 
 for _, item in ipairs(alerts) do
-  print(item["email"])
+  print(item)
 end
 ```
 

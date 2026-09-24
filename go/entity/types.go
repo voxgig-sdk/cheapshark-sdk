@@ -1,7 +1,7 @@
 // Typed models for the Cheapshark SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,10 +14,6 @@ import (
 
 // Alert is the typed data model for the alert entity.
 type Alert struct {
-	Email *string `json:"email,omitempty"`
-	GameID *string `json:"gameID,omitempty"`
-	GameTitle *string `json:"gameTitle,omitempty"`
-	Price *float64 `json:"price,omitempty"`
 }
 
 // AlertListMatch is the typed request payload for Alert.ListTyped.
@@ -41,25 +37,6 @@ type AlertRemoveMatch struct {
 
 // Deal is the typed data model for the deal entity.
 type Deal struct {
-	DealID *string `json:"dealID,omitempty"`
-	DealRating *string `json:"dealRating,omitempty"`
-	GameID *string `json:"gameID,omitempty"`
-	InternalName *string `json:"internalName,omitempty"`
-	IsOnSale *string `json:"isOnSale,omitempty"`
-	LastChange *int `json:"lastChange,omitempty"`
-	MetacriticLink *string `json:"metacriticLink,omitempty"`
-	MetacriticScore *string `json:"metacriticScore,omitempty"`
-	NormalPrice *string `json:"normalPrice,omitempty"`
-	ReleaseDate *int `json:"releaseDate,omitempty"`
-	SalePrice *string `json:"salePrice,omitempty"`
-	Savings *string `json:"savings,omitempty"`
-	SteamAppID *string `json:"steamAppID,omitempty"`
-	SteamRatingCount *string `json:"steamRatingCount,omitempty"`
-	SteamRatingPercent *string `json:"steamRatingPercent,omitempty"`
-	SteamRatingText *string `json:"steamRatingText,omitempty"`
-	StoreID *string `json:"storeID,omitempty"`
-	Thumb *string `json:"thumb,omitempty"`
-	Title *string `json:"title,omitempty"`
 }
 
 // DealListMatch is the typed request payload for Deal.ListTyped.
@@ -84,13 +61,6 @@ type DealListMatch struct {
 
 // Game is the typed data model for the game entity.
 type Game struct {
-	Cheapest *string `json:"cheapest,omitempty"`
-	CheapestDealID *string `json:"cheapestDealID,omitempty"`
-	External *string `json:"external,omitempty"`
-	GameID *string `json:"gameID,omitempty"`
-	InternalName *string `json:"internalName,omitempty"`
-	SteamAppID *string `json:"steamAppID,omitempty"`
-	Thumb *string `json:"thumb,omitempty"`
 }
 
 // GameListMatch is the typed request payload for Game.ListTyped.
@@ -103,10 +73,6 @@ type GameListMatch struct {
 
 // Store is the typed data model for the store entity.
 type Store struct {
-	Images *map[string]any `json:"images,omitempty"`
-	IsActive *int `json:"isActive,omitempty"`
-	StoreID *string `json:"storeID,omitempty"`
-	StoreName *string `json:"storeName,omitempty"`
 }
 
 // StoreListMatch is the typed request payload for Store.ListTyped.

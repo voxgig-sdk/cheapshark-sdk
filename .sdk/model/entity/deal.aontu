@@ -1,0 +1,312 @@
+# Entity: deal
+
+main: kit: entity: deal: {
+
+  alias: field: {}
+
+  fields: {
+    dealID: {
+      h: "Deal Id"
+      n: "dealID"
+      r: false
+      sh: "Unique identifier for the deal"
+      t: "`$STRING`"
+    }
+    dealRating: {
+      h: "Deal Rating"
+      n: "dealRating"
+      r: false
+      sh: "Rating of the deal"
+      t: "`$STRING`"
+    }
+    gameID: {
+      h: "Game Id"
+      n: "gameID"
+      r: false
+      sh: "Game identifier"
+      t: "`$STRING`"
+    }
+    internalName: {
+      h: "Internal Name"
+      n: "internalName"
+      r: false
+      sh: "Internal name of the game"
+      t: "`$STRING`"
+    }
+    isOnSale: {
+      h: "Is On Sale"
+      n: "isOnSale"
+      r: false
+      sh: "Whether the game is on sale (0 or 1)"
+      t: "`$STRING`"
+    }
+    lastChange: {
+      h: "Last Change"
+      n: "lastChange"
+      r: false
+      sh: "Unix timestamp of last price change"
+      t: "`$INTEGER`"
+    }
+    metacriticLink: {
+      h: "Metacritic Link"
+      n: "metacriticLink"
+      r: false
+      sh: "Link to Metacritic page"
+      t: "`$STRING`"
+    }
+    metacriticScore: {
+      h: "Metacritic Score"
+      n: "metacriticScore"
+      r: false
+      sh: "Metacritic score"
+      t: "`$STRING`"
+    }
+    normalPrice: {
+      h: "Normal Price"
+      n: "normalPrice"
+      r: false
+      sh: "Regular price"
+      t: "`$STRING`"
+    }
+    releaseDate: {
+      h: "Release Date"
+      n: "releaseDate"
+      r: false
+      sh: "Unix timestamp of release date"
+      t: "`$INTEGER`"
+    }
+    salePrice: {
+      h: "Sale Price"
+      n: "salePrice"
+      r: false
+      sh: "Current sale price"
+      t: "`$STRING`"
+    }
+    savings: {
+      h: "Savings"
+      n: "savings"
+      r: false
+      sh: "Percentage savings"
+      t: "`$STRING`"
+    }
+    steamAppID: {
+      h: "Steam App Id"
+      n: "steamAppID"
+      r: false
+      sh: "Steam App ID"
+      t: "`$STRING`"
+    }
+    steamRatingCount: {
+      h: "Steam Rating Count"
+      n: "steamRatingCount"
+      r: false
+      sh: "Number of Steam ratings"
+      t: "`$STRING`"
+    }
+    steamRatingPercent: {
+      h: "Steam Rating Percent"
+      n: "steamRatingPercent"
+      r: false
+      sh: "Steam rating percentage"
+      t: "`$STRING`"
+    }
+    steamRatingText: {
+      h: "Steam Rating Text"
+      n: "steamRatingText"
+      r: false
+      sh: "Steam rating description"
+      t: "`$STRING`"
+    }
+    storeID: {
+      h: "Store Id"
+      n: "storeID"
+      r: false
+      sh: "Store identifier"
+      t: "`$STRING`"
+    }
+    thumb: {
+      h: "Thumb"
+      n: "thumb"
+      r: false
+      sh: "Thumbnail image URL"
+      t: "`$STRING`"
+    }
+    title: {
+      h: "Title"
+      n: "title"
+      r: false
+      sh: "Title of the game"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "deal"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /deals"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "aaa"
+                or: "aaa"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 0
+                k: "query"
+                n: "desc"
+                or: "desc"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 0
+                k: "query"
+                n: "exact"
+                or: "exact"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "lower_price"
+                or: "lower_price"
+                r: false
+                t: "`$NUMBER`"
+              }
+              {
+                k: "query"
+                n: "metacritic"
+                or: "metacritic"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "on_sale"
+                or: "on_sale"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "output"
+                or: "output"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 0
+                k: "query"
+                n: "page_number"
+                or: "page_number"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 60
+                k: "query"
+                n: "page_size"
+                or: "page_size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "sort_by"
+                or: "sort_by"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "steam_app_id"
+                or: "steam_app_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "steam_rating"
+                or: "steam_rating"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "steamwork"
+                or: "steamwork"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "store_id"
+                or: "store_id"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "title"
+                or: "title"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "upper_price"
+                or: "upper_price"
+                r: false
+                t: "`$NUMBER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/deals"
+          q: {
+            exist: [
+              "aaa"
+              "desc"
+              "exact"
+              "lower_price"
+              "metacritic"
+              "on_sale"
+              "output"
+              "page_number"
+              "page_size"
+              "sort_by"
+              "steam_app_id"
+              "steam_rating"
+              "steamwork"
+              "store_id"
+              "title"
+              "upper_price"
+            ]
+          }
+          s: [
+            {
+              lit: "deals"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

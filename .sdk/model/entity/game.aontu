@@ -1,0 +1,130 @@
+# Entity: game
+
+main: kit: entity: game: {
+
+  alias: field: {}
+
+  fields: {
+    cheapest: {
+      h: "Cheapest"
+      n: "cheapest"
+      r: false
+      sh: "Lowest price found"
+      t: "`$STRING`"
+    }
+    cheapestDealID: {
+      h: "Cheapest Deal Id"
+      n: "cheapestDealID"
+      r: false
+      sh: "Deal ID for the cheapest price"
+      t: "`$STRING`"
+    }
+    external: {
+      h: "External"
+      n: "external"
+      r: false
+      sh: "External game title"
+      t: "`$STRING`"
+    }
+    gameID: {
+      h: "Game Id"
+      n: "gameID"
+      r: false
+      sh: "Unique game identifier"
+      t: "`$STRING`"
+    }
+    internalName: {
+      h: "Internal Name"
+      n: "internalName"
+      r: false
+      sh: "Internal game name"
+      t: "`$STRING`"
+    }
+    steamAppID: {
+      h: "Steam App Id"
+      n: "steamAppID"
+      r: false
+      sh: "Steam App ID"
+      t: "`$STRING`"
+    }
+    thumb: {
+      h: "Thumb"
+      n: "thumb"
+      r: false
+      sh: "Thumbnail image URL"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "game"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /games"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: 0
+                k: "query"
+                n: "exact"
+                or: "exact"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 60
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "steam_app_id"
+                or: "steam_app_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "title"
+                or: "title"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/games"
+          q: {
+            exist: [
+              "exact"
+              "limit"
+              "steam_app_id"
+              "title"
+            ]
+          }
+          s: [
+            {
+              lit: "games"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}
