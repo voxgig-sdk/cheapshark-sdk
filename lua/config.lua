@@ -215,7 +215,7 @@ local function make_config()
                     },
                     {
                       ["name"] = "game_id",
-                      ["orig"] = "game_id",
+                      ["orig"] = "gameID",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                       ["reqd"] = true,
@@ -380,7 +380,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "aaa",
-                      ["orig"] = "aaa",
+                      ["orig"] = "AAA",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "query",
                     },
@@ -400,7 +400,7 @@ local function make_config()
                     },
                     {
                       ["name"] = "lower_price",
-                      ["orig"] = "lower_price",
+                      ["orig"] = "lowerPrice",
                       ["type"] = "`$NUMBER`",
                       ["kind"] = "query",
                     },
@@ -412,7 +412,7 @@ local function make_config()
                     },
                     {
                       ["name"] = "on_sale",
-                      ["orig"] = "on_sale",
+                      ["orig"] = "onSale",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "query",
                     },
@@ -424,45 +424,45 @@ local function make_config()
                     },
                     {
                       ["name"] = "page_number",
-                      ["orig"] = "page_number",
+                      ["orig"] = "pageNumber",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "query",
                       ["example"] = 0,
                     },
                     {
                       ["name"] = "page_size",
-                      ["orig"] = "page_size",
+                      ["orig"] = "pageSize",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "query",
                       ["example"] = 60,
                     },
                     {
                       ["name"] = "sort_by",
-                      ["orig"] = "sort_by",
+                      ["orig"] = "sortBy",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
                       ["name"] = "steam_app_id",
-                      ["orig"] = "steam_app_id",
+                      ["orig"] = "steamAppID",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
                       ["name"] = "steam_rating",
-                      ["orig"] = "steam_rating",
+                      ["orig"] = "steamRating",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "query",
                     },
                     {
                       ["name"] = "steamwork",
-                      ["orig"] = "steamwork",
+                      ["orig"] = "steamworks",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "query",
                     },
                     {
                       ["name"] = "store_id",
-                      ["orig"] = "store_id",
+                      ["orig"] = "storeID",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "query",
                     },
@@ -474,7 +474,7 @@ local function make_config()
                     },
                     {
                       ["name"] = "upper_price",
-                      ["orig"] = "upper_price",
+                      ["orig"] = "upperPrice",
                       ["type"] = "`$NUMBER`",
                       ["kind"] = "query",
                     },
@@ -594,7 +594,7 @@ local function make_config()
                     },
                     {
                       ["name"] = "steam_app_id",
-                      ["orig"] = "steam_app_id",
+                      ["orig"] = "steamAppID",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },

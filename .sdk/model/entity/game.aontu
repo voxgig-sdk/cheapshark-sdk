@@ -88,7 +88,7 @@ main: kit: entity: game: {
               {
                 k: "query"
                 n: "steam_app_id"
-                or: "steam_app_id"
+                or: "steamAppID"
                 r: false
                 t: "`$STRING`"
               }

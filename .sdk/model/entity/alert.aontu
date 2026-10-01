@@ -122,7 +122,7 @@ main: kit: entity: alert: {
               {
                 k: "query"
                 n: "game_id"
-                or: "game_id"
+                or: "gameID"
                 r: true
                 t: "`$STRING`"
               }

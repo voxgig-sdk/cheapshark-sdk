@@ -156,7 +156,7 @@ main: kit: entity: deal: {
               {
                 k: "query"
                 n: "aaa"
-                or: "aaa"
+                or: "AAA"
                 r: false
                 t: "`$INTEGER`"
               }
@@ -179,7 +179,7 @@ main: kit: entity: deal: {
               {
                 k: "query"
                 n: "lower_price"
-                or: "lower_price"
+                or: "lowerPrice"
                 r: false
                 t: "`$NUMBER`"
               }
@@ -193,7 +193,7 @@ main: kit: entity: deal: {
               {
                 k: "query"
                 n: "on_sale"
-                or: "on_sale"
+                or: "onSale"
                 r: false
                 t: "`$INTEGER`"
               }
@@ -208,7 +208,7 @@ main: kit: entity: deal: {
                 ex: 0
                 k: "query"
                 n: "page_number"
-                or: "page_number"
+                or: "pageNumber"
                 r: false
                 t: "`$INTEGER`"
               }
@@ -216,42 +216,42 @@ main: kit: entity: deal: {
                 ex: 60
                 k: "query"
                 n: "page_size"
-                or: "page_size"
+                or: "pageSize"
                 r: false
                 t: "`$INTEGER`"
               }
               {
                 k: "query"
                 n: "sort_by"
-                or: "sort_by"
+                or: "sortBy"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "query"
                 n: "steam_app_id"
-                or: "steam_app_id"
+                or: "steamAppID"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "query"
                 n: "steam_rating"
-                or: "steam_rating"
+                or: "steamRating"
                 r: false
                 t: "`$INTEGER`"
               }
               {
                 k: "query"
                 n: "steamwork"
-                or: "steamwork"
+                or: "steamworks"
                 r: false
                 t: "`$INTEGER`"
               }
               {
                 k: "query"
                 n: "store_id"
-                or: "store_id"
+                or: "storeID"
                 r: false
                 t: "`$INTEGER`"
               }
@@ -265,7 +265,7 @@ main: kit: entity: deal: {
               {
                 k: "query"
                 n: "upper_price"
-                or: "upper_price"
+                or: "upperPrice"
                 r: false
                 t: "`$NUMBER`"
               }

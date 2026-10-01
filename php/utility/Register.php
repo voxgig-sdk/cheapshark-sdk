@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 CheapsharkUtility::setRegistrar(function (CheapsharkUtility $u): void {
     $u->clean = [CheapsharkClean::class, 'call'];
+    $u->clean_add = [CheapsharkClean::class, 'add'];
+    $u->clean_explain = [CheapsharkDone::class, 'clean_explain'];
     $u->done = [CheapsharkDone::class, 'call'];
     $u->make_error = [CheapsharkMakeError::class, 'call'];
     $u->feature_add = [CheapsharkFeatureAdd::class, 'call'];

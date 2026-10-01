@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 CheapsharkUtility.registrar = ->(u) {
   u.clean = CheapsharkUtilities::Clean
+  u.clean_add = CheapsharkUtilities::CleanAdd
+  u.clean_explain = CheapsharkUtilities::CleanExplain
   u.done = CheapsharkUtilities::Done
   u.make_error = CheapsharkUtilities::MakeError
   u.feature_add = CheapsharkUtilities::FeatureAdd
