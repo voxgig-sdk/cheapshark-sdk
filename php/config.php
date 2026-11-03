@@ -93,6 +93,7 @@ class CheapsharkConfig
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -105,163 +106,12 @@ class CheapsharkConfig
           'content-type' => 'application/json',
         ],
                 "entity" => [
-                    "alert" => [],
                     "deal" => [],
                     "game" => [],
                     "store" => [],
                 ],
             ],
             "entity" => [
-        'alert' => [
-          'fields' => [
-            [
-              'name' => 'email',
-              'title' => 'Email',
-              'type' => '`$STRING`',
-              'short' => 'Email address for the alert',
-              'format' => 'email',
-            ],
-            [
-              'name' => 'gameID',
-              'title' => 'Game Id',
-              'type' => '`$STRING`',
-              'short' => 'Game identifier',
-            ],
-            [
-              'name' => 'gameTitle',
-              'title' => 'Game Title',
-              'type' => '`$STRING`',
-              'short' => 'Title of the game',
-            ],
-            [
-              'name' => 'price',
-              'title' => 'Price',
-              'type' => '`$NUMBER`',
-              'short' => 'Target price for the alert',
-              'format' => 'float',
-            ],
-          ],
-          'name' => 'alert',
-          'op' => [
-            'create' => [
-              'input' => 'data',
-              'name' => 'create',
-              'points' => [
-                [
-                  'kind' => 'http',
-                  'method' => 'POST',
-                  'orig' => '/alerts',
-                  'segments' => [
-                    [
-                      'lit' => 'alerts',
-                    ],
-                  ],
-                  'parts' => [
-                    'alerts',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [],
-                  'select' => [],
-                ],
-              ],
-            ],
-            'list' => [
-              'input' => 'data',
-              'name' => 'list',
-              'points' => [
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/alerts',
-                  'segments' => [
-                    [
-                      'lit' => 'alerts',
-                    ],
-                  ],
-                  'parts' => [
-                    'alerts',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'query' => [
-                      [
-                        'name' => 'email',
-                        'orig' => 'email',
-                        'type' => '`$STRING`',
-                        'kind' => 'query',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'email',
-                    ],
-                  ],
-                ],
-              ],
-            ],
-            'remove' => [
-              'input' => 'data',
-              'name' => 'remove',
-              'points' => [
-                [
-                  'kind' => 'http',
-                  'method' => 'DELETE',
-                  'orig' => '/alerts',
-                  'segments' => [
-                    [
-                      'lit' => 'alerts',
-                    ],
-                  ],
-                  'parts' => [
-                    'alerts',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'query' => [
-                      [
-                        'name' => 'email',
-                        'orig' => 'email',
-                        'type' => '`$STRING`',
-                        'kind' => 'query',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'game_id',
-                        'orig' => 'gameID',
-                        'type' => '`$STRING`',
-                        'kind' => 'query',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'email',
-                      'game_id',
-                    ],
-                  ],
-                ],
-              ],
-            ],
-          ],
-          'relations' => [
-            'ancestors' => [],
-          ],
-        ],
         'deal' => [
           'fields' => [
             [
@@ -497,6 +347,7 @@ class CheapsharkConfig
                         'orig' => 'title',
                         'type' => '`$STRING`',
                         'kind' => 'query',
+                        'field' => true,
                       ],
                       [
                         'name' => 'upper_price',
@@ -506,25 +357,10 @@ class CheapsharkConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'aaa',
-                      'desc',
-                      'exact',
-                      'lower_price',
-                      'metacritic',
-                      'on_sale',
-                      'output',
-                      'page_number',
-                      'page_size',
-                      'sort_by',
-                      'steam_app_id',
-                      'steam_rating',
-                      'steamwork',
-                      'store_id',
-                      'title',
-                      'upper_price',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -629,16 +465,19 @@ class CheapsharkConfig
                         'orig' => 'title',
                         'type' => '`$STRING`',
                         'kind' => 'query',
+                        'reqd' => true,
+                        'example' => 'batman',
                       ],
                     ],
                   ],
                   'select' => [
                     'exist' => [
-                      'exact',
-                      'limit',
-                      'steam_app_id',
                       'title',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -699,6 +538,10 @@ class CheapsharkConfig
                   ],
                   'args' => [],
                   'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
                 ],
               ],
             ],

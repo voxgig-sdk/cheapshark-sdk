@@ -4,7 +4,7 @@
 
 The Golang SDK for the Cheapshark API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client.Alert(nil)` — each with the same small set of operations (`List`, `Create`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Deal(nil)` — each with the same small set of operations (`List`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
@@ -16,7 +16,7 @@ go get github.com/voxgig-sdk/cheapshark-sdk/go@latest
 ```
 
 The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
-release tag — see [Releases](https://github.com/voxgig-sdk/cheapshark-sdk/releases) for the available versions.
+release tag — see [Tags](https://github.com/voxgig-sdk/cheapshark-sdk/tags) for the available versions.
 
 To vendor from a local checkout instead, clone this repo alongside your
 project and add a `replace` directive pointing at the checked-out
@@ -35,9 +35,10 @@ loading a specific record.
 ### Quickstart
 
 A complete program: create a client, then call the entity operations.
-Each operation returns `(value, error)` — the value is the data itself
-(there is no `{ok, data}` wrapper), so check `err` and use the value
-directly.
+Each operation returns `(value, error)` — the value is the entity, and for
+`List` a `[]any` of entities, one per record (there is no `{ok, data}`
+wrapper), so check `err` and read a record through the entity's
+`Data()`.
 
 ```go
 package main
@@ -50,28 +51,14 @@ import (
 func main() {
     client := sdk.New()
 
-    // List alert records — the value is the array of records itself.
-    alerts, err := client.Alert(nil).List(nil, nil)
+    // List deal records — the value is a []any of entities, one per record.
+    deals, err := client.Deal(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-    for _, item := range alerts.([]any) {
-        fmt.Println(item)
+    for _, item := range deals.([]any) {
+        fmt.Println(item.(sdk.Entity).Data())
     }
-
-    // Create a alert.
-    created, err := client.Alert(nil).Create(map[string]any{"email": "example_email", "gameID": "example_gameID"}, nil)
-    if err != nil {
-        panic(err)
-    }
-    fmt.Println(created)
-
-    // Remove a alert.
-    removed, err := client.Alert(nil).Remove(map[string]any{"email": "example_email", "game_id": "example_game_id"}, nil)
-    if err != nil {
-        panic(err)
-    }
-    fmt.Println(removed)
 }
 ```
 
@@ -82,12 +69,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-alerts, err := client.Alert(nil).List(nil, nil)
+games, err := client.Game(nil).List(map[string]any{"title": "example"}, nil)
 if err != nil {
     // handle err
     return
 }
-_ = alerts
+_ = games
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -151,13 +138,16 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-alert, err := client.Alert(nil).List(
-    nil, nil,
+games, err := client.Game(nil).List(
+    map[string]any{"title": "example"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(alert) // the returned mock data
+// A []any of entities, one per mock record.
+for _, item := range games.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Use a custom fetch function
@@ -234,20 +224,17 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `Alert` | `(data map[string]any) CheapsharkEntity` | Create an Alert entity instance. |
-| `Deal` | `(data map[string]any) CheapsharkEntity` | Create a Deal entity instance. |
-| `Game` | `(data map[string]any) CheapsharkEntity` | Create a Game entity instance. |
-| `Store` | `(data map[string]any) CheapsharkEntity` | Create a Store entity instance. |
+| `Deal` | `(data map[string]any) CheapsharkEntityBase` | Create a Deal entity instance. |
+| `Game` | `(data map[string]any) CheapsharkEntityBase` | Create a Game entity instance. |
+| `Store` | `(data map[string]any) CheapsharkEntityBase` | Create a Store entity instance. |
 
-### Entity interface (CheapsharkEntity)
+### Entity interface (CheapsharkEntityBase)
 
-All entities implement the `CheapsharkEntity` interface.
+All entities implement the `CheapsharkEntityBase` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
-| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
+| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria, one per record. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -255,39 +242,25 @@ All entities implement the `CheapsharkEntity` interface.
 
 ### Result shape
 
-Entity operations return `(value, error)`. The `value` is the
-operation's data **directly** — there is no wrapper:
+Entity operations return `(value, error)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Create` / `Remove` | the entity record (`map[string]any`) |
-| `List` | a `[]any` of entity records |
+| `List` | a `[]any` of entities, one per record |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    alert, err := client.Alert(nil).List(map[string]any{/* fields */}, nil)
+    deal, err := client.Deal(nil).List(nil, nil)
     if err != nil { /* handle */ }
-    // alert is the returned record
+    // deal is a []any of entities, one per record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
-
-#### Alert
-
-| Field | Description |
-| --- | --- |
-| `"email"` | Email address for the alert |
-| `"gameID"` | Game identifier |
-| `"gameTitle"` | Title of the game |
-| `"price"` | Target price for the alert |
-
-Operations: Create, List, Remove.
-
-API path: `/alerts`
 
 #### Deal
 
@@ -351,49 +324,6 @@ API path: `/stores`
 ## Entities
 
 
-### Alert
-
-Create an instance: `alert := client.Alert(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `List(match, ctrl)` | List entities matching the criteria. |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
-| `Remove(match, ctrl)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `email` | `string` | Email address for the alert |
-| `gameID` | `string` | Game identifier |
-| `gameTitle` | `string` | Title of the game |
-| `price` | `float64` | Target price for the alert |
-
-#### Example: List
-
-```go
-alerts, err := client.Alert(nil).List(nil, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(alerts) // the array of records
-```
-
-#### Example: Create
-
-```go
-result, err := client.Alert(nil).Create(map[string]any{
-}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(result)
-```
-
-
 ### Deal
 
 Create an instance: `deal := client.Deal(nil)`
@@ -435,7 +365,10 @@ deals, err := client.Deal(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(deals) // the array of records
+// A []any of entities, one per record.
+for _, item := range deals.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -464,11 +397,14 @@ Create an instance: `game := client.Game(nil)`
 #### Example: List
 
 ```go
-games, err := client.Game(nil).List(nil, nil)
+games, err := client.Game(nil).List(map[string]any{"title": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(games) // the array of records
+// A []any of entities, one per record.
+for _, item := range games.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -498,7 +434,10 @@ stores, err := client.Store(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(stores) // the array of records
+// A []any of entities, one per record.
+for _, item := range stores.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ## Features
@@ -635,7 +574,9 @@ The Go SDK uses `map[string]any` throughout rather than typed structs.
 This mirrors the dynamic nature of the API and keeps the SDK
 flexible — no code generation is needed when the API schema changes.
 
-Use `core.ToMapAny()` to safely cast results and nested data.
+An operation returns the entity, and its `Data()` returns the record. Use
+`core.ToMapAny()` to safely cast that record, or data nested in it, to
+`map[string]any`: it returns `nil` for anything else, an entity included.
 
 ### Package structure
 
@@ -659,11 +600,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-alert := client.Alert(nil)
-alert.List(nil, nil)
+game := client.Game(nil)
+game.List(map[string]any{"title": "example"}, nil)
 
-// alert.Data() now returns the alert data from the last list
-// alert.Match() returns the last match criteria
+// game.Data() now returns the game data from the last list
+// game.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

@@ -4,17 +4,9 @@
 #   guide.aontu
 
 guide: {
-  metrics: count: entity: 4
-  metrics: count: path: 4
-  metrics: count: method: 6
-
-  entity: alert: {
-    path: "/alerts": {
-      op: create: method: *POST
-      op: list: method: *GET
-      op: remove: method: *DELETE
-    }
-  }
+  metrics: count: entity: 3
+  metrics: count: path: 3
+  metrics: count: method: 3
 
   entity: deal: {
     path: "/deals": {

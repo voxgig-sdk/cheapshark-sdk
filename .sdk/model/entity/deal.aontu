@@ -273,25 +273,9 @@ main: kit: entity: deal: {
           }
           m: "GET"
           o: "/deals"
-          q: {
-            exist: [
-              "aaa"
-              "desc"
-              "exact"
-              "lower_price"
-              "metacritic"
-              "on_sale"
-              "output"
-              "page_number"
-              "page_size"
-              "sort_by"
-              "steam_app_id"
-              "steam_rating"
-              "steamwork"
-              "store_id"
-              "title"
-              "upper_price"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

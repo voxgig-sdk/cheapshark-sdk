@@ -3,5 +3,27 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "CheapShark API Server",
+      "CheapShark is a price comparison website for digital PC Games, tracking prices across multiple stores including Steam, GreenManGaming, and Fanatical. The API provides developers with access to CheapShark pricing data to integrate into their own applications or websites.",
+      "Deal ID for the cheapest price",
+      "External game title",
+      "Game identifier",
+      "Internal game name",
+      "Internal name of the game",
+      "Lowest price found",
+      "Name of the store",
+      "Rating of the deal",
+      "Successful response with list of deals",
+      "Successful response with list of games",
+      "Successful response with list of stores",
+      "Unique game identifier",
+      "Unique identifier for the deal",
+      "Unique store identifier",
+      "Whether the game is on sale (0 or 1)",
+      "Whether the store is active (0 or 1)"
+    ]
+  }
 }

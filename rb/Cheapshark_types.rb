@@ -8,70 +8,6 @@
 # @voxgig/apidef VALID_CANON). Ruby types are unenforced; these YARD
 # annotations document the shapes. Do not edit by hand.
 
-# Alert entity data model.
-#
-# @!attribute [rw] email
-#   @return [String, nil]
-#
-# @!attribute [rw] gameID
-#   @return [String, nil]
-#
-# @!attribute [rw] gameTitle
-#   @return [String, nil]
-#
-# @!attribute [rw] price
-#   @return [Float, nil]
-Alert = Struct.new(
-  :email,
-  :gameID,
-  :gameTitle,
-  :price,
-  keyword_init: true
-)
-
-# Request payload for Alert#list.
-#
-# @!attribute [rw] email
-#   @return [String]
-AlertListMatch = Struct.new(
-  :email,
-  keyword_init: true
-)
-
-# Request payload for Alert#create.
-#
-# @!attribute [rw] email
-#   @return [String, nil]
-#
-# @!attribute [rw] gameID
-#   @return [String, nil]
-#
-# @!attribute [rw] gameTitle
-#   @return [String, nil]
-#
-# @!attribute [rw] price
-#   @return [Float, nil]
-AlertCreateData = Struct.new(
-  :email,
-  :gameID,
-  :gameTitle,
-  :price,
-  keyword_init: true
-)
-
-# Request payload for Alert#remove.
-#
-# @!attribute [rw] email
-#   @return [String]
-#
-# @!attribute [rw] game_id
-#   @return [String]
-AlertRemoveMatch = Struct.new(
-  :email,
-  :game_id,
-  keyword_init: true
-)
-
 # Deal entity data model.
 #
 # @!attribute [rw] dealID
@@ -267,7 +203,7 @@ Game = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] title
-#   @return [String, nil]
+#   @return [String]
 GameListMatch = Struct.new(
   :exact,
   :limit,

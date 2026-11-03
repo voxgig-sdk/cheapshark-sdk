@@ -5,7 +5,7 @@
 The TypeScript SDK for the Cheapshark API — a type-safe, entity-oriented client with full async/await support.
 
 The API is exposed as capitalised, semantic **Entities** — e.g.
-`client.Alert()` — each with a small set of operations (`list`, `create`, `remove`)
+`client.Deal()` — each with a small set of operations (`list`)
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
@@ -15,7 +15,7 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/cheapshark-sdk/releases)), or from a
+release tag (`ts/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/cheapshark-sdk/tags)), or from a
 clone, which carries the compiled `dist/`:
 
 ```bash
@@ -37,34 +37,18 @@ import { CheapsharkSDK } from '@voxgig-sdk/cheapshark-sdk'
 const client = new CheapsharkSDK()
 ```
 
-### 2. List alert records
+### 2. List deal records
 
-`list()` resolves to an array of Alert ENTITIES — every operation
+`list()` resolves to an array of Deal ENTITIES — every operation
 resolves to entities, not raw records. Iterate them directly, and call
 `.data()` on one for the record it holds:
 
 ```ts
-const alerts = await client.Alert().list({ email: "example" })
+const deals = await client.Deal().list()
 
-for (const alert of alerts) {
-  console.log(alert)
+for (const deal of deals) {
+  console.log(deal.data())
 }
-```
-
-### 4. Create, update, and remove
-
-```ts
-// Create — returns the created Alert ENTITY (.data() for the record)
-const created = await client.Alert().create({
-  email: 'example_email',
-  gameID: 'example_gameID',
-})
-
-// Remove
-await client.Alert().remove({
-  email: 'example_email',
-  game_id: 'example_game_id',
-})
 ```
 
 
@@ -74,15 +58,16 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const alerts = await client.Alert().list()
-  console.log(alerts)
+  const games = await client.Game().list({ title: "example" })
+  console.log(games.map((item) => item.data()))
 } catch (err) {
   console.error('list failed:', err)
 }
 ```
 
 The low-level `direct()` method does **not** throw — it returns the
-value or an `Error`, so check the result before using it:
+result envelope. Branch on `ok`; on failure `status` holds the HTTP status
+(for error responses) and `err` holds the error:
 
 ```ts
 const result = await client.direct({
@@ -91,8 +76,8 @@ const result = await client.direct({
   params: { id: 'example_id' },
 })
 
-if (result instanceof Error) {
-  throw result
+if (!result.ok) {
+  console.error('request failed:', result.status, result.err)
 }
 ```
 
@@ -110,9 +95,6 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
-if (result instanceof Error) {
-  throw result
-}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -141,10 +123,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = CheapsharkSDK.test()
 
-const alert = await client.Alert().list()
-// alert is the entity, populated with mock response data
-// — call alert.data() for the record itself
-console.log(alert)
+const games = await client.Game().list({ title: 'example_title' })
+// games is an array of Game entities, one per mock record
+console.log(games.map((game) => game.data()))
 ```
 
 You can also use the instance method:
@@ -159,10 +140,10 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Alert()
+const entity = client.Game()
 
 // First call runs the operation and stores its result
-await entity.list()
+await entity.list({ title: 'example_title' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -242,7 +223,6 @@ new CheapsharkSDK(options?: {
 | `utility()` | `Utility` | Deep copy of the SDK utility object. |
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
-| `Alert(data?)` | `AlertEntity` | Create an Alert entity instance. |
 | `Deal(data?)` | `DealEntity` | Create a Deal entity instance. |
 | `Game(data?)` | `GameEntity` | Create a Game entity instance. |
 | `Store(data?)` | `StoreEntity` | Create a Store entity instance. |
@@ -262,9 +242,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria, one per record. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -273,13 +251,11 @@ All entities share the same interface.
 
 #### Return values
 
-Entity operations resolve to the entity data directly — there is no
-result envelope:
+Entity operations resolve to the entity itself — there is no result
+envelope, and an entity's `data()` reads its record:
 
-- `create` resolves to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
-- `remove` resolves to `void`.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -314,19 +290,6 @@ The `prepare()` method returns:
 ```
 
 ### Entities
-
-#### Alert
-
-| Field | Description |
-| --- | --- |
-| `email` | Email address for the alert |
-| `gameID` | Game identifier |
-| `gameTitle` | Title of the game |
-| `price` | Target price for the alert |
-
-Operations: create, list, remove.
-
-API path: `/alerts`
 
 #### Deal
 
@@ -388,41 +351,6 @@ API path: `/stores`
 
 
 ## Entities
-
-
-### Alert
-
-Create an instance: `const alert = client.Alert()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `email` | `string` | Email address for the alert |
-| `gameID` | `string` | Game identifier |
-| `gameTitle` | `string` | Title of the game |
-| `price` | `number` | Target price for the alert |
-
-#### Example: List
-
-```ts
-const alerts = await client.Alert().list({ email: "example" })
-```
-
-#### Example: Create
-
-```ts
-const alert = await client.Alert().create({
-})
-```
 
 
 ### Deal
@@ -491,7 +419,7 @@ Create an instance: `const game = client.Game()`
 #### Example: List
 
 ```ts
-const games = await client.Game().list()
+const games = await client.Game().list({ title: "example" })
 ```
 
 
@@ -674,11 +602,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const alert = client.Alert()
-await alert.list()
+const game = client.Game()
+await game.list({ title: "example" })
 
-// alert.data() now returns the alert data from the last `list`
-// alert.match() returns the last match criteria
+// game.data() now returns the game data from the last `list`
+// game.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

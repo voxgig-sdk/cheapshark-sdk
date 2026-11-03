@@ -4,7 +4,7 @@
 
 The Lua SDK for the Cheapshark API — an entity-oriented client using Lua conventions.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client:Alert()` — each with the same small set of operations (`list`, `create`, `remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Deal()` — each with the same small set of operations (`list`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Alert(
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/cheapshark-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/cheapshark-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -33,29 +33,19 @@ local sdk = require("cheapshark_sdk")
 local client = sdk.new()
 ```
 
-### 2. List alert records
+### 2. List deal records
 
-Entity operations return `(value, err)`. For `list`, `value` is the
-array of records itself — iterate it directly (there is no wrapper).
+Entity operations return `(value, err)`. For `list`, `value` is an
+array of entities, one per record — iterate it directly (there is no
+wrapper), and read each record with `data_get()`.
 
 ```lua
-local alerts, err = client:Alert():list()
+local deals, err = client:Deal():list()
 if err then error(err) end
 
-for _, item in ipairs(alerts) do
-  print(item)
+for _, item in ipairs(deals) do
+  for k, val in pairs(item:data_get()) do print(k, val) end
 end
-```
-
-### 4. Create, update, and remove
-
-```lua
--- Create
-local created, err = client:Alert():create({ email = "example_email", gameID = "example_gameID" })
-if err then error(err) end
-
--- Remove
-client:Alert():remove({ email = "example_email", game_id = "example_game_id" })
 ```
 
 
@@ -65,7 +55,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local alerts, err = client:Alert():list()
+local games, err = client:Game():list({ title = "example" })
 if err then error(err) end
 ```
 
@@ -123,8 +113,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Alert():list()
--- result is the returned data; err is set on failure
+local result, err = client:Game():list({ title = "example" })
+-- result is an array of entities, one per mock record; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -202,7 +192,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
-| `Alert` | `(data) -> AlertEntity` | Create an Alert entity instance. |
 | `Deal` | `(data) -> DealEntity` | Create a Deal entity instance. |
 | `Game` | `(data) -> GameEntity` | Create a Game entity instance. |
 | `Store` | `(data) -> StoreEntity` | Create a Store entity instance. |
@@ -213,9 +202,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
+| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria, one per record. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -225,37 +212,23 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `create` / `remove` | the entity record (a `table`) |
-| `list` | an array (`table`) of entity records |
+| `list` | an array (`table`) of entities, one per record |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local alert, err = client:Alert():list()
+    local deal, err = client:Deal():list()
     if err then error(err) end
-    -- alert is the record list
+    -- deal is an array of entities, one per record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
 
 ### Entities
-
-#### Alert
-
-| Field | Description |
-| --- | --- |
-| `email` | Email address for the alert |
-| `gameID` | Game identifier |
-| `gameTitle` | Title of the game |
-| `price` | Target price for the alert |
-
-Operations: Create, List, Remove.
-
-API path: `/alerts`
 
 #### Deal
 
@@ -317,41 +290,6 @@ API path: `/stores`
 
 
 ## Entities
-
-
-### Alert
-
-Create an instance: `local alert = client:Alert(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `email` | `string` | Email address for the alert |
-| `gameID` | `string` | Game identifier |
-| `gameTitle` | `string` | Title of the game |
-| `price` | `number` | Target price for the alert |
-
-#### Example: List
-
-```lua
-local alerts, err = client:Alert():list()
-```
-
-#### Example: Create
-
-```lua
-local alert, err = client:Alert():create({
-})
-```
 
 
 ### Deal
@@ -420,7 +358,7 @@ Create an instance: `local game = client:Game(nil)`
 #### Example: List
 
 ```lua
-local games, err = client:Game():list()
+local games, err = client:Game():list({ title = "example" })
 ```
 
 
@@ -611,11 +549,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local alert = client:Alert()
-alert:list()
+local game = client:Game()
+game:list({ title = "example" })
 
--- alert:data_get() now returns the alert data from the last list
--- alert:match_get() returns the last match criteria
+-- game:data_get() now returns the game data from the last list
+-- game:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

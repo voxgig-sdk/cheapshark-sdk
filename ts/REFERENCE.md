@@ -48,18 +48,6 @@ const client = CheapsharkSDK.test()
 
 ### Instance Methods
 
-#### `Alert(data?: object)`
-
-Create a new `Alert` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `AlertEntity` instance.
-
 #### `Deal(data?: object)`
 
 Create a new `Deal` entity instance.
@@ -123,8 +111,10 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs.headers` | `object` | Request headers (merged with defaults). |
 | `fetchargs.body` | `any` | Request body (objects are JSON-serialized). |
 | `fetchargs.ctrl` | `object` | Control options (e.g. `{ explain: true }`). |
+| `fetchargs.ctrl.signal` | `AbortSignal` | Aborts the request in flight: `ok` is then `false` and `err.code` is `request_aborted`. |
 
-**Returns:** `Promise<{ ok, status, headers, data } | Error>`
+**Returns:** `Promise<{ ok, status, headers, data }>`. On a failure
+`ok` is `false` and `err` holds the error.
 
 #### `prepare(fetchargs?: object)`
 
@@ -139,75 +129,14 @@ Alias for `CheapsharkSDK.test()`.
 
 **Returns:** `CheapsharkSDK` instance in test mode.
 
+#### Cancelling a call
 
----
-
-## AlertEntity
-
-```ts
-const alert = client.Alert()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | `string` | No | Email address for the alert |
-| `gameID` | `string` | No | Game identifier |
-| `gameTitle` | `string` | No | Title of the game |
-| `price` | `number` | No | Target price for the alert |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data.
-
-```ts
-const result = await client.Alert().create({
-})
-```
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Returns an array.
-
-```ts
-const results = await client.Alert().list({ email: "example" })
-```
-
-#### `remove(match: object, ctrl?: object)`
-
-Remove the entity matching the given criteria.
-
-```ts
-const result = await client.Alert().remove({ email: 'email', game_id: 'game_id' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `AlertEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `CheapsharkSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
+Every entity operation takes an optional `ctrl` object after its match or
+data, and an `AbortSignal` in `ctrl.signal` cancels the request in flight.
+The operation then rejects with an error whose `code` is
+`request_aborted` and whose `cause` is the signal's reason. A request
+whose signal has already aborted is not sent. `stream()` takes the signal
+as `callopts.signal`, and ends when it aborts.
 
 
 ---
@@ -246,7 +175,7 @@ const deal = client.Deal()
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Deal().list()
@@ -302,10 +231,10 @@ const game = client.Game()
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.Game().list()
+const results = await client.Game().list({ title: "example" })
 ```
 
 ### Common Methods
@@ -355,7 +284,7 @@ const store = client.Store()
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Store().list()
@@ -546,6 +475,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

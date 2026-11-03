@@ -6,24 +6,11 @@ CheapShark is a price comparison website for digital PC Games, tracking prices a
 
 This guide introduces the API, the client libraries, and the companion tools in this repository. Start with the API capabilities, choose a client for your application, and use the linked reference when you need exact request and response details.
 
-The selected API surface contains 4 entities and 6 HTTP routes. There are 6 SDK targets and 2 companion tools.
+The selected API surface contains 3 entities and 3 HTTP routes. There are 6 SDK targets and 2 companion tools.
 
 An entity groups related API operations. An operation can have several routes with different inputs or authentication requirements. The SDK exposes the entity and its operations using the conventions of the selected language.
 
 ## What the API provides
-
-### Alert
-
-Results: Alert successfully set; Successful response with list of alerts; Alert successfully deleted.
-
-SDK operations: `create`, `list`, `remove`.
-
-Key fields to recognise:
-
-- `email`: Email address for the alert
-- `gameID`: Game identifier
-- `gameTitle`: Title of the game
-- `price`: Target price for the alert
 
 ### Deal
 
@@ -71,9 +58,6 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 | Entity | SDK operation | HTTP route | Authentication |
 | --- | --- | --- | --- |
-| Alert | `create` | `POST /alerts` | See reference |
-| Alert | `list` | `GET /alerts` | See reference |
-| Alert | `remove` | `DELETE /alerts` | See reference |
 | Deal | `list` | `GET /deals` | See reference |
 | Game | `list` | `GET /games` | See reference |
 | Store | `list` | `GET /stores` | See reference |
@@ -124,7 +108,7 @@ Use the MCP server to expose supported API operations to an MCP client.
 
 Repository directory: `go-mcp/`. Not published. Build from the go-mcp directory.
 
-- `cheapshark_list`: List records for an entity. Supported entities: `alert`, `deal`, `game`, `store`.
+- `cheapshark_list`: List records for an entity. Supported entities: `deal`, `game`, `store`.
 - `cheapshark_load`: Load one record for an entity. No active entity supports this operation.
 
 ## Operational features

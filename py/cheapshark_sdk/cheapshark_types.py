@@ -16,29 +16,6 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class Alert(TypedDict, total=False):
-    email: str
-    gameID: str
-    gameTitle: str
-    price: float
-
-
-class AlertListMatch(TypedDict):
-    email: str
-
-
-class AlertCreateData(TypedDict, total=False):
-    email: str
-    gameID: str
-    gameTitle: str
-    price: float
-
-
-class AlertRemoveMatch(TypedDict):
-    email: str
-    game_id: str
-
-
 class Deal(TypedDict, total=False):
     dealID: str
     dealRating: str
@@ -90,11 +67,14 @@ class Game(TypedDict, total=False):
     thumb: str
 
 
-class GameListMatch(TypedDict, total=False):
+class GameListMatchRequired(TypedDict):
+    title: str
+
+
+class GameListMatch(GameListMatchRequired, total=False):
     exact: int
     limit: int
     steam_app_id: str
-    title: str
 
 
 class Store(TypedDict, total=False):

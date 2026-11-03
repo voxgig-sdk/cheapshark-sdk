@@ -12,37 +12,6 @@ declare(strict_types=1);
 // registered on the composer classmap autoload. The SDK boundary exchanges
 // assoc-arrays; these classes name the shapes for tooling and typed callers.
 
-/** Alert entity data model. */
-class Alert
-{
-    public ?string $email = null;
-    public ?string $gameID = null;
-    public ?string $gameTitle = null;
-    public ?float $price = null;
-}
-
-/** Request payload for Alert#list. */
-class AlertListMatch
-{
-    public string $email;
-}
-
-/** Request payload for Alert#create. */
-class AlertCreateData
-{
-    public ?string $email = null;
-    public ?string $gameID = null;
-    public ?string $gameTitle = null;
-    public ?float $price = null;
-}
-
-/** Request payload for Alert#remove. */
-class AlertRemoveMatch
-{
-    public string $email;
-    public string $game_id;
-}
-
 /** Deal entity data model. */
 class Deal
 {
@@ -106,7 +75,7 @@ class GameListMatch
     public ?int $exact = null;
     public ?int $limit = null;
     public ?string $steam_app_id = null;
-    public ?string $title = null;
+    public string $title;
 }
 
 /** Store entity data model. */

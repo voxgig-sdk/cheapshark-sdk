@@ -41,10 +41,6 @@ $client = CheapsharkSDK::test();
 
 ### Instance Methods
 
-#### `Alert($data = null)`
-
-Create a new `AlertEntity` instance. Pass `null` for no initial data.
-
 #### `Deal($data = null)`
 
 Create a new `DealEntity` instance. Pass `null` for no initial data.
@@ -94,78 +90,6 @@ Prepare a fetch definition without sending the request. Returns the
 
 ---
 
-## AlertEntity
-
-```php
-$alert = $client->Alert();
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | `string` | No | Email address for the alert |
-| `gameID` | `string` | No | Game identifier |
-| `gameTitle` | `string` | No | Title of the game |
-| `price` | `float` | No | Target price for the alert |
-
-### Operations
-
-#### `create(array $reqdata, ?array $ctrl = null): mixed`
-
-Create a new entity with the given data. Throws on error.
-
-```php
-$result = $client->Alert()->create([
-]);
-```
-
-#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
-
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
-
-```php
-$results = $client->Alert()->list();
-```
-
-#### `remove(array $reqmatch, ?array $ctrl = null): mixed`
-
-Remove the entity matching the given criteria. Throws on error.
-
-```php
-$result = $client->Alert()->remove(["email" => "email", "game_id" => "game_id"]);
-```
-
-### Common Methods
-
-#### `data_get(): array`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set($data): void`
-
-Set the entity data.
-
-#### `match_get(): array`
-
-Get the entity match criteria.
-
-#### `match_set($match): void`
-
-Set the entity match criteria.
-
-#### `make(): AlertEntity`
-
-Create a new `AlertEntity` instance with the same client and
-options.
-
-#### `get_name(): string`
-
-Return the entity name.
-
-
----
-
 ## DealEntity
 
 ```php
@@ -200,7 +124,7 @@ $deal = $client->Deal();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Deal()->list();
@@ -258,10 +182,10 @@ $game = $client->Game();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->Game()->list();
+$results = $client->Game()->list(["title" => "example"]);
 ```
 
 ### Common Methods
@@ -313,7 +237,7 @@ $store = $client->Store();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Store()->list();
@@ -506,6 +430,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

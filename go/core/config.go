@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -83,163 +84,12 @@ func MakeConfig() map[string]any {
 				"content-type": "application/json",
 			},
 			"entity": map[string]any{
-				"alert": map[string]any{},
 				"deal": map[string]any{},
 				"game": map[string]any{},
 				"store": map[string]any{},
 			},
 		},
 		"entity": map[string]any{
-			"alert": map[string]any{
-				"fields": []any{
-					map[string]any{
-						"name": "email",
-						"title": "Email",
-						"type": "`$STRING`",
-						"short": "Email address for the alert",
-						"format": "email",
-					},
-					map[string]any{
-						"name": "gameID",
-						"title": "Game Id",
-						"type": "`$STRING`",
-						"short": "Game identifier",
-					},
-					map[string]any{
-						"name": "gameTitle",
-						"title": "Game Title",
-						"type": "`$STRING`",
-						"short": "Title of the game",
-					},
-					map[string]any{
-						"name": "price",
-						"title": "Price",
-						"type": "`$NUMBER`",
-						"short": "Target price for the alert",
-						"format": "float",
-					},
-				},
-				"name": "alert",
-				"op": map[string]any{
-					"create": map[string]any{
-						"input": "data",
-						"name": "create",
-						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "POST",
-								"orig": "/alerts",
-								"segments": []any{
-									map[string]any{
-										"lit": "alerts",
-									},
-								},
-								"parts": []any{
-									"alerts",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{},
-								"select": map[string]any{},
-							},
-						},
-					},
-					"list": map[string]any{
-						"input": "data",
-						"name": "list",
-						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/alerts",
-								"segments": []any{
-									map[string]any{
-										"lit": "alerts",
-									},
-								},
-								"parts": []any{
-									"alerts",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"name": "email",
-											"orig": "email",
-											"type": "`$STRING`",
-											"kind": "query",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"email",
-									},
-								},
-							},
-						},
-					},
-					"remove": map[string]any{
-						"input": "data",
-						"name": "remove",
-						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "DELETE",
-								"orig": "/alerts",
-								"segments": []any{
-									map[string]any{
-										"lit": "alerts",
-									},
-								},
-								"parts": []any{
-									"alerts",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"name": "email",
-											"orig": "email",
-											"type": "`$STRING`",
-											"kind": "query",
-											"reqd": true,
-										},
-										map[string]any{
-											"name": "game_id",
-											"orig": "gameID",
-											"type": "`$STRING`",
-											"kind": "query",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"email",
-										"game_id",
-									},
-								},
-							},
-						},
-					},
-				},
-				"relations": map[string]any{
-					"ancestors": []any{},
-				},
-			},
 			"deal": map[string]any{
 				"fields": []any{
 					map[string]any{
@@ -475,6 +325,7 @@ func MakeConfig() map[string]any {
 											"orig": "title",
 											"type": "`$STRING`",
 											"kind": "query",
+											"field": true,
 										},
 										map[string]any{
 											"name": "upper_price",
@@ -484,25 +335,10 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"aaa",
-										"desc",
-										"exact",
-										"lower_price",
-										"metacritic",
-										"on_sale",
-										"output",
-										"page_number",
-										"page_size",
-										"sort_by",
-										"steam_app_id",
-										"steam_rating",
-										"steamwork",
-										"store_id",
-										"title",
-										"upper_price",
-									},
+								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -607,16 +443,19 @@ func MakeConfig() map[string]any {
 											"orig": "title",
 											"type": "`$STRING`",
 											"kind": "query",
+											"reqd": true,
+											"example": "batman",
 										},
 									},
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"exact",
-										"limit",
-										"steam_app_id",
 										"title",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -677,6 +516,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},

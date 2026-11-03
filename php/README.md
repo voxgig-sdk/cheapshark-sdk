@@ -4,7 +4,7 @@
 
 The PHP SDK for the Cheapshark API — an entity-oriented client using PHP conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Alert()` — with named operations (`list`/`create`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Deal()` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/cheapshark-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/cheapshark-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -36,29 +36,19 @@ require_once 'cheapshark_sdk.php';
 $client = new CheapsharkSDK();
 ```
 
-### 2. List alert records
+### 2. List deal records
 
 ```php
 try {
     // list() returns entity instances; data_get() reads each record.
-    $alerts = $client->Alert()->list();
-    foreach ($alerts as $record) {
+    $deals = $client->Deal()->list();
+    foreach ($deals as $record) {
         $item = $record->data_get();
-        echo $item["email"] . "\n";
+        echo $item["dealID"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
-```
-
-### 4. Create, update, and remove
-
-```php
-// create() returns the ENTITY — call data_get() for the created Alert record.
-$created = $client->Alert()->create(["email" => "example_email", "gameID" => "example_gameID"]);
-
-// Remove
-$client->Alert()->remove(["email" => "example_email", "game_id" => "example_game_id"]);
 ```
 
 
@@ -69,7 +59,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $alerts = $client->Alert()->list();
+    $games = $client->Game()->list(["title" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -143,8 +133,8 @@ $client = CheapsharkSDK::test();
 
 // list() returns entity instances (throws on error);
 // call data_get() for the mock record.
-$alert = $client->Alert()->list();
-print_r(array_map(fn($item) => $item->data_get(), $alert));
+$game = $client->Game()->list(["title" => "example"]);
+print_r(array_map(fn($item) => $item->data_get(), $game));
 ```
 
 ### Use a custom fetch function
@@ -223,7 +213,6 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Alert` | `($data): AlertEntity` | Create an Alert entity instance. |
 | `Deal` | `($data): DealEntity` | Create a Deal entity instance. |
 | `Game` | `($data): GameEntity` | Create a Game entity instance. |
 | `Store` | `($data): StoreEntity` | Create a Store entity instance. |
@@ -234,9 +223,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
-| `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -246,9 +233,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -263,19 +250,6 @@ you branch on via `$result["ok"]`:
 On error, `ok` is `false` and `$err` contains the error value.
 
 ### Entities
-
-#### Alert
-
-| Field | Description |
-| --- | --- |
-| `email` | Email address for the alert |
-| `gameID` | Game identifier |
-| `gameTitle` | Title of the game |
-| `price` | Target price for the alert |
-
-Operations: Create, List, Remove.
-
-API path: `/alerts`
 
 #### Deal
 
@@ -339,42 +313,6 @@ API path: `/stores`
 ## Entities
 
 
-### Alert
-
-Create an instance: `$alert = $client->Alert();`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `email` | `string` | Email address for the alert |
-| `gameID` | `string` | Game identifier |
-| `gameTitle` | `string` | Title of the game |
-| `price` | `float` | Target price for the alert |
-
-#### Example: List
-
-```php
-// list() returns an array of Alert records (throws on error).
-$alerts = $client->Alert()->list();
-```
-
-#### Example: Create
-
-```php
-$alert = $client->Alert()->create([
-]);
-```
-
-
 ### Deal
 
 Create an instance: `$deal = $client->Deal();`
@@ -412,7 +350,7 @@ Create an instance: `$deal = $client->Deal();`
 #### Example: List
 
 ```php
-// list() returns an array of Deal records (throws on error).
+// list() returns an array of Deal entities, one per record (throws on error).
 $deals = $client->Deal()->list();
 ```
 
@@ -442,8 +380,8 @@ Create an instance: `$game = $client->Game();`
 #### Example: List
 
 ```php
-// list() returns an array of Game records (throws on error).
-$games = $client->Game()->list();
+// list() returns an array of Game entities, one per record (throws on error).
+$games = $client->Game()->list(["title" => "example"]);
 ```
 
 
@@ -469,7 +407,7 @@ Create an instance: `$store = $client->Store();`
 #### Example: List
 
 ```php
-// list() returns an array of Store records (throws on error).
+// list() returns an array of Store entities, one per record (throws on error).
 $stores = $client->Store()->list();
 ```
 
@@ -635,11 +573,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$alert = $client->Alert();
-$alert->list();
+$game = $client->Game();
+$game->list(["title" => "example"]);
 
-// $alert->data_get() now returns the alert data from the last list
-// $alert->match_get() returns the last match criteria
+// $game->data_get() now returns the game data from the last list
+// $game->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

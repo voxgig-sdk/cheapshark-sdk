@@ -40,10 +40,6 @@ local client = sdk.test()
 
 ### Instance Methods
 
-#### `Alert(data)`
-
-Create a new `Alert` entity instance. Pass `nil` for no initial data.
-
 #### `Deal(data)`
 
 Create a new `Deal` entity instance. Pass `nil` for no initial data.
@@ -92,78 +88,6 @@ same parameters as `direct()`.
 
 ---
 
-## AlertEntity
-
-```lua
-local alert = client:Alert(nil)
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | `string` | No | Email address for the alert |
-| `gameID` | `string` | No | Game identifier |
-| `gameTitle` | `string` | No | Title of the game |
-| `price` | `number` | No | Target price for the alert |
-
-### Operations
-
-#### `create(reqdata, ctrl) -> any, err`
-
-Create a new entity with the given data.
-
-```lua
-local result, err = client:Alert():create({
-})
-```
-
-#### `list(reqmatch, ctrl) -> any, err`
-
-List entities matching the given criteria. Returns an array.
-
-```lua
-local results, err = client:Alert():list()
-```
-
-#### `remove(reqmatch, ctrl) -> any, err`
-
-Remove the entity matching the given criteria.
-
-```lua
-local result, err = client:Alert():remove({ email = "email", game_id = "game_id" })
-```
-
-### Common Methods
-
-#### `data_get() -> table`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> table`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `AlertEntity` instance with the same client and
-options.
-
-#### `get_name() -> string`
-
-Return the entity name.
-
-
----
-
 ## DealEntity
 
 ```lua
@@ -198,7 +122,7 @@ local deal = client:Deal(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Deal():list()
@@ -256,10 +180,10 @@ local game = client:Game(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:Game():list()
+local results, err = client:Game():list({ title = "example" })
 ```
 
 ### Common Methods
@@ -311,7 +235,7 @@ local store = client:Store(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Store():list()
@@ -504,6 +428,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

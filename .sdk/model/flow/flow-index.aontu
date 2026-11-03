@@ -1,6 +1,5 @@
 # Flows
 
-@"./BasicAlertFlow.aontu"
 @"./BasicDealFlow.aontu"
 @"./BasicGameFlow.aontu"
 @"./BasicStoreFlow.aontu"

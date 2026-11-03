@@ -31,7 +31,7 @@ Each feature is generated into every SDK target — as a directory
 `<lang>/src/feature/<name>/` (ts/js) or a flat file in the `<lang>/feature/`
 package (other languages). Each target's guide documents its features.
 
-**Entities** (4): `Alert`, `Deal`, `Game`, `Store`.
+**Entities** (3): `Deal`, `Game`, `Store`.
 
 ## Generating and updating the SDK
 

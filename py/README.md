@@ -4,8 +4,8 @@
 
 The Python SDK for the Cheapshark API — an entity-oriented client following Pythonic conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Alert()` — each
-carrying a small, uniform set of operations (`list`, `create`, `remove`) instead of raw URL
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Deal()` — each
+carrying a small, uniform set of operations (`list`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
 
@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/cheapshark-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/cheapshark-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -36,28 +36,18 @@ from cheapshark_sdk import CheapsharkSDK
 client = CheapsharkSDK()
 ```
 
-### 2. List alert records
+### 2. List deal records
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
+`list()` returns a `list` of entities, one per record, and raises on
+error; an entity's `data_get()` reads its record (a `dict`).
 
 ```python
 try:
-    alerts = client.Alert().list({"email": "example"})
-    for alert in alerts:
-        print(alert)
+    deals = client.Deal().list()
+    for deal in deals:
+        print(deal.data_get())
 except Exception as err:
     print(f"list failed: {err}")
-```
-
-### 4. Create, update, and remove
-
-```python
-# Create — returns the ENTITY (call data_get() for the record)
-created = client.Alert().create({"email": "example_email", "gameID": "example_gameID"})
-
-# Remove
-client.Alert().remove({"email": "example_email", "game_id": "example_game_id"})
 ```
 
 
@@ -67,8 +57,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    alerts = client.Alert().list()
-    print(alerts)
+    games = client.Game().list({"title": "example"})
+    print([item.data_get() for item in games])
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -134,10 +124,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = CheapsharkSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
-alert = client.Alert().list()
-# alert contains the mock response record
+# Entity ops return the entity, and list one per record; they raise on error.
+game = client.Game().list({"title": "example"})
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -213,7 +202,6 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Alert` | `(data) -> AlertEntity` | Create an Alert entity instance. |
 | `Deal` | `(data) -> DealEntity` | Create a Deal entity instance. |
 | `Game` | `(data) -> GameEntity` | Create a Game entity instance. |
 | `Store` | `(data) -> StoreEntity` | Create a Store entity instance. |
@@ -224,9 +212,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria, one per record. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -236,9 +222,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -253,19 +239,6 @@ you branch on via `result["ok"]`:
 On error, `ok` is `False` and `err` contains the error value.
 
 ### Entities
-
-#### Alert
-
-| Field | Description |
-| --- | --- |
-| `email` | Email address for the alert |
-| `gameID` | Game identifier |
-| `gameTitle` | Title of the game |
-| `price` | Target price for the alert |
-
-Operations: Create, List, Remove.
-
-API path: `/alerts`
 
 #### Deal
 
@@ -327,41 +300,6 @@ API path: `/stores`
 
 
 ## Entities
-
-
-### Alert
-
-Create an instance: `alert = client.Alert()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list()` | List entities, optionally matching the given criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `email` | `str` | Email address for the alert |
-| `gameID` | `str` | Game identifier |
-| `gameTitle` | `str` | Title of the game |
-| `price` | `float` | Target price for the alert |
-
-#### Example: List
-
-```python
-alerts = client.Alert().list({"email": "example"})
-```
-
-#### Example: Create
-
-```python
-alert = client.Alert().create({
-})
-```
 
 
 ### Deal
@@ -430,7 +368,7 @@ Create an instance: `game = client.Game()`
 #### Example: List
 
 ```python
-games = client.Game().list()
+games = client.Game().list({"title": "example"})
 ```
 
 
@@ -620,11 +558,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-alert = client.Alert()
-alert.list()
+game = client.Game()
+game.list({"title": "example"})
 
-# alert.data_get() now returns the alert data from the last list
-# alert.match_get() returns the last match criteria
+# game.data_get() now returns the game data from the last list
+# game.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -20,14 +20,14 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as a small set of **semantic entities** — Alert, Deal, Game and Store — that you
+This SDK exposes the API as a small set of **semantic entities** — Deal, Game and Store — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
-support (`list`, `create`, `remove`):
+support (`list`):
 
 ```ts
 const client = new CheapsharkSDK()
-const items = await client.Alert().list({ email: "example" })
+const items = await client.Deal().list()
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -46,23 +46,22 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = CheapsharkSDK.test({
   entity: {
-    alert: {
-      test01: { id: 'test01' },
+    game: {
+      test01: { id: 'test01', title: 'example_title' },
     },
   },
 })
-const alerts = await client.Alert().list()
-// alerts is an array of Alert entities, populated with mock data
-// — call alerts[0].data() for the record itself
-console.log(alerts)
+const games = await client.Game().list({ title: 'example_title' })
+// games is an array of Game entities, one per mock record
+console.log(games.map((game) => game.data()))
 ```
 
 ### Python
 
 ```python
 client = CheapsharkSDK.test()
-alerts = client.Alert().list()
-print(alerts)
+games = client.Game().list({"title": "example"})
+print([item.data_get() for item in games])
 ```
 
 ### PHP
@@ -70,17 +69,17 @@ print(alerts)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = CheapsharkSDK::test([
-    "entity" => ["alert" => ["test01" => []]],
+    "entity" => ["game" => ["test01" => ["title" => "example"]]],
 ]);
-$alerts = $client->Alert()->list();
+$games = $client->Game()->list(["title" => "example"]);
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Alert(nil).List(
-    nil, nil,
+result, err := client.Game(nil).List(
+    map[string]any{"title": "example"}, nil,
 )
 ```
 
@@ -89,16 +88,16 @@ result, err := client.Alert(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = CheapsharkSDK.test({
-  "entity" => { "alert" => { "test01" => {} } },
+  "entity" => { "game" => { "test01" => { "title" => "example" } } },
 })
-alerts = client.Alert.list()
+games = client.Game.list({ "title" => "example" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Alert():list()
+local results, err = client:Game():list({ title = "example" })
 ```
 
 ## Packages
@@ -111,8 +110,8 @@ local results, err = client:Alert():list()
 | Golang | `github.com/voxgig-sdk/cheapshark-sdk/go` | `go get github.com/voxgig-sdk/cheapshark-sdk/go@latest` |
 | Ruby | `voxgig-sdk-cheapshark-sdk` | publish pending — [install from source](rb/README.md#install) |
 | Lua | `voxgig-sdk-cheapshark-sdk` | publish pending — [install from source](lua/README.md#install) |
-| Go CLI | `github.com/voxgig-sdk/cheapshark-sdk/go-cli` | `go install github.com/voxgig-sdk/cheapshark-sdk/go-cli/cmd/cheapshark@latest` |
-| Go MCP server | `github.com/voxgig-sdk/cheapshark-sdk/go-mcp` | `go get github.com/voxgig-sdk/cheapshark-sdk/go-mcp@latest` |
+| Go CLI | `github.com/voxgig-sdk/cheapshark-sdk/go-cli` | build from source — [go-cli/README.md](go-cli/README.md) |
+| Go MCP server | `github.com/voxgig-sdk/cheapshark-sdk/go-mcp` | build from source — [go-mcp/README.md](go-mcp/README.md) |
 
 ## Quickstart
 
@@ -123,10 +122,10 @@ import { CheapsharkSDK } from '@voxgig-sdk/cheapshark-sdk'
 
 const client = new CheapsharkSDK()
 
-// List all alerts (returns AlertEntity[] — .data() for the record)
-const alerts = await client.Alert().list({ email: "example" })
-for (const alert of alerts) {
-  console.log(alert)
+// List all deals (returns DealEntity[], one entity per record)
+const deals = await client.Deal().list()
+for (const deal of deals) {
+  console.log(deal.data())
 }
 ```
 
@@ -142,9 +141,10 @@ See the [TypeScript README](ts/README.md) for the full guide.
 
 ## Use it from an AI agent (MCP)
 
-The generated MCP server exposes every operation in this SDK as an
-[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
-can call directly. Build and register it:
+The generated MCP server exposes this SDK's list operations as
+[MCP](https://modelcontextprotocol.io) tools that Claude, Cursor or Cline
+can call directly. It only reads: create, update, patch and remove become tools when the SDK's model sets
+`main: kit: target: 'go-mcp': tool: write: true`. Build and register it:
 
 ```bash
 cd go-mcp && go build -o cheapshark-mcp .
@@ -164,16 +164,15 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 4 entities:
+The API exposes 3 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Alert** | The Alert entity (create, list, remove). | `/alerts` |
 | **Deal** | The Deal entity (list). | `/deals` |
 | **Game** | The Game entity (list). | `/games` |
 | **Store** | The Store entity (list). | `/stores` |
 
-The operations available across these entities are **list**, **create**, **remove** — see each entity's
+The operations available across these entities are **list** — see each entity's
 own list above for exactly which it supports.
 
 ## Quickstart in other languages
@@ -185,10 +184,10 @@ from cheapshark_sdk import CheapsharkSDK
 
 client = CheapsharkSDK()
 
-# List all alerts (returns a list, raises on error)
-alerts = client.Alert().list({"email": "example"})
-for alert in alerts:
-    print(alert)
+# List all deals (a list of entities, one per record; raises on error)
+deals = client.Deal().list()
+for deal in deals:
+    print(deal.data_get())
 ```
 
 ### PHP
@@ -199,9 +198,9 @@ require_once 'cheapshark_sdk.php';
 
 $client = new CheapsharkSDK();
 
-// List all alerts (returns an array; throws on error)
-$alerts = $client->Alert()->list();
-print_r(array_map(fn($item) => $item->data_get(), $alerts));
+// List all deals (an array of entities, one per record; throws on error)
+$deals = $client->Deal()->list();
+print_r(array_map(fn($item) => $item->data_get(), $deals));
 ```
 
 ### Golang
@@ -211,12 +210,14 @@ import sdk "github.com/voxgig-sdk/cheapshark-sdk/go"
 
 client := sdk.New()
 
-// List all alerts
-alerts, err := client.Alert(nil).List(nil, nil)
+// List all deals (one entity per record; err is non-nil on failure)
+deals, err := client.Deal(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(alerts)
+for _, deal := range deals.([]any) {
+    fmt.Println(deal.(sdk.Entity).Data())
+}
 ```
 
 ### Ruby
@@ -226,21 +227,25 @@ require_relative "Cheapshark_sdk"
 
 client = CheapsharkSDK.new
 
-# List all alerts (returns an Array; raises on error)
-alerts = client.Alert.list
-puts alerts
+# List all deals (an Array of entities, one per record; raises on error)
+deals = client.Deal.list
+deals.each { |item| puts item.data_get }
 ```
 
 ### Lua
 
 ```lua
 local sdk = require("cheapshark_sdk")
+local json = require("dkjson")
 
 local client = sdk.new()
 
--- List all alerts
-local alerts, err = client:Alert():list()
-print(alerts)
+-- List all deals (an array of entities, one per record; err on failure)
+local deals, err = client:Deal():list()
+if err then error(err) end
+for _, deal in ipairs(deals) do
+  print(json.encode(deal:data_get()))
+end
 ```
 
 ## Direct and prepare
@@ -266,10 +271,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
-if (result instanceof Error) {
-  throw result
+if (result.ok) {
+  console.log(result.data)
 }
-console.log(result.data)
 ```
 
 **Python:**
@@ -354,23 +358,52 @@ Pass custom features via the `extend` option at construction time.
 This repository contains its own generator (`.sdk/`), so the SDK is
 customizable without forking any upstream tool:
 
-- **The model** (`.sdk/model/`) declares everything this project owns:
-  package names, versions, active features, per-target settings. It is
-  written in [aontu](https://aontu.dev), a JSON-based
+- **The model** (`.sdk/model/`) is what generation reads: the API's
+  entities and operations, the targets, the features, and this project's
+  own settings. It is written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.
 - **Templates** (`.sdk/tm/`) and **components** (`.sdk/src/cmp/`) are
   the two layers of generation, copied into this repo: templates are the
   literal per-language source, components generate the API-shaped parts.
-- **Regeneration merges.** By default, newly generated content is
-  three-way merged into existing files, so generator updates and local
-  edits usually converge without manual conflict handling. A project can
-  opt for plain overwrite instead.
+- **Regeneration overwrites.** Each run rewrites every generated file from
+  the model, the templates and the components, so an edit made to
+  generated output is lost. Say what this project needs in its own model
+  (`.sdk/model/project.aontu`), or extend a target with a component of its
+  own in `.sdk/src/cmp/<target>/`, registered with `registerComponent`,
+  which `voxgig-sdkgen doctor` reports as an addition rather than drift.
 - **Custom features and entire custom targets** arrive through sdkgen
   packages (`voxgig-sdkgen package add`), on the same rails as the
   bundled languages, and `voxgig-sdkgen doctor` reports any drift from
   what a resync would write.
+
+### Project map
+
+| Path | What it holds | Edit it? |
+| --- | --- | --- |
+| `.sdk/model/project.aontu` | This project's own decisions: package names, versions, features and per-target settings | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/text.aontu` | The README wording, in `main.kit.text`: the tagline, the summary and the entity descriptions | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/guide/guide.aontu` | How the spec's paths map onto entities and operations | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/`, the rest | The API model built from the spec, and the target and feature definitions | Not by hand. Generation, `target add` and a new scaffold run rewrite it. |
+| `.sdk/def/` | The OpenAPI spec | Replace it when the API changes. Generation rebuilds the model from it. |
+| `.sdk/src/cmp/<target>/`, `.sdk/tm/<target>/` | The components and templates that generate each target | Only to add a component of your own. `target add` overwrites the copies. |
+| `.sdk/test/` | The shared test cases the generated tests run | No. |
+| `<target>/`, such as `ts/` | One generated SDK per target, with its own tests | No. Generation overwrites it. |
+| `README.md`, `LICENSE`, `Makefile` and the other root files | The repository's generated files | No. Generation overwrites them. |
+
+### Common commands
+
+Run these from `.sdk/`:
+
+```bash
+npm run generate               # regenerate every target from the model
+npm run add-target <target>    # add a target, or resync one after an sdkgen update
+npm run add-feature <feature>  # add a feature to every target
+npx voxgig-sdkgen doctor       # report where .sdk/ differs from what a resync writes
+```
+
+In an SDK directory, `make test` runs that SDK's tests.
 
 How-to: [customize and propagate templates](https://github.com/voxgig/sdkgen/blob/main/docs/how-to/customize-and-propagate-templates.md).
 The full story: [voxgig.com/sdk/custom](https://voxgig.com/sdk/custom).

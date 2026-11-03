@@ -47,6 +47,10 @@ main: kit: entity: store: {
           }
           m: "GET"
           o: "/stores"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "stores"

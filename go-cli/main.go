@@ -20,7 +20,7 @@ import (
 const prompt = "cheapshark"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "alert deal game store"
+const entitiesHelp = "deal game store"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

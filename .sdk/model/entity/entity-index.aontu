@@ -1,6 +1,5 @@
 # Entity Models
 
-@"./alert.aontu"
 @"./deal.aontu"
 @"./game.aontu"
 @"./store.aontu"

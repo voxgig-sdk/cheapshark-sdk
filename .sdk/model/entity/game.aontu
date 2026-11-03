@@ -93,10 +93,11 @@ main: kit: entity: game: {
                 t: "`$STRING`"
               }
               {
+                ex: "batman"
                 k: "query"
                 n: "title"
                 or: "title"
-                r: false
+                r: true
                 t: "`$STRING`"
               }
             ]
@@ -105,11 +106,12 @@ main: kit: entity: game: {
           o: "/games"
           q: {
             exist: [
-              "exact"
-              "limit"
-              "steam_app_id"
               "title"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

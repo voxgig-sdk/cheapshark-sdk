@@ -242,11 +242,12 @@
           {
             "name": "title",
             "in": "query",
-            "description": "Game title to search for",
-            "required": false,
+            "description": "Game title to search for One of title or steamAppID is required.",
+            "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "batman"
           },
           {
             "name": "steamAppID",
@@ -320,121 +321,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/alerts": {
-      "get": {
-        "summary": "Get price alerts",
-        "description": "Retrieve price alerts for a registered email address",
-        "operationId": "getAlerts",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "query",
-            "description": "Email address to retrieve alerts for",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "email"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response with list of alerts",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Alert"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request - invalid email"
-          }
-        }
-      },
-      "post": {
-        "summary": "Set price alert",
-        "description": "Set a price alert for a specific game",
-        "operationId": "setAlert",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "email",
-                  "gameID",
-                  "price"
-                ],
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "description": "Email address for the alert"
-                  },
-                  "gameID": {
-                    "type": "string",
-                    "description": "Game ID to set alert for"
-                  },
-                  "price": {
-                    "type": "number",
-                    "format": "float",
-                    "description": "Target price for the alert"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Alert successfully set"
-          },
-          "400": {
-            "description": "Bad request - invalid parameters"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete price alert",
-        "description": "Delete a specific price alert",
-        "operationId": "deleteAlert",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "query",
-            "description": "Email address associated with the alert",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "email"
-            }
-          },
-          {
-            "name": "gameID",
-            "in": "query",
-            "description": "Game ID of the alert to delete",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Alert successfully deleted"
-          },
-          "400": {
-            "description": "Bad request - invalid parameters"
           }
         }
       }

@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { CheapsharkSDK, BaseFeature, stdutil } from '../../..'
+import { CheapsharkSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('GameEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('game hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of CheapsharkSDK.test(offline).Game().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of CheapsharkSDK.test(offline).Game()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = CheapsharkSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Game().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of CheapsharkSDK.test().Game().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new CheapsharkSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Game().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Game().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = CheapsharkSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Game().list({"exact":"x","title":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.CHEAPSHARK_TEST_LIVE
@@ -51,7 +109,7 @@ describe('GameEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"cheapest":{"a":true,"h":"Cheapest","n":"cheapest","r":false,"sh":"Lowest price found","t":"`$STRING`","key$":"cheapest","index$":0},"cheapestDealID":{"a":true,"h":"Cheapest Deal Id","n":"cheapestDealID","r":false,"sh":"Deal ID for the cheapest price","t":"`$STRING`","key$":"cheapestDealID","index$":1},"external":{"a":true,"h":"External","n":"external","r":false,"sh":"External game title","t":"`$STRING`","key$":"external","index$":2},"gameID":{"a":true,"h":"Game Id","n":"gameID","r":false,"sh":"Unique game identifier","t":"`$STRING`","key$":"gameID","index$":3},"internalName":{"a":true,"h":"Internal Name","n":"internalName","r":false,"sh":"Internal game name","t":"`$STRING`","key$":"internalName","index$":4},"steamAppID":{"a":true,"h":"Steam App Id","n":"steamAppID","r":false,"sh":"Steam App ID","t":"`$STRING`","key$":"steamAppID","index$":5},"thumb":{"a":true,"h":"Thumb","n":"thumb","r":false,"sh":"Thumbnail image URL","t":"`$STRING`","key$":"thumb","index$":6}},"name":"game","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /games","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":0,"k":"query","n":"exact","or":"exact","r":false,"t":"`$INTEGER`","index$":0},{"a":true,"ex":60,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"k":"query","n":"steam_app_id","or":"steamAppID","r":false,"t":"`$STRING`","index$":2},{"a":true,"k":"query","n":"title","or":"title","r":false,"t":"`$STRING`","index$":3}]},"k":"http","m":"GET","o":"/games","q":{"exist":["exact","limit","steam_app_id","title"]},"r":{},"s":[{"lit":"games"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"game","name__orig":"game","Name":"Game","name_":"game","name-":"game","NAME":"GAME","index$":2}, {"active":true,"entity":"game","key$":"BasicGameFlow","kind":"basic","name":"BasicGameFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"game_ref01"}}],"index$":0}]}, 'Game', {"GET /games":{"protocol":"http","parameters":[{"name":"title","in":"query","description":"Game title to search for","required":false,"schema":{"type":"string"},"index$":0},{"name":"steamAppID","in":"query","description":"Steam App ID to search for","required":false,"schema":{"type":"string"},"index$":1},{"name":"limit","in":"query","description":"Maximum number of results (default: 60)","required":false,"schema":{"type":"integer","default":60},"index$":2},{"name":"exact","in":"query","description":"Exact match for title search (0 = fuzzy, 1 = exact)","required":false,"schema":{"type":"integer","enum":[0,1],"default":0},"index$":3}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"cheapest":{"a":true,"h":"Cheapest","n":"cheapest","r":false,"sh":"Lowest price found","t":"`$STRING`","key$":"cheapest","index$":0},"cheapestDealID":{"a":true,"h":"Cheapest Deal Id","n":"cheapestDealID","r":false,"sh":"Deal ID for the cheapest price","t":"`$STRING`","key$":"cheapestDealID","index$":1},"external":{"a":true,"h":"External","n":"external","r":false,"sh":"External game title","t":"`$STRING`","key$":"external","index$":2},"gameID":{"a":true,"h":"Game Id","n":"gameID","r":false,"sh":"Unique game identifier","t":"`$STRING`","key$":"gameID","index$":3},"internalName":{"a":true,"h":"Internal Name","n":"internalName","r":false,"sh":"Internal game name","t":"`$STRING`","key$":"internalName","index$":4},"steamAppID":{"a":true,"h":"Steam App Id","n":"steamAppID","r":false,"sh":"Steam App ID","t":"`$STRING`","key$":"steamAppID","index$":5},"thumb":{"a":true,"h":"Thumb","n":"thumb","r":false,"sh":"Thumbnail image URL","t":"`$STRING`","key$":"thumb","index$":6}},"name":"game","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /games","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":0,"k":"query","n":"exact","or":"exact","r":false,"t":"`$INTEGER`","index$":0},{"a":true,"ex":60,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"k":"query","n":"steam_app_id","or":"steamAppID","r":false,"t":"`$STRING`","index$":2},{"a":true,"ex":"batman","k":"query","n":"title","or":"title","r":true,"t":"`$STRING`","index$":3}]},"k":"http","m":"GET","o":"/games","q":{"exist":["title"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"games"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"game","name__orig":"game","Name":"Game","name_":"game","name-":"game","NAME":"GAME","index$":1}, {"active":true,"entity":"game","key$":"BasicGameFlow","kind":"basic","name":"BasicGameFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"game_ref01"}}],"index$":0}]}, 'Game', {"GET /games":{"protocol":"http","parameters":[{"name":"title","in":"query","description":"Game title to search for One of title or steamAppID is required.","required":true,"schema":{"type":"string"},"example":"batman","index$":0},{"name":"steamAppID","in":"query","description":"Steam App ID to search for","required":false,"schema":{"type":"string"},"index$":1},{"name":"limit","in":"query","description":"Maximum number of results (default: 60)","required":false,"schema":{"type":"integer","default":60},"index$":2},{"name":"exact","in":"query","description":"Exact match for title search (0 = fuzzy, 1 = exact)","required":false,"schema":{"type":"integer","enum":[0,1],"default":0},"index$":3}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +130,12 @@ describe('GameEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

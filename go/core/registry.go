@@ -12,11 +12,9 @@ var NewTestFeatureFunc func() Feature
 
 var NewTimeoutFeatureFunc func() Feature
 
-var NewAlertEntityFunc func(client *CheapsharkSDK, entopts map[string]any) CheapsharkEntity
+var NewDealEntityFunc func(client *CheapsharkSDK, entopts map[string]any) CheapsharkEntityBase
 
-var NewDealEntityFunc func(client *CheapsharkSDK, entopts map[string]any) CheapsharkEntity
+var NewGameEntityFunc func(client *CheapsharkSDK, entopts map[string]any) CheapsharkEntityBase
 
-var NewGameEntityFunc func(client *CheapsharkSDK, entopts map[string]any) CheapsharkEntity
-
-var NewStoreEntityFunc func(client *CheapsharkSDK, entopts map[string]any) CheapsharkEntity
+var NewStoreEntityFunc func(client *CheapsharkSDK, entopts map[string]any) CheapsharkEntityBase
 

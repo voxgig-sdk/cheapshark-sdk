@@ -1,22 +1,3 @@
-export interface Alert {
-    email?: string;
-    gameID?: string;
-    gameTitle?: string;
-    price?: number;
-}
-export interface AlertListMatch {
-    email: string;
-}
-export interface AlertCreateData {
-    email?: string;
-    gameID?: string;
-    gameTitle?: string;
-    price?: number;
-}
-export interface AlertRemoveMatch {
-    email: string;
-    game_id: string;
-}
 export interface Deal {
     dealID?: string;
     dealRating?: string;
@@ -69,7 +50,7 @@ export interface GameListMatch {
     exact?: number;
     limit?: number;
     steam_app_id?: string;
-    title?: string;
+    title: string;
 }
 export interface Store {
     images?: Record<string, any>;

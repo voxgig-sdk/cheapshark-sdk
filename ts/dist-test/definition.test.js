@@ -9,68 +9,6 @@ const utility_1 = require("./utility");
 // scheme names, and the definition's own response example.
 const PLAN = [
     {
-        "entity": "alert",
-        "accessor": "Alert",
-        "op": "create",
-        "method": "POST",
-        "path": "/alerts",
-        "args": [],
-        "select": {},
-        "headers": [],
-        "query": [],
-        "auth": null,
-        "status": 200,
-        "sample": null,
-        "idField": "id"
-    },
-    {
-        "entity": "alert",
-        "accessor": "Alert",
-        "op": "list",
-        "method": "GET",
-        "path": "/alerts",
-        "args": [],
-        "select": {
-            "email": "v1"
-        },
-        "headers": [],
-        "query": [
-            "email"
-        ],
-        "auth": null,
-        "status": 200,
-        "sample": [
-            {
-                "gameID": "x",
-                "gameTitle": "x",
-                "price": 1,
-                "email": "x"
-            }
-        ],
-        "idField": "id"
-    },
-    {
-        "entity": "alert",
-        "accessor": "Alert",
-        "op": "remove",
-        "method": "DELETE",
-        "path": "/alerts",
-        "args": [],
-        "select": {
-            "email": "v1",
-            "game_id": "v1"
-        },
-        "headers": [],
-        "query": [
-            "email",
-            "gameID"
-        ],
-        "auth": null,
-        "status": 200,
-        "sample": null,
-        "idField": "id"
-    },
-    {
         "entity": "deal",
         "accessor": "Deal",
         "op": "list",
@@ -79,14 +17,14 @@ const PLAN = [
         "args": [],
         "select": {
             "aaa": "v1",
-            "desc": "v1",
-            "exact": "v1",
+            "desc": 0,
+            "exact": 0,
             "lower_price": "v1",
             "metacritic": "v1",
             "on_sale": "v1",
             "output": "v1",
-            "page_number": "v1",
-            "page_size": "v1",
+            "page_number": 0,
+            "page_size": 60,
             "sort_by": "v1",
             "steam_app_id": "v1",
             "steam_rating": "v1",
@@ -96,6 +34,10 @@ const PLAN = [
             "upper_price": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "storeID",
             "pageNumber",
@@ -113,6 +55,72 @@ const PLAN = [
             "steamworks",
             "onSale",
             "output"
+        ],
+        "queryArgs": [
+            {
+                "name": "aaa",
+                "wire": "AAA"
+            },
+            {
+                "name": "desc",
+                "wire": "desc"
+            },
+            {
+                "name": "exact",
+                "wire": "exact"
+            },
+            {
+                "name": "lower_price",
+                "wire": "lowerPrice"
+            },
+            {
+                "name": "metacritic",
+                "wire": "metacritic"
+            },
+            {
+                "name": "on_sale",
+                "wire": "onSale"
+            },
+            {
+                "name": "output",
+                "wire": "output"
+            },
+            {
+                "name": "page_number",
+                "wire": "pageNumber"
+            },
+            {
+                "name": "page_size",
+                "wire": "pageSize"
+            },
+            {
+                "name": "sort_by",
+                "wire": "sortBy"
+            },
+            {
+                "name": "steam_app_id",
+                "wire": "steamAppID"
+            },
+            {
+                "name": "steam_rating",
+                "wire": "steamRating"
+            },
+            {
+                "name": "steamwork",
+                "wire": "steamworks"
+            },
+            {
+                "name": "store_id",
+                "wire": "storeID"
+            },
+            {
+                "name": "title",
+                "wire": "title"
+            },
+            {
+                "name": "upper_price",
+                "wire": "upperPrice"
+            }
         ],
         "auth": null,
         "status": 200,
@@ -149,17 +157,39 @@ const PLAN = [
         "path": "/games",
         "args": [],
         "select": {
-            "exact": "v1",
-            "limit": "v1",
-            "steam_app_id": "v1",
-            "title": "v1"
+            "title": "batman",
+            "exact": 0,
+            "limit": 60,
+            "steam_app_id": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "title",
             "steamAppID",
             "limit",
             "exact"
+        ],
+        "queryArgs": [
+            {
+                "name": "exact",
+                "wire": "exact"
+            },
+            {
+                "name": "limit",
+                "wire": "limit"
+            },
+            {
+                "name": "steam_app_id",
+                "wire": "steamAppID"
+            },
+            {
+                "name": "title",
+                "wire": "title"
+            }
         ],
         "auth": null,
         "status": 200,
@@ -185,7 +215,12 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": [

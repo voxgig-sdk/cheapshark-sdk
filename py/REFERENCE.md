@@ -41,10 +41,6 @@ client = CheapsharkSDK.test()
 
 ### Instance Methods
 
-#### `Alert(data=None)`
-
-Create a new `AlertEntity` instance. Pass `None` for no initial data.
-
 #### `Deal(data=None)`
 
 Create a new `DealEntity` instance. Pass `None` for no initial data.
@@ -89,79 +85,6 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 
 ---
 
-## AlertEntity
-
-```python
-alert = client.Alert()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | `str` | No | Email address for the alert |
-| `gameID` | `str` | No | Game identifier |
-| `gameTitle` | `str` | No | Title of the game |
-| `price` | `float` | No | Target price for the alert |
-
-### Operations
-
-#### `create(reqdata, ctrl=None) -> dict`
-
-Create a new entity with the given data. Returns the created entity data and raises on error.
-
-```python
-result = client.Alert().create({
-})
-```
-
-#### `list(reqmatch=None, ctrl=None) -> list`
-
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
-
-```python
-results = client.Alert().list({"email": "example"})
-for alert in results:
-    print(alert)
-```
-
-#### `remove(reqmatch, ctrl=None) -> dict`
-
-Remove the entity matching the given criteria. Raises on error.
-
-```python
-result = client.Alert().remove({"email": "email", "game_id": "game_id"})
-```
-
-### Common Methods
-
-#### `data_get() -> dict`
-
-Get the entity data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> dict`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `AlertEntity` instance with the same options.
-
-#### `get_name() -> str`
-
-Return the entity name.
-
-
----
-
 ## DealEntity
 
 ```python
@@ -194,14 +117,14 @@ deal = client.Deal()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[DealEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.Deal().list()
 for deal in results:
-    print(deal)
+    print(deal.data_get())
 ```
 
 ### Common Methods
@@ -253,14 +176,14 @@ game = client.Game()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[GameEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
-results = client.Game().list()
+results = client.Game().list({"title": "example"})
 for game in results:
-    print(game)
+    print(game.data_get())
 ```
 
 ### Common Methods
@@ -309,14 +232,14 @@ store = client.Store()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[StoreEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.Store().list()
 for store in results:
-    print(store)
+    print(store.data_get())
 ```
 
 ### Common Methods
@@ -505,6 +428,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

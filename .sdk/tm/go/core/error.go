@@ -12,6 +12,8 @@ type CheapsharkError struct {
 	Ctx    *Context `json:"-"`
 	Result any
 	Spec   any
+	// The HTTP status, -1 when there was no response.
+	Status int
 }
 
 func NewCheapsharkError(code string, msg string, ctx *Context) *CheapsharkError {
@@ -21,7 +23,12 @@ func NewCheapsharkError(code string, msg string, ctx *Context) *CheapsharkError 
 		Code:               code,
 		Msg:                msg,
 		Ctx:                ctx,
+		Status:             -1,
 	}
+}
+
+func (e *CheapsharkError) NotFound() bool {
+	return 404 == e.Status
 }
 
 func (e *CheapsharkError) Error() string {
@@ -35,6 +42,7 @@ func (e *CheapsharkError) Record() map[string]any {
 		"sdk":     e.Sdk,
 		"code":    e.Code,
 		"message": e.Msg,
+		"status":  e.Status,
 		"result":  e.Result,
 		"spec":    e.Spec,
 	}

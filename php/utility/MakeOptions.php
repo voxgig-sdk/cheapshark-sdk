@@ -42,6 +42,7 @@ class CheapsharkMakeOptions
         // dumped composer autoload.
         require_once __DIR__ . '/../schema.php';
         require_once __DIR__ . '/../core/Context.php';
+        require_once __DIR__ . '/Fetcher.php';
         $optspec = CheapsharkSchema::optspec();
 
         $config = $ctx->config ?? [];
@@ -107,7 +108,7 @@ class CheapsharkMakeOptions
         }
 
         // Preserve system.fetch before merge/validate.
-        $sys_fetch = \Voxgig\Struct\Struct::getpath($options, 'system.fetch');
+        $sys_fetch = CheapsharkFetcher::systemFetch($options);
 
         // Feature INSTANCES supplied at construction (the station adopt path)
         // are consumed by the constructor's feature-add loop straight from the

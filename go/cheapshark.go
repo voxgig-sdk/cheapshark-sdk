@@ -13,7 +13,12 @@ type Context = core.Context
 type Utility = core.Utility
 type Feature = core.Feature
 type Entity = core.Entity
-type CheapsharkEntity = core.CheapsharkEntity
+type CheapsharkEntityBase = core.CheapsharkEntityBase
+
+// Deprecated: use CheapsharkEntityBase.
+type CheapsharkEntity = core.CheapsharkEntityBase
+
+type StreamItem = core.StreamItem
 type FetcherFunc = core.FetcherFunc
 type Spec = core.Spec
 type Result = core.Result
@@ -41,16 +46,13 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewAlertEntityFunc = func(client *core.CheapsharkSDK, entopts map[string]any) core.CheapsharkEntity {
-		return entity.NewAlertEntity(client, entopts)
-	}
-	core.NewDealEntityFunc = func(client *core.CheapsharkSDK, entopts map[string]any) core.CheapsharkEntity {
+	core.NewDealEntityFunc = func(client *core.CheapsharkSDK, entopts map[string]any) core.CheapsharkEntityBase {
 		return entity.NewDealEntity(client, entopts)
 	}
-	core.NewGameEntityFunc = func(client *core.CheapsharkSDK, entopts map[string]any) core.CheapsharkEntity {
+	core.NewGameEntityFunc = func(client *core.CheapsharkSDK, entopts map[string]any) core.CheapsharkEntityBase {
 		return entity.NewGameEntity(client, entopts)
 	}
-	core.NewStoreEntityFunc = func(client *core.CheapsharkSDK, entopts map[string]any) core.CheapsharkEntity {
+	core.NewStoreEntityFunc = func(client *core.CheapsharkSDK, entopts map[string]any) core.CheapsharkEntityBase {
 		return entity.NewStoreEntity(client, entopts)
 	}
 }

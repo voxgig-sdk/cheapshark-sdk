@@ -91,180 +91,6 @@
         "target": {}
       },
       "entity": {
-        "alert": {
-          "active": true,
-          "alias": {
-            "field": {}
-          },
-          "fields": {
-            "email": {
-              "a": true,
-              "fo": "email",
-              "h": "Email",
-              "n": "email",
-              "r": false,
-              "sh": "Email address for the alert",
-              "t": "`$STRING`"
-            },
-            "gameID": {
-              "a": true,
-              "h": "Game Id",
-              "n": "gameID",
-              "r": false,
-              "sh": "Game identifier",
-              "t": "`$STRING`"
-            },
-            "gameTitle": {
-              "a": true,
-              "h": "Game Title",
-              "n": "gameTitle",
-              "r": false,
-              "sh": "Title of the game",
-              "t": "`$STRING`"
-            },
-            "price": {
-              "a": true,
-              "fo": "float",
-              "h": "Price",
-              "n": "price",
-              "r": false,
-              "sh": "Target price for the alert",
-              "t": "`$NUMBER`"
-            }
-          },
-          "name": "alert",
-          "op": {
-            "create": {
-              "input": "data",
-              "name": "create",
-              "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "POST /alerts",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {},
-                  "k": "http",
-                  "m": "POST",
-                  "o": "/alerts",
-                  "q": {},
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "alerts"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
-            },
-            "list": {
-              "input": "data",
-              "name": "list",
-              "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /alerts",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "query": [
-                      {
-                        "a": true,
-                        "k": "query",
-                        "n": "email",
-                        "or": "email",
-                        "r": true,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/alerts",
-                  "q": {
-                    "exist": [
-                      "email"
-                    ]
-                  },
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "alerts"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
-            },
-            "remove": {
-              "input": "data",
-              "name": "remove",
-              "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "DELETE /alerts",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "query": [
-                      {
-                        "a": true,
-                        "k": "query",
-                        "n": "email",
-                        "or": "email",
-                        "r": true,
-                        "t": "`$STRING`"
-                      },
-                      {
-                        "a": true,
-                        "k": "query",
-                        "n": "game_id",
-                        "or": "gameID",
-                        "r": true,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "DELETE",
-                  "o": "/alerts",
-                  "q": {
-                    "exist": [
-                      "email",
-                      "game_id"
-                    ]
-                  },
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "alerts"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
-            }
-          },
-          "relations": {
-            "ancestors": []
-          }
-        },
         "deal": {
           "active": true,
           "alias": {
@@ -576,27 +402,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/deals",
-                  "q": {
-                    "exist": [
-                      "aaa",
-                      "desc",
-                      "exact",
-                      "lower_price",
-                      "metacritic",
-                      "on_sale",
-                      "output",
-                      "page_number",
-                      "page_size",
-                      "sort_by",
-                      "steam_app_id",
-                      "steam_rating",
-                      "steamwork",
-                      "store_id",
-                      "title",
-                      "upper_price"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "deals"
@@ -720,10 +531,11 @@
                       },
                       {
                         "a": true,
+                        "ex": "batman",
                         "k": "query",
                         "n": "title",
                         "or": "title",
-                        "r": false,
+                        "r": true,
                         "t": "`$STRING`"
                       }
                     ]
@@ -733,13 +545,14 @@
                   "o": "/games",
                   "q": {
                     "exist": [
-                      "exact",
-                      "limit",
-                      "steam_app_id",
                       "title"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "games"
@@ -814,6 +627,10 @@
                   "o": "/stores",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "stores"
@@ -1154,6 +971,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -1243,73 +1061,6 @@
         }
       },
       "flow": {
-        "BasicAlertFlow": {
-          "active": true,
-          "entity": "alert",
-          "key$": "BasicAlertFlow",
-          "kind": "basic",
-          "name": "BasicAlertFlow",
-          "param": {},
-          "step": [
-            {
-              "a": true,
-              "d": {},
-              "i": {
-                "ref": "alert_ref01"
-              },
-              "m": {},
-              "o": "create",
-              "s": [],
-              "v": []
-            },
-            {
-              "a": true,
-              "d": {},
-              "i": {},
-              "m": {},
-              "o": "list",
-              "s": [],
-              "v": [
-                {
-                  "apply": "ItemExists",
-                  "def": {
-                    "ref": "alert_ref01"
-                  }
-                }
-              ]
-            },
-            {
-              "a": true,
-              "d": {},
-              "i": {
-                "ref": "alert_ref01",
-                "suffix": "_rm0"
-              },
-              "m": {},
-              "o": "remove",
-              "s": [],
-              "v": []
-            },
-            {
-              "a": true,
-              "d": {},
-              "i": {
-                "suffix": "_rt0"
-              },
-              "m": {},
-              "o": "list",
-              "s": [],
-              "v": [
-                {
-                  "apply": "ItemNotExists",
-                  "def": {
-                    "ref": "alert_ref01"
-                  }
-                }
-              ]
-            }
-          ]
-        },
         "BasicDealFlow": {
           "active": true,
           "entity": "deal",
@@ -1412,7 +1163,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -1465,6 +1216,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -1695,7 +1451,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -2072,6 +1831,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

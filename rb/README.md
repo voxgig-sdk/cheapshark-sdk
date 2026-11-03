@@ -4,7 +4,7 @@
 
 The Ruby SDK for the Cheapshark API — an entity-oriented client using idiomatic Ruby conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Alert` — with named operations (`list`/`create`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Deal` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/cheapshark-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/cheapshark-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -39,28 +39,19 @@ require_relative "Cheapshark_sdk"
 client = CheapsharkSDK.new
 ```
 
-### 2. List alert records
+### 2. List deal records
 
 ```ruby
 begin
-  # list returns an Array of Alert records — iterate directly.
-  alerts = client.Alert.list
-  alerts.each do |item|
-    puts "#{item["email"]}"
+  # list returns an Array of Deal entities, one per record; data_get reads the record.
+  deals = client.Deal.list
+  deals.each do |item|
+    record = item.data_get
+    puts "#{record["dealID"]}"
   end
 rescue => err
   warn "list failed: #{err}"
 end
-```
-
-### 4. Create, update, and remove
-
-```ruby
-# create returns the ENTITY — call data_get for the created Alert record.
-created = client.Alert.create({ "email" => "example_email", "gameID" => "example_gameID" })
-
-# Remove
-client.Alert.remove({ "email" => "example_email", "game_id" => "example_game_id" })
 ```
 
 
@@ -70,7 +61,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  alerts = client.Alert.list()
+  games = client.Game.list({ "title" => "example" })
 rescue => err
   warn "list failed: #{err}"
 end
@@ -138,10 +129,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = CheapsharkSDK.test
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-alert = client.Alert.list()
-puts alert
+# list returns an Array of Game entities, one per mock record (raises on
+# error); data_get reads each record.
+games = client.Game.list({ "title" => "example" })
+games.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -217,7 +208,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Alert` | `(data) -> AlertEntity` | Create an Alert entity instance. |
 | `Deal` | `(data) -> DealEntity` | Create a Deal entity instance. |
 | `Game` | `(data) -> GameEntity` | Create a Game entity instance. |
 | `Store` | `(data) -> StoreEntity` | Create a Store entity instance. |
@@ -228,9 +218,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -240,9 +228,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `CheapsharkError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`CheapsharkError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -256,19 +245,6 @@ returns a result `Hash` with these keys:
 | `err` | `Error` | Present when `ok` is `false`. |
 
 ### Entities
-
-#### Alert
-
-| Field | Description |
-| --- | --- |
-| `email` | Email address for the alert |
-| `gameID` | Game identifier |
-| `gameTitle` | Title of the game |
-| `price` | Target price for the alert |
-
-Operations: Create, List, Remove.
-
-API path: `/alerts`
 
 #### Deal
 
@@ -332,42 +308,6 @@ API path: `/stores`
 ## Entities
 
 
-### Alert
-
-Create an instance: `alert = client.Alert`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
-| `remove(match)` | Remove the matching entity. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `email` | `String` | Email address for the alert |
-| `gameID` | `String` | Game identifier |
-| `gameTitle` | `String` | Title of the game |
-| `price` | `Float` | Target price for the alert |
-
-#### Example: List
-
-```ruby
-# list returns an Array of Alert records (raises on error).
-alerts = client.Alert.list
-```
-
-#### Example: Create
-
-```ruby
-alert = client.Alert.create({
-})
-```
-
-
 ### Deal
 
 Create an instance: `deal = client.Deal`
@@ -405,8 +345,9 @@ Create an instance: `deal = client.Deal`
 #### Example: List
 
 ```ruby
-# list returns an Array of Deal records (raises on error).
+# list returns an Array of Deal entities, one per record (raises on error).
 deals = client.Deal.list
+deals.each { |item| puts item.data_get }
 ```
 
 
@@ -435,8 +376,9 @@ Create an instance: `game = client.Game`
 #### Example: List
 
 ```ruby
-# list returns an Array of Game records (raises on error).
-games = client.Game.list
+# list returns an Array of Game entities, one per record (raises on error).
+games = client.Game.list({ "title" => "example" })
+games.each { |item| puts item.data_get }
 ```
 
 
@@ -462,8 +404,9 @@ Create an instance: `store = client.Store`
 #### Example: List
 
 ```ruby
-# list returns an Array of Store records (raises on error).
+# list returns an Array of Store entities, one per record (raises on error).
 stores = client.Store.list
+stores.each { |item| puts item.data_get }
 ```
 
 ## Features
@@ -628,11 +571,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-alert = client.Alert
-alert.list()
+game = client.Game
+game.list({ "title" => "example" })
 
-# alert.data_get now returns the alert data from the last list
-# alert.match_get returns the last match criteria
+# game.data_get now returns the game data from the last list
+# game.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

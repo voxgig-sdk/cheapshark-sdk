@@ -1,4 +1,3 @@
-import { AlertEntity } from './entity/AlertEntity';
 import { DealEntity } from './entity/DealEntity';
 import { GameEntity } from './entity/GameEntity';
 import { StoreEntity } from './entity/StoreEntity';
@@ -10,6 +9,19 @@ import { CheapsharkEntityBase } from './CheapsharkEntityBase';
 import { Utility } from './utility/Utility';
 import { BaseFeature } from './feature/base/BaseFeature';
 declare const stdutil: Utility;
+type DirectResult = {
+    ok: false;
+    err: any;
+    status?: undefined;
+    headers?: undefined;
+    data?: undefined;
+} | {
+    ok: boolean;
+    status: number;
+    headers: any;
+    data: any;
+    err?: any;
+};
 declare class CheapsharkSDK {
     _mode: string;
     _options: any;
@@ -20,34 +32,9 @@ declare class CheapsharkSDK {
     options(): any;
     utility(): any;
     prepare(fetchargs?: any): Promise<any>;
-    direct(fetchargs?: any): Promise<Error | {
-        ok: boolean;
-        err: any;
-        status?: undefined;
-        headers?: undefined;
-        data?: undefined;
-    } | {
-        ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    }>;
-    _rawRequest(fetchargs?: any): Promise<Error | {
-        ok: boolean;
-        err: any;
-        status?: undefined;
-        headers?: undefined;
-        data?: undefined;
-    } | {
-        ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    }>;
+    direct(fetchargs?: any): Promise<DirectResult>;
+    _rawRequest(fetchargs?: any): Promise<DirectResult>;
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
-    Alert(entopts?: Record<string, any>): AlertEntity;
     Deal(entopts?: Record<string, any>): DealEntity;
     Game(entopts?: Record<string, any>): GameEntity;
     Store(entopts?: Record<string, any>): StoreEntity;
@@ -61,3 +48,4 @@ declare class CheapsharkSDK {
 }
 declare const SDK: typeof CheapsharkSDK;
 export { stdutil, config, BaseFeature, CheapsharkEntityBase, CheapsharkSDK, SDK, };
+export type { DirectResult };

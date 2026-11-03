@@ -6,25 +6,6 @@
 -- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 -- edit by hand.
 
----@class Alert
----@field email? string
----@field gameID? string
----@field gameTitle? string
----@field price? number
-
----@class AlertListMatch
----@field email string
-
----@class AlertCreateData
----@field email? string
----@field gameID? string
----@field gameTitle? string
----@field price? number
-
----@class AlertRemoveMatch
----@field email string
----@field game_id string
-
 ---@class Deal
 ---@field dealID? string
 ---@field dealRating? string
@@ -77,7 +58,7 @@
 ---@field exact? number
 ---@field limit? number
 ---@field steam_app_id? string
----@field title? string
+---@field title string
 
 ---@class Store
 ---@field images? table

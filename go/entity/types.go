@@ -12,29 +12,6 @@ import (
 	"github.com/voxgig-sdk/cheapshark-sdk/go/core"
 )
 
-// Alert is the typed data model for the alert entity.
-type Alert struct {
-}
-
-// AlertListMatch is the typed request payload for Alert.ListTyped.
-type AlertListMatch struct {
-	Email string `json:"email"`
-}
-
-// AlertCreateData is the typed request payload for Alert.CreateTyped.
-type AlertCreateData struct {
-	Email *string `json:"email,omitempty"`
-	GameID *string `json:"gameID,omitempty"`
-	GameTitle *string `json:"gameTitle,omitempty"`
-	Price *float64 `json:"price,omitempty"`
-}
-
-// AlertRemoveMatch is the typed request payload for Alert.RemoveTyped.
-type AlertRemoveMatch struct {
-	Email string `json:"email"`
-	GameId string `json:"game_id"`
-}
-
 // Deal is the typed data model for the deal entity.
 type Deal struct {
 }
@@ -68,7 +45,7 @@ type GameListMatch struct {
 	Exact *int `json:"exact,omitempty"`
 	Limit *int `json:"limit,omitempty"`
 	SteamAppId *string `json:"steam_app_id,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Title string `json:"title"`
 }
 
 // Store is the typed data model for the store entity.

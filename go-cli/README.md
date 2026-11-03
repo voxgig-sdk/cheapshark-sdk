@@ -19,15 +19,15 @@ make build
 export CHEAPSHARK_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./cheapshark-cli list alert
 ./cheapshark-cli list deal
+./cheapshark-cli list game
 
 # 5. Override the API base URL for a single call
-CHEAPSHARK_BASE=https://api.example.com ./cheapshark-cli list alert
+CHEAPSHARK_BASE=https://api.example.com ./cheapshark-cli list deal
 
 # 6. No arguments -> interactive REPL
 ./cheapshark-cli
-cheapshark> list alert
+cheapshark> list deal
 cheapshark> /quit
 ```
 
@@ -53,7 +53,7 @@ cheapshark> /quit
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/cheapshark-cli list alert
+   ./dist/*/cheapshark-cli list deal
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -66,7 +66,7 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 ### List the records of an entity
 
 ```sh
-./cheapshark-cli list alert
+./cheapshark-cli list deal
 ```
 
 `list <entity>` returns the first page of records. `<entity>` is a bareword —
@@ -79,7 +79,7 @@ Configuration is read from the environment — nothing is written to disk:
 ```sh
 export CHEAPSHARK_APIKEY=sk_live_xxx            # API key
 export CHEAPSHARK_BASE=https://api.example.com  # optional: override the API base URL
-./cheapshark-cli list alert
+./cheapshark-cli list deal
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
@@ -91,7 +91,7 @@ evaluated as its own boru expression:
 
 ```text
 $ ./cheapshark-cli
-cheapshark> list alert
+cheapshark> list deal
 cheapshark> /help
 cheapshark> /quit
 ```
@@ -106,7 +106,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 4 entities.
+below — this SDK exposes 3 entities.
 
 ## Reference
 
@@ -118,7 +118,7 @@ The CLI registers these boru words, each bound to the SDK:
 |----------|-----------------------------------------------|--------------------------------|
 | `list`   | `list <entity>` · `list <query> <entity>`     | First page of records          |
 
-- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `alert`).
+- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `deal`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as
   `{id:1}`). A scalar is always wrapped as `{id:<value>}`.
 
@@ -159,9 +159,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 4 entities this SDK exposes (any is valid as `<entity>`):
+The 3 entities this SDK exposes (any is valid as `<entity>`):
 
-alert deal game store
+deal game store
 
 ## Explanation
 
